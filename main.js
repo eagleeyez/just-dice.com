@@ -6,7 +6,7 @@ var start_bet = 0;
 var $multiplier;
 var $steps;
 var $run;
-var running = true; //Start of graph toggle function
+var running = false; // OOps how did I miss this, Thanks TSavo
 var graphRunning = false;
 var arr_ignore = new Array();
 var timer_num = 900; //Timer delay between bets.
