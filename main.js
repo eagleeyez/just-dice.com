@@ -6,8 +6,6 @@ var start_bet = 0;
 var $multiplier;
 var $steps;
 var $run;
-var running = false; // OOps how did I miss this, Thanks TSavo
-=======
 var running = false; //Start of graph toggle function
 var graphRunning = false;
 var arr_ignore = new Array();
@@ -92,7 +90,16 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
         current_steps = 1;
         current_bet_num = 0;
         $("#pct_bet").val(start_bet);
-        
+        var profit = curr_bal - bal.data('oldVal');
+        var now = new Date().getTime();
+        var diff = now - lastWin;
+        if(lastWin == 0){
+        	profitPerMS = profit / diff; 
+        }else{
+        	profitPerMS += profit / diff;
+        	profitPerMS /= 2;
+        }
+        lastWin = now;
             //Increase our bet by the multiplier
             var new_val = $("#pct_bet").val(); // Why I had left a multiplyer here.. Madness Fixed now.
 
