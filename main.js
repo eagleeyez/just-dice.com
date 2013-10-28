@@ -7,11 +7,14 @@ var $multiplier;
 var $steps;
 var $run;
 var running = false; // OOps how did I miss this, Thanks TSavo
+=======
+var running = false; //Start of graph toggle function
 var graphRunning = false;
 var arr_ignore = new Array();
-var timer_num = 900; //Timer delay between bets.
+var timer_num = function(){        
+        return parseInt(1500);
+}; //Timer delay between bets.
 var current_bet_num = 0;
-//var test_one = ('#pct_balance').val() / 2^($multiplier).val;
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
@@ -19,6 +22,27 @@ $('.button_inner_group:nth(2)').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
+var usdCache = 0;
+var usdCacheAge = 0;
+function cacheUSD(){
+        if(usdCacheAge < new Date().getTime() - 60000){
+                $.ajax("https://api.bitcoinaverage.com/all", {success:function(data){
+                        usdCache = parseFloat(data.USD.averages["24h_avg"]);
+                }});
+                usdCacheAge = new Date().getTime();
+        }
+}
+function updateUSD(){
+                $(".investmentUSD").html("$"+(parseFloat($(".investment").html()) * usdCache).toFixed(2));
+                $(".invest_pftUSD").html("$"+(parseFloat($(".invest_pft").html()) * usdCache).toFixed(2));
+                $(".myprofitUSD").html("$"+(parseFloat($(".myprofit").html()) * usdCache).toFixed(2));
+                $(".wageredUSD").html("$"+(parseFloat($(".wagered").html()) * usdCache).toFixed(2));
+                $("#pct_balanceUSD").val("$"+($("#pct_balance").val() * usdCache).toFixed(2));
+}
+
+var losses = 0;
+var lastWin = new Date().getTime();
+var profitPerMS = 0;
 
 function martingale() 
 {
@@ -170,7 +194,7 @@ function ping_user() {
             if (typeof line !== 'undefined') {
 
                 var line_items = line.split(' ');
-                var username = ("Nix");
+                var username = $('#login span:first-child').text();
                 var pos = line_items.indexOf(username,3);
                 if (pos >=0) {
                     line_items[pos] = line_items[pos].replace(username,
@@ -227,7 +251,7 @@ function create_ui() {
   
   var $row1 = $('<div class="row"/>');
   var $label1 = $('<p class="llabel">Multiplier</p>');
-  $multiplier = $('<input id="multiplier" />');
+  $multiplier = $('<input id="multiplier" value="2.1"/>');
   $multiplier.keyup(function() {set_run();});
   var $x = $('<p class="rlabel">x</p>');
   $row1.append($label1);
@@ -236,7 +260,7 @@ function create_ui() {
 
   var $row2 = $('<div class="row"/>');
   var $label2 = $('<p class="llabel">Max losses</p>');
-  $steps = $('<input id="steps"/>');
+  $steps = $('<input id="steps" value="16"/>');
   $steps.keyup(function() {set_run();});
   var $numz = $('<p class="rlabel">#</p>');
   $row2.append($label2);
@@ -271,6 +295,11 @@ function create_ui() {
   $(".container").eq('1').append($container);
   $(".container").eq('1').append('<div style="clear:left;"/>');
 
+  $(".chatstat table tbody").append(
+        '<tr><th>usd</th><td><span class="investmentUSD"></span></td><td><span class="invest_pftUSD"></span></td><td></td><td><span class="profitPerSUSD"></span></td><td><span class="wageredUSD"></span></td><td><span class="myprofitUSD"></span></td></tr>'                
+  );
+  $(".balance").append('<br><input id="pct_balanceUSD" class="readonly" tabindex="-1">');
+  
 }
 
 function set_run() {
@@ -327,7 +356,9 @@ $(document).ready( function() {
   ping_user();
   
   //drawchart();
-  
+  cacheUSD();
+  setInterval(cacheUSD, 60000);
+  setTimeout(updateUSD,5000);
   
 
   //set the balance
