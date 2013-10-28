@@ -76,7 +76,7 @@ your onsite balance into one bet then it will start to martingale from 50% balan
 Thank you TSavo =) We now have a conversion from balance to USD =) very sexy addition
 
 looks as of 28/10/2013
-http://i.imgur.com/Tqjlutj.jpg
+http://i.imgur.com/8c8uwse.jpg
 
 Feel free to say hi in Just-Dice =) my id is 98066
 ------------
