@@ -73,8 +73,8 @@ your onsite balance into one bet then it will start to martingale from 50% balan
 
 -
 
-looks as of 27/10/2013
-i.imgur.com/BZ426IT.jpg
+looks as of 28/10/2013
+http://i.imgur.com/Tqjlutj.jpg
 
 Feel free to say hi in Just-Dice =) my id is 98066
 ------------
