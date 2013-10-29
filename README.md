@@ -62,7 +62,8 @@ There is now 2 new features which although may seem a little difficult to unders
 
 Reset loss:
 -
-This will lower or increase you bet size when a losing streak hits a certain number. 
+This will lower or increase you bet size when a losing streak hits a certain number. If you wish to run the script as a standard martingale
+set the reset loss number higher then the max losses number.
 
 
 Reset %:
