@@ -9,9 +9,7 @@ var $run;
 var running = false; //Start of graph toggle function
 var graphRunning = false;
 var arr_ignore = new Array();
-var timer_num = function(){        
-        return parseInt(1500);
-}; //Timer delay between bets.
+var timer_num = 1400; //Timer delay between bets.
 var current_bet_num = 0;
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
@@ -84,7 +82,6 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
             //current_bet_num = 1;
             $("#a_hi").trigger('click');
         }    
-
 
    else if (curr_bal > bal.data('oldVal'))
     {
@@ -164,16 +161,16 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
   
 }
 
-// Added Extra tab from Grays Bot. This is currently just a placeholder.
+// A little bit of a help file.
 function tabber() {
-        var markup = '<div class="bot-stats"><div class="statspanel"><h2>Stats</h2><div class="clear"></div><div class="slabel">Bets placed:</div><span id="gbs_bet">0</span><div class="clear"><div class="clear"></div></div></div><div class="clear"></div><div class="bot-graph">Some more stuff incoming!!!</div><div class="bot-foot">';
+        var markup = '<div class="bot-stats"><div>Hi Guys and girls thankyou for taking the time to try or use this automated betting system. My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can.<div></div> It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.<div></div> If you win loads or just like this bot consider donating a coffee and a pizza =) 1NixsyLiMFX3wwLqdtAVsNLsWwqDpbmuhP  </div><h3>Multiplyer</h3><div>This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</div><div class="clear"></div><h3>Max losses</h3><div>This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</div><h3>Reset loss</h3><div>This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %</div><h3>Reset %</h3><div>This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here  </div><h3>Credits</h3><div>I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born. I would also like to thank TSavo as without him The currency converter would not exist.</div><h3></h3><div></div><h3>A word of warning</h3><div>Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication.</div><div class="clear"></div><div class="bot-graph">Check here for updates and new changes https://github.com/CriticalNix/just-dice.com</div><div class="bot-foot">';
                 $panelWrapper = $('<div>').attr('id','Nixsy9').css({display: 'none'}).insertAfter('#faq'),
                 $panel = $('<div>').addClass('panel').append(markup).appendTo($panelWrapper),
                                 
                                 $s_bet = $('#gbs_bet')
        
 
-        $('<li>').append($('<a>').text('Nix-Tab').attr('href','#Nixsy9')).appendTo('.tabs');
+        $('<li>').append($('<a>').text('Bot-Help').attr('href','#Nixsy9')).appendTo('.tabs');
 };
 
 function ping_user() {
@@ -283,7 +280,6 @@ function create_ui() {
   $row1.append($delay);
   $row1.append($numz2);
   
-  
   var $label4 = $('<p class="llabel">Reset %</p>');
   $percentage = $('<input id="updateInterval"/>');
   var $numz3 = $('<p class="rlabel">%</p>');
@@ -368,7 +364,7 @@ function set_run() {
 //
 $(document).ready( function() {
 
-  //tabber();
+  tabber();
 
   console.log('starting');
 
