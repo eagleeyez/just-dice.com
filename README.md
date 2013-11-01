@@ -45,39 +45,10 @@ The enhancement suite options page provides the ability to add a comma separated
 
 Finally
 -------
-If you make some money feel free to send a little something to 1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
+This is a donation link to the original developer (Darby999). This script is his brain child and I would reccomend sending donations here. 
 
-------------
-Nixsy's Bit
--------
+1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
 
-The original martingale script by darby999 is fantastic but will only bet on 1 sequence at a time (through a set amount of losses or to a win)
-I had previously used grays bot before finding this one and liked the idea of starting a bot and it will continue running until you stop it or it busts.
-So the need to change this one was great. I do not claim to be great with javascript and all I have learnt has been from that fantastic teacher google.
-
--
-
-There is now 2 new features which although may seem a little difficult to understand at first will become easy with a little use.
+More information About this bot can be found here http://criticalnix.github.io/just-dice.com/
 
 
-Reset loss:
--
-This will lower or increase you bet size when a losing streak hits a certain number. If you wish to run the script as a standard martingale
-set the reset loss number higher then the max losses number.
-
-
-Reset %:
--
-When reset loss is called this will dictate the value of the bet. It is worked out as (total balance / 100) * reset % so if you set it to 1
-the reset loss value will be 1% of your total balance. Use this with caution and be aware if you add 50% here you will be putting half of 
-your onsite balance into one bet then it will start to martingale from 50% balance.
-
--
-
-Thank you TSavo =) We now have a conversion from balance to USD =) very sexy addition
-
-looks as of 28/10/2013
-http://i.imgur.com/8c8uwse.jpg
-
-Feel free to say hi in Just-Dice =) my id is 98066
-------------
