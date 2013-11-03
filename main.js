@@ -12,7 +12,9 @@ var timer_num = 1400; //Timer delay between bets.
 var current_bet_num = 0;
 var lastBal = 0;
 var yin_yang = 0;
+var yin_yang2 = 0;
 var check_step = 0;
+var bet_total = 0;
 
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
@@ -67,12 +69,14 @@ if (check_step == 0)
         }     
 
 //Add a step into the martingale to see if we reach our desired loss length, If so reset
-if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
+if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
     {
         current_bet_num = 1;
         $("#pct_bet").val(start_bet);
             var profit = parseFloat($("#pct_balance").val()) - lastBal;
             var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
+
+            yin_yang2 = ((yin_yang/bet_total) * 100); //try % instead
 
             //get rid of scientific notation
             if (String(new_val).indexOf('e') !== -1) {
@@ -88,14 +92,16 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
             //Increase the steps
             current_steps = 1;
             current_steps++;
-            yin_yang--;
+            //yin_yang--;
+			bet_total++;
             //current_bet_num = 1;
             $("#a_hi").trigger('click');
-            $("#win_lose").val(yin_yang);
+            $("#win_lose").val((yin_yang2).toFixed(2));
 			$("#pro_fits").val((profit).toFixed(8));
+			$("#Bet_amt").val(bet_total);
         }    
 
-   else if (curr_bal > bal.data('oldVal'))
+   else if (curr_bal > bal.data('oldVal')) //This is win step
     {
         current_steps = 1;
         current_bet_num = 0;
@@ -103,6 +109,8 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
             //Increase our bet by the multiplier
             var profit = parseFloat($("#pct_balance").val()) - lastBal;
             var new_val = $("#pct_bet").val(); // Why I had left a multiplyer here.. Madness Fixed now.
+
+            yin_yang2 = ((yin_yang/bet_total) * 100); //try % instead
 
             //get rid of scientific notation
             if (String(new_val).indexOf('e') !== -1) {
@@ -120,19 +128,23 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
             current_steps++;
             current_bet_num++;
 			yin_yang++;
+			bet_total++;
             $("#a_hi").trigger('click');
-            $("#win_lose").val(yin_yang);
+            $("#win_lose").val((yin_yang2).toFixed(2));
             $("#pro_fits").val((profit).toFixed(8));
+			$("#Bet_amt").val(bet_total);
         }
     
         
-    else if ($.isNumeric($multiplier.val()) && 
+    else if ($.isNumeric($multiplier.val()) && // This is loss step
              $.isNumeric($steps.val()) && 
             (current_steps < $steps.val())) {
 
             //Increase our bet by the multiplier
             var profit = parseFloat($("#pct_balance").val()) - lastBal;
             var new_val = $("#pct_bet").val() * $multiplier.val();
+
+            yin_yang2 = ((yin_yang/bet_total) * 100); //try % instead
 
             //get rid of scientific notation
             if (String(new_val).indexOf('e') !== -1) {
@@ -144,22 +156,26 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal'))
 
             
             $("#pct_bet").val(new_val);
-            $("#win_lose").val(yin_yang);
+            $("#win_lose").val((yin_yang2).toFixed(2));
 			$("#pro_fits").val((profit).toFixed(8));
+			$("#Bet_amt").val(bet_total);
 
             //Increase the steps
             current_steps++;
             current_bet_num++;
-			yin_yang--;
+			//yin_yang--;
+			bet_total++;
             $("#a_hi").trigger('click');
     }
 
     //otherwise we go back to the start
-    else {
+    else {  //This is bust step
+
+      yin_yang2 = ((yin_yang/bet_total) * 100); //try % instead
       current_steps = 1;
       current_bet_num = 0;
       $("#pct_bet").val(start_bet);
-      $("#win_lose").val(yin_yang);
+      $("#win_lose").val((yin_yang2).toFixed(2));
 	  $("#pro_fits").val((profit).toFixed(8));
       running = false;
     }
@@ -280,7 +296,7 @@ function create_ui() {
 
   var $row2 = $('<div class="row"/>');
   var $label2 = $('<p class="llabel">Max losses</p>');
-  $steps = $('<input id="steps" value="10"/>');
+  $steps = $('<input id="steps" value="17"/>');
   $steps.keyup(function() {set_run();});
   var $numz = $('<p class="rlabel">#</p>');
   $row2.append($label2);
@@ -289,7 +305,7 @@ function create_ui() {
  
   var $row3 = $('<div class="row"/>'); 
   var $label3 = $('<p class="llabel">Reset loss</p>');
-  $delay = $('<input id="updateInterval" value="9"/>');
+  $delay = $('<input id="updateInterval" value="16"/>');
   var $numz2 = $('<p class="rlabel">!</p>');
   $row1.append($label3);
   $row1.append($delay);
@@ -304,17 +320,24 @@ function create_ui() {
   
   var $label5 = $('<p class="llabel">Profit</p>');
   $test_bet = $('<input id="pro_fits" value="0" class="readonly"/>');
-  var $numz4 = $('<p class="rlabel">$</p>');
-  $row1.append($label5);
-  $row1.append($test_bet);
-  $row1.append($numz4);
-  //$("#win_lose").val(yin_yang);
-  var $label6 = $('<p class="llabel">win vs lose</p>');
+  var $numz4 = $('<p class="rlabel">฿</p>');
+  $row3.append($label5);
+  $row3.append($test_bet);
+  $row3.append($numz4);
+
+  var $label6 = $('<p class="llabel">Win %</p>');
   $test_betS = $('<input id="win_lose" value="0" class="readonly"/>');
-  var $numz5 = $('<p class="rlabel">+/-</p>');
-  $row2.append($label6);
-  $row2.append($test_betS);
-  $row2.append($numz5);
+  var $numz5 = $('<p class="rlabel">%</p>');
+  $row3.append($label6);
+  $row3.append($test_betS);
+  $row3.append($numz5);
+  
+  var $label7 = $('<p class="llabel">Bets</p>');
+  $Bet_amt = $('<input id="Bet_amt" value="0" class="readonly"/>');
+  var $numz6 = $('<p class="rlabel">#</p>');
+  $row3.append($label7);
+  $row3.append($Bet_amt);
+  $row3.append($numz6);
 
   var $fieldset = $('<fieldset/>');
   $fieldset.append($row1);
