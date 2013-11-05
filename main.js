@@ -8,8 +8,9 @@
 //                                                                   
 //I would like to thank darby999 and TSavo. I have learnt a  lot from
 //both of these great developers and they are both instrumental in   
-//The creation of this bot.                                          
-//                                                                   
+//The creation of this bot. I would also like to thank Ticer from                                        
+//http://bitcoinproject.net/ for the sexy theme.
+//                                                              
 //Peace                                                              
 //Nix                                                                
 //                                                                   
@@ -226,6 +227,11 @@ function tabber() {
         $('<li>').append($('<a>').text('Bot-Help').attr('href','#Nixsy9')).appendTo('.tabs');
 };
 
+function ttheme(){
+function addGlobalStyle(css) { var head, style; head = document.getElementsByTagName('head')[0]; if (!head) { return; } style = document.createElement('style'); style.type = 'text/css'; style.innerHTML = css; head.appendChild(style);}addGlobalStyle('@import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900);');addGlobalStyle('body { background-color:white!important;background-image:url(http://bitcoinproject.net/images/backgroundgrey.jpg);background-size: 100%;}');addGlobalStyle('* { -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; border-radius: 0px!important;font-family: "Maven Pro", sans-serif!important;border: none!important; }');addGlobalStyle('button { border:1px solid lightgrey!important;background-color:white!important;padding:5px!important;border-radius:5px!important; margin-right:8px!important;font-weight:700!important;font-size:12px!important;}');addGlobalStyle('.button_group { border: none!important;background-color:transparent!important; }');addGlobalStyle('.key { border: none!important;padding:3px!important;color:white!important;background-color:#7A7A7A!important;border-radius:5px!important; }');addGlobalStyle('fieldset,.header { background-color: transparent!important;}');addGlobalStyle('.log { border:1px solid lightgrey!important;border-radius:5px!important;padding:5px;!important}');addGlobalStyle('.log { background-color: white!important;color:#7A7A7A!important}');addGlobalStyle('.result { margin-bottom:5px!important;border:none!important;background-color:white!important;}');addGlobalStyle('.result:hover { background-color:lightgrey!important}');addGlobalStyle('#all{ background-color:white!important;');document.querySelector(".header").innerHTML = "<a href='/'>Just-Dice.com</a><br><span style='font-size:15px!important;padding:2px;background-color:white;border-radius:5px;'>Theme by <a style='color:#7A7A7A;' href='http://www.bitcoinproject.net'>bitcoinproject.net</a><span>";document.querySelector(".log").innerHTML = "Donate to bitcoinproject.net - 18SLYfNrM2WxS3xPgp4rzTwYQnB5YDUjVE";addGlobalStyle('img{ border-radius:5px!important;');addGlobalStyle('.results_container{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.results_header{background-color:white!important;');addGlobalStyle('P.llabel{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;background-color:#7A7A7A!important;color:white!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-top-left-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('INPUT#pct_chance, INPUT#pct_payout, INPUT#pct_bet, INPUT#pct_profit{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;');addGlobalStyle('P.rlabel{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;background-color:#7A7A7A!important;color:white!important;-webkit-border-top-right-radius: 5px!important;-webkit-border-bottom-right-radius: 5px!important;-moz-border-radius-topright: 5px!important;-moz-border-radius-bottomright: 5px!important;border-top-right-radius: 5px!important;border-bottom-right-radius: 5px!important;');addGlobalStyle('INPUT#pct_balance.readonly { border-radius:5px;background-color:white!important;color:#7A7A7A!important;border:1px solid #7A7A7A!important;-webkit-border-bottom-right-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-bottomright: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-bottom-right-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('DIV.bal_text{ background-color:#7A7A7A!important;color:white!important;padding:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important;');addGlobalStyle('.chatstat table{ border-radius:5px!important;color:black!important;background-color:white!important;border:1px solid #7A7A7A!important;width:100%!important');addGlobalStyle('.chatstat span{ background-color:transparent!important;border-radius:5px!important;padding:5px!important;border:1px solid lightgey!important;');addGlobalStyle('#me,#chat,#stats,#fair,#account,#invest,#history,#faq,#graysbot,.panel{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.chatline{ padding:5px!imporant;');addGlobalStyle('.panel input {padding:5px!imporant;border-radius:5px!important;border:1px solid lightgrey!important;');addGlobalStyle('.statspanel span{ padding:5px!imporant;border-radius:5px!important;border:0px solid lightgrey!important;color:white!important;background-color:#7A7A7A!important;');addGlobalStyle('DIV.fright.stats{ padding:5px!imporant;border-radius:5px!important;background-color:white!important;border:1px solid #7A7A7A!important;');addGlobalStyle('DIV#wins.wins.aright, DIV#losses.losses.aleft{ background-color:transparent!important;');addGlobalStyle('.tabs li a{ font-size:12px!important;padding:5px!imporant;background-color:#7A7A7A!important;color:white!important;margin-left:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-mozborder-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important');
+
+}
+
 function ping_user() {
 
   var log = $(".chatlog");
@@ -313,7 +319,7 @@ function create_ui() {
   var $label1 = $('<p class="llabel">Multiplier</p>');
   $multiplier = $('<input id="multiplier" value="2.1"/>');
   $multiplier.keyup(function() {set_run();});
-  var $x = $('<p class="rlabel">x</p>');
+  var $x = $('<p style="margin-right:15px" class="rlabel">x</p>');
   $row1.append($label1);
   $row1.append($multiplier);
   $row1.append($x);
@@ -322,7 +328,7 @@ function create_ui() {
   var $label2 = $('<p class="llabel">Max losses</p>');
   $steps = $('<input id="steps" value="17"/>');
   $steps.keyup(function() {set_run();});
-  var $numz = $('<p class="rlabel">#</p>');
+  var $numz = $('<p style="margin-right:15px" class="rlabel">#</p>');
   $row2.append($label2);
   $row2.append($steps);
   $row2.append($numz);
@@ -330,35 +336,35 @@ function create_ui() {
   var $row3 = $('<div class="row"/>'); 
   var $label3 = $('<p class="llabel">Reset loss</p>');
   $delay = $('<input id="updateInterval" value="16"/>');
-  var $numz2 = $('<p class="rlabel">!</p>');
+  var $numz2 = $('<p style="margin-right:15px" class="rlabel">!</p>');
   $row1.append($label3);
   $row1.append($delay);
   $row1.append($numz2);
   
   var $label4 = $('<p class="llabel">Reset %</p>');
   $percentage = $('<input id="updateInterval" value="1"/>');
-  var $numz3 = $('<p class="rlabel">%</p>');
+  var $numz3 = $('<p style="margin-right:15px" class="rlabel">%</p>');
   $row2.append($label4);
   $row2.append($percentage);
   $row2.append($numz3);
   
   var $label5 = $('<p class="llabel">Profit</p>');
   $test_bet = $('<input id="pro_fits" value="0" class="readonly"/>');
-  var $numz4 = $('<p class="rlabel">฿</p>');
+  var $numz4 = $('<p style="margin-right:15px" class="rlabel">฿</p>');
   $row3.append($label5);
   $row3.append($test_bet);
   $row3.append($numz4);
 
   var $label6 = $('<p class="llabel">Win %</p>');
   $test_betS = $('<input id="win_lose" value="0" class="readonly"/>');
-  var $numz5 = $('<p class="rlabel">%</p>');
+  var $numz5 = $('<p style="margin-right:15px" class="rlabel">%</p>');
   $row3.append($label6);
   $row3.append($test_betS);
   $row3.append($numz5);
   
   var $label7 = $('<p class="llabel">Bets</p>');
   $Bet_amt = $('<input id="Bet_amt" value="0" class="readonly"/>');
-  var $numz6 = $('<p class="rlabel">#</p>');
+  var $numz6 = $('<p style="margin-right:15px" class="rlabel">#</p>');
   $row3.append($label7);
   $row3.append($Bet_amt);
   $row3.append($numz6);
@@ -447,6 +453,8 @@ $(document).ready( function() {
   create_ui();
 
   ping_user();
+
+  ttheme()
   
   //drawchart();
   cacheUSD();
