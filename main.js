@@ -14,21 +14,20 @@
 //Nix                                                                
 //                                                                   
 //-------------------------------------------------------------------
-//            Added a simple licence To ensure freedoms.
+//            Added a licence To ensure freedoms.
 //-------------------------------------------------------------------
-//            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-//                    Version 2, December 2004
+//Copyright (C) 2013  CriticalNix
 //
-// Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+//This program is free software; you can redistribute it and/or
+//modify it under the terms of the GNU General Public License
+//version 2.
 //
-// Everyone is permitted to copy and distribute verbatim or modified
-// copies of this software, and changing it is allowed as long
-// as the name is changed.
+//This program is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
 //
-//            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-//   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-//
-//  0. You just DO WHAT THE FUCK YOU WANT TO.
+//A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html#SEC4.
 //-------------------------------------------------------------------
 
 var timer;
