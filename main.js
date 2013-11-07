@@ -210,11 +210,6 @@ function tabber() {
         $('<li>').append($('<a>').text('Bot-Help').attr('href','#Nixsy9')).appendTo('.tabs');
 };
 
-function ttheme(){
-function addGlobalStyle(css) { var head, style; head = document.getElementsByTagName('head')[0]; if (!head) { return; } style = document.createElement('style'); style.type = 'text/css'; style.innerHTML = css; head.appendChild(style);}addGlobalStyle('@import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900);');addGlobalStyle('body { background-color:white!important;background-image:url(https://dl.dropboxusercontent.com/u/27471347/backgroundgrey.jpg);background-size: 100%;}');addGlobalStyle('* { -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; border-radius: 0px!important;font-family: "Maven Pro", sans-serif!important;border: none!important; }');addGlobalStyle('button { border:1px solid lightgrey!important;background-color:white!important;padding:5px!important;border-radius:5px!important; margin-right:8px!important;font-weight:700!important;font-size:12px!important;}');addGlobalStyle('.button_group { border: none!important;background-color:transparent!important; }');addGlobalStyle('.key { border: none!important;padding:3px!important;color:white!important;background-color:#848385!important;border-radius:5px!important; }');addGlobalStyle('fieldset,.header { background-color: transparent!important;}');addGlobalStyle('.log { border:1px solid lightgrey!important;border-radius:5px!important;padding:5px;!important}');addGlobalStyle('.log { background-color: white!important;color:#848385!important}');addGlobalStyle('.result { margin-bottom:5px!important;border:none!important;background-color:white!important;}');addGlobalStyle('.result:hover { background-color:lightgrey!important}');addGlobalStyle('#all{ background-color:white!important;');document.querySelector(".header").innerHTML = "<a href='/'>Just-Dice.com</a><br><span style='font-size:15px!important;padding:2px;background-color:white;border-radius:5px;'>Theme by <a style='color:#848385;' href='http://www.bitcoinproject.net'>bitcoinproject.net</a><span>";document.querySelector(".log").innerHTML = "Donate to bitcoinproject.net - 18SLYfNrM2WxS3xPgp4rzTwYQnB5YDUjVE";addGlobalStyle('img{ border-radius:5px!important;');addGlobalStyle('.results_container{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.results_header{background-color:white!important;');addGlobalStyle('P.llabel{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;background-color:#848385!important;color:white!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-top-left-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('INPUT#pct_chance, INPUT#pct_payout, INPUT#pct_bet, INPUT#pct_profit{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;');addGlobalStyle('P.rlabel{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;background-color:#848385!important;color:white!important;-webkit-border-top-right-radius: 5px!important;-webkit-border-bottom-right-radius: 5px!important;-moz-border-radius-topright: 5px!important;-moz-border-radius-bottomright: 5px!important;border-top-right-radius: 5px!important;border-bottom-right-radius: 5px!important;');addGlobalStyle('INPUT#pct_balance.readonly { border-radius:5px;background-color:white!important;color:#848385!important;border:1px solid #848385!important;-webkit-border-bottom-right-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-bottomright: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-bottom-right-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('DIV.bal_text{ background-color:#848385!important;color:white!important;padding:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important;');addGlobalStyle('.chatstat table{ border-radius:5px!important;color:black!important;background-color:white!important;border:1px solid #848385!important;width:100%!important');addGlobalStyle('.chatstat span{ background-color:transparent!important;border-radius:5px!important;padding:5px!important;border:1px solid lightgey!important;');addGlobalStyle('#me,#chat,#stats,#fair,#account,#invest,#history,#faq,#graysbot,.panel{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.chatline{ padding:5px!imporant;');addGlobalStyle('.panel input {padding:5px!imporant;border-radius:5px!important;border:1px solid lightgrey!important;');addGlobalStyle('.statspanel span{ padding:5px!imporant;border-radius:5px!important;border:0px solid lightgrey!important;color:white!important;background-color:#848385!important;');addGlobalStyle('DIV.fright.stats{ padding:5px!imporant;border-radius:5px!important;background-color:white!important;border:1px solid #848385!important;');addGlobalStyle('DIV#wins.wins.aright, DIV#losses.losses.aleft{ background-color:transparent!important;');addGlobalStyle('.tabs li a{ font-size:12px!important;padding:5px!imporant;background-color:#848385!important;color:white!important;margin-left:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-mozborder-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important');
-
-}
-
 function ping_user() {
 
   var log = $(".chatlog");
@@ -273,15 +268,15 @@ function ping_user() {
 
 function create_ui() {
 
-  var $container = $('<div class="container"/>');
+  var $container = $('<div id="chipper" class="container"/>');
   var $container2 = $('<div class="container"/>');
-  var $button_group = $('<div style="background-color:#5A5A5A;" class="button_group"/>');
+  var $button_group = $('<div style="background-color:#878787;border:2px solid; border-color: #6E6E6E;" class="button_group"/>');
   $container.append($button_group); 
-  
-  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:25px;margin-right:3px;height:65px;;width:70px;"><img src="https://dl.dropboxusercontent.com/u/27471347/JD1.png"></button>');
+
+  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:25px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://dl.dropboxusercontent.com/u/27471347/JD1.png"></button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
-  $run = $('<button id="c_run" style="margin-top:5px;">Start<div class="key">R</div></button>');
+  $run = $('<button id="c_run" style="margin-top:32px;color:transparent;background-color:transparent;border:none;"><img src="https://dl.dropboxusercontent.com/u/27471347/green_button.png"></button>');
 
   $run.click(function() { 
         running = true; 
@@ -292,67 +287,67 @@ function create_ui() {
 
   StartBalance = parseFloat($("#pct_balance").val()); // Try to add profit readout
     
-  $Stop = $('<button id="c_stop" style="margin-top:5px;">Stop<div class="key">Q</div></button>');
+  $Stop = $('<button id="c_stop" style="margin-top:32px;color:transparent;background-color:transparent;border:none;"><img src="https://dl.dropboxusercontent.com/u/27471347/red_button.png"></button>');
   $Stop.click(function() {
   running = false;
   });
   $run_div.append($Stop);
   
   var $row1 = $('<div class="row"/>');
-  var $label1 = $('<p class="llabel">Multiplier</p>');
-  $multiplier = $('<input id="multiplier" value="2.1"/>');
+  var $label1 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Multiplier</p>');
+  $multiplier = $('<input style="border:1px solid; border-color: #6E6E6E;" id="multiplier" value="2.1"/>');
   $multiplier.keyup(function() {set_run();});
-  var $x = $('<p style="margin-right:15px" class="rlabel">x</p>');
+  var $x = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">x</p>');
   $row1.append($label1);
   $row1.append($multiplier);
   $row1.append($x);
 
   var $row2 = $('<div class="row"/>');
-  var $label2 = $('<p class="llabel">Max losses</p>');
-  $steps = $('<input id="steps" value="17"/>');
+  var $label2 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max losses</p>');
+  $steps = $('<input style="border:1px solid; border-color: #6E6E6E;" id="steps" value="17"/>');
   $steps.keyup(function() {set_run();});
-  var $numz = $('<p style="margin-right:15px" class="rlabel">#</p>');
+  var $numz = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
   $row2.append($label2);
   $row2.append($steps);
   $row2.append($numz);
  
   var $row3 = $('<div class="row"/>'); 
-  var $label3 = $('<p class="llabel">Reset loss</p>');
-  $delay = $('<input id="updateInterval" value="16"/>');
-  var $numz2 = $('<p style="margin-right:15px" class="rlabel">!</p>');
+  var $label3 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Reset loss</p>');
+  $delay = $('<input style="border:1px solid; border-color: #6E6E6E;" id="updateInterval" value="16"/>');
+  var $numz2 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">!</p>');
   $row1.append($label3);
   $row1.append($delay);
   $row1.append($numz2);
   
-  var $label4 = $('<p class="llabel">Reset %</p>');
-  $percentage = $('<input id="updateInterval" value="1"/>');
-  var $numz3 = $('<p style="margin-right:15px" class="rlabel">%</p>');
+  var $label4 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Reset %</p>');
+  $percentage = $('<input style="border:1px solid; border-color: #6E6E6E;" id="updateInterval" value="1"/>');
+  var $numz3 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">%</p>');
   $row2.append($label4);
   $row2.append($percentage);
   $row2.append($numz3);
   
-  var $label5 = $('<p class="llabel">Profit</p>');
-  $test_bet = $('<input id="pro_fits" value="0" class="readonly"/>');
-  var $numz4 = $('<p style="margin-right:15px" class="rlabel">฿</p>');
+  var $label5 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Profit</p>');
+  $test_bet = $('<input style="border:1px solid; border-color: #6E6E6E;" id="pro_fits" value="0" class="readonly"/>');
+  var $numz4 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">฿</p>');
   $row3.append($label5);
   $row3.append($test_bet);
   $row3.append($numz4);
 
-  var $label6 = $('<p class="llabel">Win %</p>');
-  $test_betS = $('<input id="win_lose" value="0" class="readonly"/>');
-  var $numz5 = $('<p style="margin-right:15px" class="rlabel">%</p>');
+  var $label6 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Win %</p>');
+  $test_betS = $('<input style="border:1px solid; border-color: #6E6E6E;" id="win_lose" value="0" class="readonly"/>');
+  var $numz5 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">%</p>');
   $row3.append($label6);
   $row3.append($test_betS);
   $row3.append($numz5);
   
-  var $label7 = $('<p class="llabel">Bets</p>');
-  $Bet_amt = $('<input id="Bet_amt" value="0" class="readonly"/>');
-  var $numz6 = $('<p style="margin-right:15px" class="rlabel">#</p>');
+  var $label7 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Bets</p>');
+  $Bet_amt = $('<input style="border:1px solid; border-color: #6E6E6E;" id="Bet_amt" value="0" class="readonly" />');
+  var $numz6 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
   $row3.append($label7);
   $row3.append($Bet_amt);
   $row3.append($numz6);
 
-  var $fieldset = $('<fieldset/>');
+  var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #6E6E6E;"/>');
   $fieldset.append($row1);
   $fieldset.append($row2);
   $fieldset.append($row3);
@@ -417,11 +412,7 @@ $(document).ready( function() {
 
   create_ui();
 
-  ping_user();
-
-  //ttheme()
-  
-  //drawchart();  
+  ping_user();  
 
   //set the balance
   //when the balance changes and we're martingaling 
