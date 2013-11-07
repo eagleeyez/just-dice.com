@@ -49,6 +49,6 @@ This is a donation link to the original developer (Darby999). This script is his
 
 1BZiXP6EoLgm3LjnExVQSSB4c7UbUqRVPf
 
-More information About this bot can be found here http://criticalnix.github.io/just-dice.com/ and here http://bitcoinproject.net/just-dice-casino/just-dice-theme
+More information About this bot can be found here http://criticalnix.github.io/just-dice.com/ and here http://bitcoinproject.net/just-dice-casino/chrome-extension
 
 
