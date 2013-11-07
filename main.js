@@ -200,7 +200,7 @@ if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is
 
 // A little bit of a help file.
 function tabber() {
-        var markup = '<div class="bot-stats"><div>Hi Guys and girls thankyou for taking the time to try or use this automated betting system. My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can.<div></div> It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.<div></div> If you win loads or just like this bot consider donating a coffee and a pizza =) 1NixsyLiMFX3wwLqdtAVsNLsWwqDpbmuhP  </div><h3>Show/Hide</h3><div>Look just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</div><h3>Multiplyer</h3><div>This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</div><div class="clear"></div><h3>Max losses</h3><div>This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</div><h3>Reset loss</h3><div>This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %</div><h3>Reset %</h3><div>This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</div><h3>Profit display</h3><div>This will show your profit won. If you refresh the page this value will reset.</div><h3>Win % display</h3><div>This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win</div><h3>Credits</h3><div>I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born.</div><h3></h3><div></div><h3>A word of warning</h3><div>Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication.</div><div class="clear"></div><div class="bot-graph">Check here for updates and new changes https://github.com/CriticalNix/just-dice.com</div><div class="bot-foot">';
+        var markup = '<div class="bot-stats"><p>Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.  </p><p><strong><u>Show/HideLook</u></strong> Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born.</p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication.</p><p>&nbsp;</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes https://github.com/CriticalNix/just-dice.com</p><p>If you win loads or just like this bot consider donating a coffee and a pizza =) 1NixsyLiMFX3wwLqdtAVsNLsWwqDpbmuhP</p></div><div class="bot-foot">';
                 $panelWrapper = $('<div>').attr('id','Nixsy9').css({display: 'none'}).insertAfter('#faq'),
                 $panel = $('<div>').addClass('panel').append(markup).appendTo($panelWrapper),
                                 
@@ -263,6 +263,17 @@ function ping_user() {
           console.log('length: ' + arr.length);
           $.playSound('notify.wav');
         }
+   },100);
+}
+
+function Gmultiplier(){
+ 
+  setInterval(function() { 
+          multi3 = 0;
+		  multi1 = parseFloat($("#pct_chance").val());
+		  multi3 = (99/(99 - (multi1)));
+
+          $("#Guess_amt").val((multi3).toFixed(8));       
    },100);
 }
 
@@ -346,6 +357,13 @@ function create_ui() {
   $row3.append($label7);
   $row3.append($Bet_amt);
   $row3.append($numz6);
+  
+  var $label8 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Suggested x</p>');
+  $guess_amt = $('<input style="border:1px solid; border-color: #6E6E6E;" id="Guess_amt" value="0" class="readonly" />');
+  var $numz7 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">x</p>');
+  $row1.append($label8);
+  $row1.append($guess_amt);
+  $row1.append($numz7);
 
   var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #6E6E6E;"/>');
   $fieldset.append($row1);
@@ -419,7 +437,9 @@ $(document).ready( function() {
 
   create_ui();
 
-  ping_user();  
+  ping_user();
+
+  Gmultiplier();  
 
   //set the balance
   //when the balance changes and we're martingaling 
