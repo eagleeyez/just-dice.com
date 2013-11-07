@@ -28,7 +28,7 @@
 //MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //GNU General Public License for more details.
 //
-//A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html#SEC4.
+//A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html
 //-------------------------------------------------------------------
 
 var timer;
@@ -43,7 +43,7 @@ var running = false; //If set to true the script will start when the page loads
 var arr_ignore = new Array(); //create an array to include ignored users
 var timer_num = 1400; //Timer delay between bets. 1000 = 1 second.
 var current_bet_num = 0; //Steps counter used to find reset loss
-var lastBal = 0; //balance that is grabbed in checkstep
+var lastBal = 0; //balance that is grabbed in check_step
 var yin_yang = 0; //counting wins
 var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
@@ -56,23 +56,6 @@ $('.button_inner_group:nth(2)').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
-var usdCache = 0;
-var usdCacheAge = 0;
-function cacheUSD(){
-	if(usdCacheAge < new Date().getTime() - 60000){
-		$.ajax("https://api.bitcoinaverage.com/all", {success:function(data){
-			usdCache = data;
-		}});
-		usdCacheAge = new Date().getTime();
-	}
-}
-function updateUSD(){
-		$(".investmentUSD").html((parseFloat($(".investment").html()) * usdCache[$("#currencySelector").val()]["averages"]["24h_avg"]).toFixed(2) + " " + $("#currencySelector").val());
-		$(".invest_pftUSD").html((parseFloat($(".invest_pft").html()) * usdCache[$("#currencySelector").val()]["averages"]["24h_avg"]).toFixed(2) + " " + $("#currencySelector").val());
-		$(".myprofitUSD").html((parseFloat($(".myprofit").html()) * usdCache[$("#currencySelector").val()]["averages"]["24h_avg"]).toFixed(2) + " " + $("#currencySelector").val());
-		$(".wageredUSD").html((parseFloat($(".wagered").html()) * usdCache[$("#currencySelector").val()]["averages"]["24h_avg"]).toFixed(2) + " " + $("#currencySelector").val());
-		$("#pct_balanceUSD").val(($("#pct_balance").val() * usdCache[$("#currencySelector").val()]["averages"]["24h_avg"]).toFixed(2) + " " + $("#currencySelector").val());
-}
 
 var losses = 0;
 var lastWin = new Date().getTime();
@@ -80,7 +63,7 @@ var profitPerMS = 0;
 
 function martingale() 
 {
-        setTimeout(updateUSD, 1);
+
                 
   if (bal.data('oldVal') != bal.val() && running) {
     clearInterval(timer);
@@ -228,7 +211,7 @@ function tabber() {
 };
 
 function ttheme(){
-function addGlobalStyle(css) { var head, style; head = document.getElementsByTagName('head')[0]; if (!head) { return; } style = document.createElement('style'); style.type = 'text/css'; style.innerHTML = css; head.appendChild(style);}addGlobalStyle('@import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900);');addGlobalStyle('body { background-color:white!important;background-image:url(http://bitcoinproject.net/images/backgroundgrey.jpg);background-size: 100%;}');addGlobalStyle('* { -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; border-radius: 0px!important;font-family: "Maven Pro", sans-serif!important;border: none!important; }');addGlobalStyle('button { border:1px solid lightgrey!important;background-color:white!important;padding:5px!important;border-radius:5px!important; margin-right:8px!important;font-weight:700!important;font-size:12px!important;}');addGlobalStyle('.button_group { border: none!important;background-color:transparent!important; }');addGlobalStyle('.key { border: none!important;padding:3px!important;color:white!important;background-color:#7A7A7A!important;border-radius:5px!important; }');addGlobalStyle('fieldset,.header { background-color: transparent!important;}');addGlobalStyle('.log { border:1px solid lightgrey!important;border-radius:5px!important;padding:5px;!important}');addGlobalStyle('.log { background-color: white!important;color:#7A7A7A!important}');addGlobalStyle('.result { margin-bottom:5px!important;border:none!important;background-color:white!important;}');addGlobalStyle('.result:hover { background-color:lightgrey!important}');addGlobalStyle('#all{ background-color:white!important;');document.querySelector(".header").innerHTML = "<a href='/'>Just-Dice.com</a><br><span style='font-size:15px!important;padding:2px;background-color:white;border-radius:5px;'>Theme by <a style='color:#7A7A7A;' href='http://www.bitcoinproject.net'>bitcoinproject.net</a><span>";document.querySelector(".log").innerHTML = "Donate to bitcoinproject.net - 18SLYfNrM2WxS3xPgp4rzTwYQnB5YDUjVE";addGlobalStyle('img{ border-radius:5px!important;');addGlobalStyle('.results_container{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.results_header{background-color:white!important;');addGlobalStyle('P.llabel{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;background-color:#7A7A7A!important;color:white!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-top-left-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('INPUT#pct_chance, INPUT#pct_payout, INPUT#pct_bet, INPUT#pct_profit{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;');addGlobalStyle('P.rlabel{ border-top:1px solid #7A7A7A!important;border-bottom:1px solid #7A7A7A!important;background-color:#7A7A7A!important;color:white!important;-webkit-border-top-right-radius: 5px!important;-webkit-border-bottom-right-radius: 5px!important;-moz-border-radius-topright: 5px!important;-moz-border-radius-bottomright: 5px!important;border-top-right-radius: 5px!important;border-bottom-right-radius: 5px!important;');addGlobalStyle('INPUT#pct_balance.readonly { border-radius:5px;background-color:white!important;color:#7A7A7A!important;border:1px solid #7A7A7A!important;-webkit-border-bottom-right-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-bottomright: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-bottom-right-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('DIV.bal_text{ background-color:#7A7A7A!important;color:white!important;padding:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important;');addGlobalStyle('.chatstat table{ border-radius:5px!important;color:black!important;background-color:white!important;border:1px solid #7A7A7A!important;width:100%!important');addGlobalStyle('.chatstat span{ background-color:transparent!important;border-radius:5px!important;padding:5px!important;border:1px solid lightgey!important;');addGlobalStyle('#me,#chat,#stats,#fair,#account,#invest,#history,#faq,#graysbot,.panel{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.chatline{ padding:5px!imporant;');addGlobalStyle('.panel input {padding:5px!imporant;border-radius:5px!important;border:1px solid lightgrey!important;');addGlobalStyle('.statspanel span{ padding:5px!imporant;border-radius:5px!important;border:0px solid lightgrey!important;color:white!important;background-color:#7A7A7A!important;');addGlobalStyle('DIV.fright.stats{ padding:5px!imporant;border-radius:5px!important;background-color:white!important;border:1px solid #7A7A7A!important;');addGlobalStyle('DIV#wins.wins.aright, DIV#losses.losses.aleft{ background-color:transparent!important;');addGlobalStyle('.tabs li a{ font-size:12px!important;padding:5px!imporant;background-color:#7A7A7A!important;color:white!important;margin-left:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-mozborder-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important');
+function addGlobalStyle(css) { var head, style; head = document.getElementsByTagName('head')[0]; if (!head) { return; } style = document.createElement('style'); style.type = 'text/css'; style.innerHTML = css; head.appendChild(style);}addGlobalStyle('@import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900);');addGlobalStyle('body { background-color:white!important;background-image:url(https://dl.dropboxusercontent.com/u/27471347/backgroundgrey.jpg);background-size: 100%;}');addGlobalStyle('* { -webkit-border-radius: 0px!important; -moz-border-radius: 0px!important; border-radius: 0px!important;font-family: "Maven Pro", sans-serif!important;border: none!important; }');addGlobalStyle('button { border:1px solid lightgrey!important;background-color:white!important;padding:5px!important;border-radius:5px!important; margin-right:8px!important;font-weight:700!important;font-size:12px!important;}');addGlobalStyle('.button_group { border: none!important;background-color:transparent!important; }');addGlobalStyle('.key { border: none!important;padding:3px!important;color:white!important;background-color:#848385!important;border-radius:5px!important; }');addGlobalStyle('fieldset,.header { background-color: transparent!important;}');addGlobalStyle('.log { border:1px solid lightgrey!important;border-radius:5px!important;padding:5px;!important}');addGlobalStyle('.log { background-color: white!important;color:#848385!important}');addGlobalStyle('.result { margin-bottom:5px!important;border:none!important;background-color:white!important;}');addGlobalStyle('.result:hover { background-color:lightgrey!important}');addGlobalStyle('#all{ background-color:white!important;');document.querySelector(".header").innerHTML = "<a href='/'>Just-Dice.com</a><br><span style='font-size:15px!important;padding:2px;background-color:white;border-radius:5px;'>Theme by <a style='color:#848385;' href='http://www.bitcoinproject.net'>bitcoinproject.net</a><span>";document.querySelector(".log").innerHTML = "Donate to bitcoinproject.net - 18SLYfNrM2WxS3xPgp4rzTwYQnB5YDUjVE";addGlobalStyle('img{ border-radius:5px!important;');addGlobalStyle('.results_container{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.results_header{background-color:white!important;');addGlobalStyle('P.llabel{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;background-color:#848385!important;color:white!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-top-left-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('INPUT#pct_chance, INPUT#pct_payout, INPUT#pct_bet, INPUT#pct_profit{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;');addGlobalStyle('P.rlabel{ border-top:1px solid #848385!important;border-bottom:1px solid #848385!important;background-color:#848385!important;color:white!important;-webkit-border-top-right-radius: 5px!important;-webkit-border-bottom-right-radius: 5px!important;-moz-border-radius-topright: 5px!important;-moz-border-radius-bottomright: 5px!important;border-top-right-radius: 5px!important;border-bottom-right-radius: 5px!important;');addGlobalStyle('INPUT#pct_balance.readonly { border-radius:5px;background-color:white!important;color:#848385!important;border:1px solid #848385!important;-webkit-border-bottom-right-radius: 5px!important;-webkit-border-bottom-left-radius: 5px!important;-moz-border-radius-bottomright: 5px!important;-moz-border-radius-bottomleft: 5px!important;border-bottom-right-radius: 5px!important;border-bottom-left-radius: 5px!important;');addGlobalStyle('DIV.bal_text{ background-color:#848385!important;color:white!important;padding:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-moz-border-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important;');addGlobalStyle('.chatstat table{ border-radius:5px!important;color:black!important;background-color:white!important;border:1px solid #848385!important;width:100%!important');addGlobalStyle('.chatstat span{ background-color:transparent!important;border-radius:5px!important;padding:5px!important;border:1px solid lightgey!important;');addGlobalStyle('#me,#chat,#stats,#fair,#account,#invest,#history,#faq,#graysbot,.panel{ background-color:white!important;border-radius:5px!important;');addGlobalStyle('.chatline{ padding:5px!imporant;');addGlobalStyle('.panel input {padding:5px!imporant;border-radius:5px!important;border:1px solid lightgrey!important;');addGlobalStyle('.statspanel span{ padding:5px!imporant;border-radius:5px!important;border:0px solid lightgrey!important;color:white!important;background-color:#848385!important;');addGlobalStyle('DIV.fright.stats{ padding:5px!imporant;border-radius:5px!important;background-color:white!important;border:1px solid #848385!important;');addGlobalStyle('DIV#wins.wins.aright, DIV#losses.losses.aleft{ background-color:transparent!important;');addGlobalStyle('.tabs li a{ font-size:12px!important;padding:5px!imporant;background-color:#848385!important;color:white!important;margin-left:5px!important;-webkit-border-top-left-radius: 5px!important;-webkit-border-top-right-radius: 5px!important;-mozborder-radius-topleft: 5px!important;-moz-border-radius-topright: 5px!important;border-top-left-radius: 5px!important;border-top-right-radius: 5px!important');
 
 }
 
@@ -292,10 +275,10 @@ function create_ui() {
 
   var $container = $('<div class="container"/>');
   var $container2 = $('<div class="container"/>');
-  var $button_group = $('<div class="button_group"/>');
+  var $button_group = $('<div style="background-color:#5A5A5A;" class="button_group"/>');
   $container.append($button_group); 
   
-  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:20px;">Nixsy5</button>');
+  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:25px;margin-right:3px;height:65px;;width:70px;"><img src="https://dl.dropboxusercontent.com/u/27471347/JD1.png"></button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
   $run = $('<button id="c_run" style="margin-top:5px;">Start<div class="key">R</div></button>');
@@ -374,30 +357,12 @@ function create_ui() {
   $fieldset.append($row2);
   $fieldset.append($row3);
 
-  //$button_group.append($martingale_button);
+  $button_group.append($martingale_button);
   $button_group.append($fieldset);
   $button_group.append($run_div);
 
   $(".container").eq('1').append($container);
   $(".container").eq('1').append('<div style="clear:left;"/>');
-
-  $.ajax("https://api.bitcoinaverage.com/all", {success:function(data){
-		//usdCache = parseFloat(data.USD.averages["24h_avg"]);
-	currencyOptions = "";
-	for(i in data){
-		if(i=="USD"){
-			currencyOptions += "<option value=\"" + i + "\" SELECTED>" + i + "</option>";
-			
-		}else if(i.length == 3){
-			currencyOptions += "<option value=\"" + i + "\">" + i + "</option>";
-		}
-	}
-	$(".chatstat table tbody").append(
-			'<tr><th><select id="currencySelector">' + currencyOptions + '</select></th><td><span class="investmentUSD"></span></td><td><span class="invest_pftUSD"></span></td><td></td><td><span class="profitPerSUSD"></span></td><td><span class="wageredUSD"></span></td><td><span class="myprofitUSD"></span></td></tr>'		
-	);
-	setTimeout(updateUSD,5000);
-  }});
-  $(".balance").append('<br><input id="pct_balanceUSD" class="readonly" tabindex="-1">');
   
 }
 
@@ -454,13 +419,9 @@ $(document).ready( function() {
 
   ping_user();
 
-  ttheme()
+  //ttheme()
   
-  //drawchart();
-  cacheUSD();
-  setInterval(cacheUSD, 60000);
-  setTimeout(updateUSD,5000);
-  
+  //drawchart();  
 
   //set the balance
   //when the balance changes and we're martingaling 
