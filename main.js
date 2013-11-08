@@ -73,12 +73,13 @@ function martingale()
 // add a single step to grab starting balance and stop value
 if (check_step == 0)
     {
+    var current_balance = parseFloat($("#pct_balance").val());
 	lastBal = parseFloat($("#pct_balance").val());
 	stop_value = parseFloat($("#stop_at").val());
 	check_step = 1;
         }     
 
-if ((stop_value) <= lastBal){  //This is check goal step
+if ((stop_value) <= current_balance){  //This is check goal step
 
     yin_yang2 = ((yin_yang/bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
     current_steps = 1;
