@@ -78,19 +78,8 @@ if (check_step == 0)
 	check_step = 1;
         }     
 
-if ((stop_value) <= current_balance){  //This is check goal step
-
-    yin_yang2 = ((yin_yang/bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
-    current_steps = 1;
-    current_bet_num = 0;
-    $("#pct_bet").val(start_bet);
-    $("#win_lose").val((yin_yang2).toFixed(2));
-    $("#pro_fits").val((profit).toFixed(8));
-    running = false;
-    } //end of check goal step
-
 //Add a step into the martingale to see if we reach our desired loss length, If so reset
-if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
+else if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
     {
         current_bet_num = 1;
         $("#pct_bet").val(start_bet);
@@ -288,7 +277,7 @@ function Gmultiplier(){
     var current_balance = parseFloat($("#pct_balance").val());
 
           $("#Guess_amt").val((multi3).toFixed(8));       
-   },100);
+   },400);
 }
 
 function create_ui() {
@@ -301,7 +290,7 @@ function create_ui() {
   var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:25px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/e3LQ30h.png"></button>');
 
   var $run_div = $('<div class="button_inner_group"/>');
-  $run = $('<button id="c_run" style="margin-top:32px;margin-left:8px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/QcCAUlX.png"></button>');
+  $run = $('<button id="c_run" style="margin-top:32px;margin-left:8px;">Go</button>');
 
   $run.click(function() { 
         running = true; 
@@ -312,7 +301,7 @@ function create_ui() {
 
   StartBalance = parseFloat($("#pct_balance").val()); // Try to add profit readout
     
-  $Stop = $('<button id="c_stop" style="margin-top:32px;margin-left:8px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/bYzWitx.png"></button>');
+  $Stop = $('<button id="c_stop" style="margin-top:32px;margin-left:8px;">Stop</button>');
   $Stop.click(function() {
   running = false;
   });
@@ -379,13 +368,6 @@ function create_ui() {
   $row2.append($guess_amt);
   $row2.append($numz7);
   
-  var $label9 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Stop @</p>');
-  $stop_at = $('<input style="border:1px solid; border-color: #6E6E6E;" id="stop_at" value="0.0000000" />');
-  var $numz8 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">@</p>');
-  $row1.append($label9);
-  $row1.append($stop_at);
-  $row1.append($numz8);
-
   var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #6E6E6E;"/>');
   $fieldset.append($row1);
   $fieldset.append($row2);
