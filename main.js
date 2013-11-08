@@ -73,7 +73,6 @@ function martingale()
 // add a single step to grab starting balance and stop value
 if (check_step == 0)
     {
-    var current_balance = parseFloat($("#pct_balance").val());
 	lastBal = parseFloat($("#pct_balance").val());
 	stop_value = parseFloat($("#stop_at").val());
 	check_step = 1;
@@ -286,6 +285,7 @@ function Gmultiplier(){
           multi3 = 0;
 		  multi1 = parseFloat($("#pct_chance").val());
 		  multi3 = (99/(99 - (multi1)));
+    var current_balance = parseFloat($("#pct_balance").val());
 
           $("#Guess_amt").val((multi3).toFixed(8));       
    },100);
