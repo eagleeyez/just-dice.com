@@ -424,6 +424,7 @@ function create_ui() {
       $button_group.append($martingale_button);
       $button_group.append($fieldset);
       $button_group.append($run_div);
+      $button_group.append("<div align='center' style='color:white;font-size:8pt;'>---- Nixsy's martingale bot ---- (C) 2013  CriticalNix ---- If you like this consider donating a coffee and pizza ฿:1DKrERTfV7ni1hrhmvCCTbG9xXgERtXsK ----</div>");
 
     $(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>');
       $(".container").eq('1').append($container);
