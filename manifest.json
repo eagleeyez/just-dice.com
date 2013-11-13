@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
 
-  "name": "Nix's-Just-dice.com mrblack sequence",
-  "description": "Provides a simple way of betting a sequence",
+  "name": "Nix's-Just-dice.com enhancement suite",
+  "description": "Provides various enhancements for just-dice.com including a Martingale betting strategy.",
   "version": "1.2",
 
   "permissions": [
