@@ -525,7 +525,7 @@ $(document).ready(function () {
       
       bust_chance();
       
-      bet_delay_loop();
+      //bet_delay_loop();
     
        //set the balance
        //when the balance changes and we're martingaling
