@@ -338,6 +338,7 @@ function create_ui() {
       $Stop = $('<button id="c_stop" style="margin-top:32px;margin-left:8px;">Stop</button>');
       $Stop.click(function () {
           running = false;
+          $("#pct_bet").val(start_bet);
           
     });
       $run_div.append($Stop);
