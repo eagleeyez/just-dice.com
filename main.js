@@ -64,6 +64,26 @@ snd.play();
 snd.currentTime = 0;
 }
 
+function bet_delay_loop(){
+ 
+setInterval(function () {
+ 
+    if ((strategy[(current_steps)]).val > 0.00100000){
+        bet_delay = 200;
+    } else if ((strategy[(current_steps)]).val > 0.00010000 && (strategy[(current_steps)]).val < 0.00100000){
+        bet_delay = 500;
+    } else if ((strategy[(current_steps)]).val > 0.00001000 && (strategy[(current_steps)]).val < 0.00010000){
+        bet_delay = 700;
+    } else if ((strategy[(current_steps)]).val > 0.00000100 && (strategy[(current_steps)]).val < 0.00001000){
+        bet_delay = 900;
+    } else if ((strategy[(current_steps)]).val > 0.00000010 && (strategy[(current_steps)]).val < 0.00000100){
+        bet_delay = 1100;
+    } else {
+        bet_delay = 1400;
+    }
+}, 800);
+}
+
 function Gmultiplier() {
      
       setInterval(function () { //update suggested multiplier
@@ -504,6 +524,8 @@ $(document).ready(function () {
       Gmultiplier();
       
       bust_chance();
+      
+      bet_delay_loop();
     
        //set the balance
        //when the balance changes and we're martingaling
