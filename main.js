@@ -48,6 +48,7 @@ var yin_yang = 0; //counting wins
 var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
 var bet_total = 0; //Total bets
+var new_val = 0.00000001;
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
@@ -59,29 +60,13 @@ var losses = 0;
 var lastWin = new Date().getTime();
 var profitPerMS = 0;
 
-function s_beep(){
-snd.play();
-snd.currentTime = 0;
-}
-
-function bet_delay_loop(){
- 
-setInterval(function () {
- 
-    if ((strategy[(current_steps)]).val > 0.00100000){
-        bet_delay = 200;
-    } else if ((strategy[(current_steps)]).val > 0.00010000 && (strategy[(current_steps)]).val < 0.00100000){
-        bet_delay = 500;
-    } else if ((strategy[(current_steps)]).val > 0.00001000 && (strategy[(current_steps)]).val < 0.00010000){
-        bet_delay = 700;
-    } else if ((strategy[(current_steps)]).val > 0.00000100 && (strategy[(current_steps)]).val < 0.00001000){
-        bet_delay = 900;
-    } else if ((strategy[(current_steps)]).val > 0.00000010 && (strategy[(current_steps)]).val < 0.00000100){
-        bet_delay = 1100;
-    } else {
-        bet_delay = 1400;
-    }
-}, 800);
+function play_sound() {
+	if ($('#sound_check').prop('checked')) {
+		snd.play();
+		snd.currentTime = 0;
+	} else {
+		// empty =)
+	}
 }
 
 function Gmultiplier() {
@@ -361,7 +346,7 @@ function create_ui() {
           $("#pct_bet").val(start_bet);
           
     });
-      $run_div.append($Stop);
+      $run_div.append($Stop); 
       
       var $row1 = $('<div class="row"/>');
       var $label1 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Multiplier</p>');
@@ -440,6 +425,11 @@ function create_ui() {
       $fieldset.append($row1);
       $fieldset.append($row2);
     $fieldset.append($row3);
+    
+    var $sound_box = $('<div class="row"/>');
+	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Beep on win!</div>')
+    $sound_box.append($sound_c);
+    $fieldset.append($sound_box);  
 
       $button_group.append($martingale_button);
       $button_group.append($fieldset);
@@ -524,8 +514,6 @@ $(document).ready(function () {
       Gmultiplier();
       
       bust_chance();
-      
-      //bet_delay_loop();
     
        //set the balance
        //when the balance changes and we're martingaling
