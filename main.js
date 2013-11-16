@@ -51,6 +51,10 @@ var bet_total = 0; //Total bets
 var new_val = 0.00000001;
 var snd = new Audio('http://www.soundjay.com/button/sounds/beep-7.mp3');
 var coin_drop = new Audio('http://www.soundjay.com/misc/sounds/coin-drop-1.mp3');
+var win1 = 0;
+var lose1 = 0;
+var max_win = 0;
+var max_loss = 0;
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
@@ -69,6 +73,28 @@ function play_sound() {
 	} else {
 		// empty =)
 	}
+}
+
+function max_loss_streak() {
+	setInterval(function () {
+		if (lose1 > max_loss) {
+			max_loss++;
+            $("#max_loss").val(max_loss);
+		} else {
+			// nothing here move along XD
+		}
+	}, 800);
+}
+
+function max_win_streak() {
+	setInterval(function () {
+		if (win1 > max_win) {
+			max_win++;
+            $("#max_win").val(max_win);
+		} else {
+			// nothing here move along XD
+		}
+	}, 800);
 }
 
 function Gmultiplier() {
@@ -139,6 +165,8 @@ function martingale() {
                          current_steps = 1;
                             current_steps++;
                 bet_total++;
+                lose1++;
+                win1 = 0;
                             $("#a_hi").trigger('click');
                 $("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
                 $("#pro_fits").val((profit).toFixed(8)); //Update Profit
@@ -176,6 +204,8 @@ function martingale() {
                 current_bet_num++;
                 yin_yang++;
                 bet_total++;
+                lose1 = 0;
+                win1++;
                             $("#a_hi").trigger('click');
                 $("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
                 $("#pro_fits").val((profit).toFixed(8)); //Update Profit
@@ -213,6 +243,8 @@ function martingale() {
                         current_steps++;
             current_bet_num++;
             bet_total++;
+            lose1++;
+            win1 = 0;
                         $("#a_hi").trigger('click');
                 
         } //end of loss step
@@ -266,7 +298,7 @@ function ping_user() {
                
                 var new_str = log.html();
                 var arr = new Array();
-                arr = new_str.split('<br>');
+                arr = new_str.split('<div class="chatline">');
                   if(log.data('length') != arr.length || log.data('length') === 101) {
 
                       var depth;
@@ -321,6 +353,10 @@ function ping_user() {
     }, 100);
 }
 
+function status_message() {
+msg("test message this is a test!");
+}
+
 function create_ui() {
 
       var $container = $('<div id="chipper" class="container"/>');
@@ -350,7 +386,13 @@ function create_ui() {
           
     });
       $run_div.append($Stop); 
-      
+/*    
+      $test = $('<button id="c_test" style="margin-top:32px;margin-left:8px;">test</button>');
+      $test.click(function () {
+         status_message();
+    });
+      $run_div.append($test); 
+*/    
       var $row1 = $('<div class="row"/>');
       var $label1 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Multiplier</p>');
       $multiplier = $('<input style="border:1px solid; border-color: #6E6E6E;" id="multiplier" value="2.1"/>');
@@ -423,16 +465,32 @@ function create_ui() {
       $row1.append($label9);
       $row1.append($magic_amt);
     $row1.append($numz8);
+    
+      var $row4 = $('<div class="row"/>');
+      var $label10 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max win</p>');
+      $max_win = $('<input style="border:1px solid; border-color: #6E6E6E;" id="max_win" value="0" class="readonly" />');
+    var $numz9 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+      $row4.append($label10);
+      $row4.append($max_win);
+    $row4.append($numz9);
+    
+      var $label11 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max loss</p>');
+      $max_loss = $('<input style="border:1px solid; border-color: #6E6E6E;" id="max_loss" value="0" class="readonly" />');
+    var $numz10 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+      $row4.append($label11);
+      $row4.append($max_loss);
+    $row4.append($numz10);
 
       var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #6E6E6E;"/>');
       $fieldset.append($row1);
       $fieldset.append($row2);
     $fieldset.append($row3);
+    $fieldset.append($row4);
     
     var $sound_box = $('<div class="row"/>');
 	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Beep on win!</div>')
     $sound_box.append($sound_c);
-    $fieldset.append($sound_box);  
+    $row4.append($sound_box);  
 
       $button_group.append($martingale_button);
       $button_group.append($fieldset);
