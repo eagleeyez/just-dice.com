@@ -49,12 +49,14 @@ var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
 var bet_total = 0; //Total bets
 var new_val = 0.00000001;
+var snd = new Audio('http://www.soundjay.com/button/sounds/beep-7.mp3');
+var coin_drop = new Audio('http://www.soundjay.com/misc/sounds/coin-drop-1.mp3');
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
 $('.button_inner_group:nth(2)').append(
-           '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
-           '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
+	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
+	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
 var losses = 0;
 var lastWin = new Date().getTime();
@@ -146,6 +148,7 @@ function martingale() {
              //end of reset loss step
         else if (curr_bal > bal.data('oldVal')) //This is win step
                  {
+                        play_sound();
                         current_steps = 1;
                 current_bet_num = 0;
                         $("#pct_bet").val(start_bet);
