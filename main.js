@@ -575,6 +575,10 @@ $(document).ready(function () {
       Gmultiplier();
       
       bust_chance();
+      
+      max_loss_streak();
+      
+      max_win_streak();
     
        //set the balance
        //when the balance changes and we're martingaling
