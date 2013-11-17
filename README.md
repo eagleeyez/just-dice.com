@@ -5,11 +5,6 @@ This is a chrome extension that provides various enhancements to just-dice.com. 
 
 THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN YOU ARE WILLING TO LOSE AS YOUR BALANCE.
 
-
-THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. THE OWNER OF JUST-DICE DOES NOT ENDORSE BOTS
-
-AND AT THE SAME TIME DOES NOT FORBID THEIR USE.
-
 ------------
 Installation
 ------------
@@ -57,3 +52,9 @@ This is a donation link to the original developer (Darby999). This script is his
 More information About this bot can be found here http://criticalnix.github.io/just-dice.com/ and here http://bitcoinproject.net/just-dice-casino/chrome-extension
 
 
+Notice
+------
+
+THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. THE OWNER OF JUST-DICE DOES NOT ENDORSE BOTS
+
+AND AT THE SAME TIME DOES NOT FORBID THEIR USE.
