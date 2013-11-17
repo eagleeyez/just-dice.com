@@ -453,10 +453,9 @@ function create_ui() {
 	});
 }
 
-function appendheaderfooter() {
-	var header = "<div style='position:fixed;top:0px;background-color:green;'>win</div>";
-	var footer = "<div style='position:fixed;bottom:0px;background-color:red;'>lose</div>"
-		$("body").append(header + footer);
+function appendVersion() {
+	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.0</div>"
+		$("body").append(footer);
 }
 
 function set_run() {
@@ -518,6 +517,8 @@ $(document).ready(function () {
 	max_loss_streak();
 
 	max_win_streak();
+    
+    appendVersion();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
