@@ -330,10 +330,10 @@ function create_ui() {
 	  var $button_group = $('<div style="width:99%;background-color:#878787;border:2px solid; border-color: #6E6E6E;" class="button_group"/>');
 	  $container.append($button_group);
 
-	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:25px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/e3LQ30h.png"></button>');
+	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:38px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/e3LQ30h.png"></button>');
 
 	  var $run_div = $('<div class="button_inner_group"/>');
-	  $run = $('<button id="c_run" style="margin-top:32px;margin-left:8px;">Go</button>');
+	  $run = $('<button id="c_run" style="margin-top:50px;margin-left:8px;">Go</button>');
 
 	  $run.click(function () {
 		        running = true;
@@ -345,7 +345,7 @@ function create_ui() {
 
 	StartBalance = parseFloat($("#pct_balance").val()); // Try to add profit readout
 	    
-	  $Stop = $('<button id="c_stop" style="margin-top:32px;margin-left:8px;">Stop</button>');
+	  $Stop = $('<button id="c_stop" style="margin-top:50px;margin-left:8px;">Stop</button>');
 	  $Stop.click(function () {
 		  running = false;
 		  $("#pct_bet").val(start_bet);
@@ -463,7 +463,7 @@ function create_ui() {
 	$fieldset.append($row4);
 
 	var $sound_box = $('<div class="row"/>');
-	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Beep on win!</div>')
+	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> play sound on win!</div>')
 		$sound_box.append($sound_c);
 	$row4.append($sound_box);
     
