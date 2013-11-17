@@ -285,70 +285,6 @@ function tabber() {
                 $('<li>').append($('<a>').text('Bot-Help').attr('href', '#Nixsy9')).appendTo('.tabs');
 };
 
-function ping_user() {
-
-      var log = $(".chatlog");
-      log.data('oldVal', log.html());
-      log.data('length', 0);
-      setInterval(function () {
-               
-                var new_str = log.html();
-                var arr = new Array();
-                arr = new_str.split('<div class="chatline">');
-                  if(log.data('length') != arr.length || log.data('length') === 101) {
-
-                      var depth;
-                      if(log.data('length') === 101) {
-                console.log('here');
-                depth = 0;
-            }
-                      else depth = arr.length - 2;
-
-                       //if this is the first time we'll look at every line,
-                       //otherwise we'll just do the last (which is arr.length - 2)
-                      for(var line_count = depth; line_count < arr.length - 1; line_count++)
-                       {
-
-                            var line = arr[line_count];
-                            if(typeof line !== 'undefined') {
-
-                                    var line_items = line.split(' ');
-                                    var username = $('#login span:first-child').text();
-                                    var pos = line_items.indexOf(username, 3);
-                                    if(pos >= 0) {
-                                            line_items[pos] = line_items[pos].replace(username,
-                                                         '<span style="color:red;font-weight:bold;">' + username + '</span>');
-
-                                            var new_line = line_items.join(' ');
-                                            arr[line_count] = new_line;
-                                        
-                    }
-
-                                     //ignore
-                                    var i;
-                                    for(i = 0; i < arr_ignore.length; i++) {
-                                            var ignore_user = '&lt;' + arr_ignore[i] + '&gt;';
-                                            var ignore_pos = line_items.indexOf(ignore_user, 2);
-                                            console.log('target:' + line_items[2]);
-                                            if(ignore_pos > -1)arr[line_count] = 'ignored';
-                                        
-                    }
-                                
-                } //if undefined
-                        
-            } //for
-
-                      var new_log = arr.join('<br>');
-                      log.html(new_log);
-                         log.data('length', arr.length);
-                      console.log('length: ' + arr.length);
-                      $.playSound('notify.wav');
-                    
-        }
-           
-    }, 100);
-}
-
 function status_message() {
 msg("test message this is a test!");
 }
@@ -565,8 +501,6 @@ $(document).ready(function () {
       console.log('starting');
 
       create_ui();
-
-      ping_user();
       
       bust_chance();
       
