@@ -97,30 +97,26 @@ function max_win_streak() {
 	}, 800);
 }
 
-function Gmultiplier() {
-     
-      setInterval(function () { //update suggested multiplier
-        multi3 = 0;
-        multi1 = parseFloat($("#pct_chance").val());
-        multi3 = (99 / (99 - (multi1)) + 0.1);
-        var current_balance = parseFloat($("#pct_balance").val());
+function bust_chance() { //probability and suggested multiplier 
 
-        $("#Guess_amt").val((multi3).toFixed(8));
-               
-           
-    }, 800);
-}
-
-function bust_chance(){ //first time I have tried probability so this could very well be wrong.
-     
-      setInterval(function () {
+	setInterval(function () {
+		//probability
         var ccbust1 = parseFloat($("#pct_chance").val());
-        var ccbust2 = parseFloat($("#steps").val());
-        cBust1 = 1 - ccbust1 / 100;
-        cBust2 = Math.pow(cBust1, ccbust2) * 100;
- 
-        $("#magic_amt").val(cBust2.toFixed(10));
-    }, 800);
+		var ccbust2 = parseFloat($("#steps").val());
+		cBust1 = 1 - ccbust1 / 100;
+		cBust2 = Math.pow(cBust1, ccbust2) * 100;
+        
+		$("#magic_amt").val(cBust2.toFixed(10));
+        
+        //suggested multiplier
+		multi3 = 0;
+		multi1 = parseFloat($("#pct_chance").val());
+		multi3 = (99 / (99 - (multi1)) + 0.1);
+		var current_balance = parseFloat($("#pct_balance").val());
+        
+		$("#Guess_amt").val((multi3).toFixed(8));        
+        
+	}, 800);
 }
 
 function martingale() {
@@ -571,8 +567,6 @@ $(document).ready(function () {
       create_ui();
 
       ping_user();
-
-      Gmultiplier();
       
       bust_chance();
       
