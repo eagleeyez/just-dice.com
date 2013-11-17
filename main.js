@@ -62,10 +62,6 @@ $('.button_inner_group:nth(2)').append(
 	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
 	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
-var losses = 0;
-var lastWin = new Date().getTime();
-var profitPerMS = 0;
-
 function play_sound() {
 	if ($('#sound_check').prop('checked')) {
 		snd.play();
@@ -97,17 +93,7 @@ function max_win_streak() {
 	}, 800);
 }
 
-function simp_variance(){
-	setInterval(function () {
-		//probability
-
-
-		$("#Guess_amt").val((multi3).toFixed(8));
-
-	}, 800);
-}
-
-function bust_chance() { //probability and suggested multiplier
+function bust_chance() { //probability, guess and suggested multiplier
 
 	setInterval(function () {
     
