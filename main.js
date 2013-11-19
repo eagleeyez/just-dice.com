@@ -469,7 +469,7 @@ function create_ui() {
 	$row4.append($sound_box);
     
 	var $rand_box = $('<div class="row"/>');
-	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />hi or lo</div>')
+	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />tick for random hi/lo</div>')
 		$rand_box.append($rand_c);
 	$row4.append($rand_box);
 
