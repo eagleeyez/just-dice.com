@@ -142,12 +142,14 @@ function bust_chance() { //probability, guess and suggested multiplier
 }
 
 function profit_color() {
+var profit = parseFloat($("#pct_balance").val()) - lastBal;
+
 	if (profit > 0) {
-		document.getElementById("pro_fits").style.color = "green";
+		$("#pro_fits").css("color", "green");
 	} else if (profit < 0) {
-		document.getElementById("pro_fits").style.color = "red";
+		$("#pro_fits").css("color", "red");
 	} else {
-		document.getElementById("pro_fits").style.color = "black";
+		$("#pro_fits").css("color", "black");
 	}
 }
 
@@ -198,6 +200,7 @@ function martingale() { //the main martingale function
 
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+                profit_color();
 				$("#Bet_amt").val(bet_total); //Update bet counter
 				        
 			}
@@ -238,6 +241,7 @@ function martingale() { //the main martingale function
 
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+                profit_color();
 				$("#Bet_amt").val(bet_total); //Update bet counter
 				        
 			} //end of win step
@@ -266,6 +270,7 @@ function martingale() { //the main martingale function
 			            $("#pct_bet").val(new_val);
 			$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 			$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+            profit_color();
 			$("#Bet_amt").val(bet_total); //Update bet counter
 
 			             //Increase the steps
