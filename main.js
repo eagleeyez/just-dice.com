@@ -57,8 +57,8 @@ var max_loss = 0;
 var current_win_per = 0;
 var rndhilo = 1;
 
-function appendVersion() { 
-	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.2</div>"
+function appendVersion() {
+	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.3</div>"
 		$("body").append(footer);
 }
 
@@ -76,9 +76,9 @@ function simp_rand() { //simple random function to select from hi or lo
 		} else {
 			$("#a_lo").trigger('click');
 		}
-	}else {
-        $("#a_hi").trigger('click');
-    }
+	} else {
+		$("#a_hi").trigger('click');
+	}
 }
 
 function play_sound() {
@@ -115,7 +115,7 @@ function max_win_streak() { //function to update longest win streak
 function bust_chance() { //probability, guess and suggested multiplier
 
 	setInterval(function () {
-    
+
 		//probability
 		var ccbust1 = parseFloat($("#pct_chance").val());
 		var ccbust2 = parseFloat($("#steps").val());
@@ -130,25 +130,24 @@ function bust_chance() { //probability, guess and suggested multiplier
 		var current_balance = parseFloat($("#pct_balance").val());
 
 		$("#Guess_amt").val((multi3).toFixed(8));
-        
-        //win guess
-        if (yin_yang2 > ccbust1){
-            $("#var_guess").val('expect -');
-        }
-        else if (yin_yang2 < ccbust1){
-            $("#var_guess").val('expect +');
-        }
+
+		//win guess
+		if (yin_yang2 > ccbust1) {
+			$("#var_guess").val('expect -');
+		} else if (yin_yang2 < ccbust1) {
+			$("#var_guess").val('expect +');
+		}
 
 	}, 800);
 }
 
 function profit_color() {
 	if (profit > 0) {
-		document.getElementById("pro_fits").style.color="green";
+		document.getElementById("pro_fits").style.color = "green";
 	} else if (profit < 0) {
-		document.getElementById("pro_fits").style.color="red";
+		document.getElementById("pro_fits").style.color = "red";
 	} else {
-		document.getElementById("pro_fits").style.color="black";
+		document.getElementById("pro_fits").style.color = "black";
 	}
 }
 
@@ -191,11 +190,11 @@ function martingale() { //the main martingale function
 
 				             //Increase the steps
 				         current_steps = 1;
-				            //current_steps++;
+				             //current_steps++;
 				bet_total++;
 				lose1++;
 				win1 = 0;
-                            simp_rand();
+				simp_rand();
 
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
@@ -235,7 +234,7 @@ function martingale() { //the main martingale function
 				bet_total++;
 				lose1 = 0;
 				win1++;
-                            simp_rand();
+				simp_rand();
 
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
@@ -275,13 +274,13 @@ function martingale() { //the main martingale function
 			bet_total++;
 			lose1++;
 			win1 = 0;
-                            simp_rand();
+			simp_rand();
 
 		} //end of loss step
 
 		     //otherwise we go back to the start
 		    else { //This is bust step
-            var profit = parseFloat($("#pct_balance").val()) - lastBal;
+			var profit = parseFloat($("#pct_balance").val()) - lastBal;
 			yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 			      current_steps = 1;
 			current_bet_num = 0;
@@ -289,7 +288,7 @@ function martingale() { //the main martingale function
 			$("#win_lose").val((yin_yang2).toFixed(2));
 			$("#pro_fits").val((profit).toFixed(8));
 			      running = false;
-            alert("Bot has bust !!");
+			alert("Bot has bust !!");
 			    
 		} //end of bust step
 
@@ -467,7 +466,7 @@ function create_ui() {
 	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> play sound on win!</div>')
 		$sound_box.append($sound_c);
 	$row4.append($sound_box);
-    
+
 	var $rand_box = $('<div class="row"/>');
 	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />tick for random hi/lo</div>')
 		$rand_box.append($rand_c);
@@ -548,8 +547,8 @@ $(document).ready(function () {
 	max_loss_streak();
 
 	max_win_streak();
-    
-    appendVersion();
+
+	appendVersion();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
