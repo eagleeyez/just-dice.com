@@ -91,6 +91,7 @@ function play_sound() {
 }
 
 function max_loss_streak() { // function to update longest loss streak
+$("#max_loss").css("color", "red");
 	setInterval(function () {
 		if (lose1 > max_loss) {
 			max_loss++;
@@ -102,6 +103,7 @@ function max_loss_streak() { // function to update longest loss streak
 }
 
 function max_win_streak() { //function to update longest win streak
+$("#max_win").css("color", "green");
 	setInterval(function () {
 		if (win1 > max_win) {
 			max_win++;
