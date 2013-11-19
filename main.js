@@ -91,6 +91,7 @@ function play_sound() {
 }
 
 function max_loss_streak() { // function to update longest loss streak
+$("#max_loss").css("color", "red");
 	setInterval(function () {
 		if (lose1 > max_loss) {
 			max_loss++;
@@ -102,6 +103,7 @@ function max_loss_streak() { // function to update longest loss streak
 }
 
 function max_win_streak() { //function to update longest win streak
+$("#max_win").css("color", "green");
 	setInterval(function () {
 		if (win1 > max_win) {
 			max_win++;
@@ -134,9 +136,11 @@ function bust_chance() { //probability, guess and suggested multiplier
 		//win guess
 		if (yin_yang2 > ccbust1) {
 			$("#var_guess").val('expect -');
+            $("#win_lose").css("color", "green");
             $("#var_guess").css("color", "red");
 		} else if (yin_yang2 < ccbust1) {
 			$("#var_guess").val('expect +');
+            $("#win_lose").css("color", "red");
             $("#var_guess").css("color", "green");
 		}
 
