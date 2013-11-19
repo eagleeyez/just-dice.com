@@ -69,12 +69,15 @@ $('.button_inner_group:nth(2)').append(
 	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
 function simp_rand() { //simple random function to select from hi or lo
-if ($('#rand_check').prop('checked')){
-	var hilo = ['1', '0', '1', '0'];
-	var random = Math.floor(Math.random() * hilo.length);
-	var rndhilo = hilo[random];
-    } else {
-    var rndhilo = 1
+	var rndhilo = Math.random() < 0.5 ? 1 : 0;
+	if ($('#rand_check').prop('checked')) {
+		if (rndhilo == 1) {
+			$("#a_hi").trigger('click');
+		} else {
+			$("#a_lo").trigger('click');
+		}
+	}else {
+        $("#a_hi").trigger('click');
     }
 }
 
@@ -139,6 +142,16 @@ function bust_chance() { //probability, guess and suggested multiplier
 	}, 800);
 }
 
+function profit_color() {
+	if (profit > 0) {
+		document.getElementById("pro_fits").style.color="green";
+	} else if (profit < 0) {
+		document.getElementById("pro_fits").style.color="red";
+	} else {
+		document.getElementById("pro_fits").style.color="black";
+	}
+}
+
 function martingale() { //the main martingale function
 
 	                
@@ -178,16 +191,12 @@ function martingale() { //the main martingale function
 
 				             //Increase the steps
 				         current_steps = 1;
-				            current_steps++;
+				            //current_steps++;
 				bet_total++;
 				lose1++;
 				win1 = 0;
                             simp_rand();
-                            if (rndhilo == 1) {
-                            	            $("#a_hi").trigger('click');
-                            } else {
-                            	$("#a_lo").trigger('click');
-                            }
+
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
 				$("#Bet_amt").val(bet_total); //Update bet counter
@@ -220,18 +229,14 @@ function martingale() { //the main martingale function
 				$("#win_lose").val(yin_yang);
 
 				             //Increase the steps
-				            current_steps++;
+				current_steps++;
 				current_bet_num++;
 				yin_yang++;
 				bet_total++;
 				lose1 = 0;
 				win1++;
                             simp_rand();
-                            if (rndhilo == 1) {
-                            	            $("#a_hi").trigger('click');
-                            } else {
-                            	$("#a_lo").trigger('click');
-                            }
+
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
 				$("#Bet_amt").val(bet_total); //Update bet counter
@@ -241,7 +246,7 @@ function martingale() { //the main martingale function
 		        
 		    else if ($.isNumeric($multiplier.val()) && // This is loss step
 			             $.isNumeric($steps.val()) &&
-			            (current_steps < $steps.val())) {
+			            ((current_steps - 1) < $steps.val())) {
 
 			             //Increase our bet by the multiplier
 			var profit = parseFloat($("#pct_balance").val()) - lastBal;
@@ -265,23 +270,18 @@ function martingale() { //the main martingale function
 			$("#Bet_amt").val(bet_total); //Update bet counter
 
 			             //Increase the steps
-			            current_steps++;
+			current_steps++;
 			current_bet_num++;
 			bet_total++;
 			lose1++;
 			win1 = 0;
                             simp_rand();
-                            if (rndhilo == 1) {
-                            	            $("#a_hi").trigger('click');
-                            } else {
-                            	$("#a_lo").trigger('click');
-                            }
-			    
+
 		} //end of loss step
 
 		     //otherwise we go back to the start
 		    else { //This is bust step
-
+            var profit = parseFloat($("#pct_balance").val()) - lastBal;
 			yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 			      current_steps = 1;
 			current_bet_num = 0;
@@ -289,6 +289,7 @@ function martingale() { //the main martingale function
 			$("#win_lose").val((yin_yang2).toFixed(2));
 			$("#pro_fits").val((profit).toFixed(8));
 			      running = false;
+            alert("Bot has bust !!");
 			    
 		} //end of bust step
 
@@ -307,7 +308,7 @@ function martingale() { //the main martingale function
 
 // A little bit of a help file.
 function tabber() {
-	        var markup = '<div class="bot-stats"><p><img src="http://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show/Hide </u></strong>Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. This is the first time I have wrote anything in javascript using probability. it could be wrong. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streaklength.</p><p><u><strong>Guess</strong></u>This is a fun little readout that looks at current win percentage vs chance to win and says expect + if it is under and expect - if it is over. This is not a reliable way to predict bets it is just for fun.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born.</p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #6E6E6E;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A> </p><div class="bot-foot">';
+	        var markup = '<div class="bot-stats"><p><img src="http://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show/Hide </u></strong>Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. This is the first time I have wrote anything in javascript using probability. it could be wrong. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streaklength.</p><p><u><strong>Guess</strong></u>This is a fun little readout that looks at current win percentage vs chance to win and says expect + if it is under and expect - if it is over. This is not a reliable way to predict bets it is just for fun.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born.</p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A> </p><div class="bot-foot">';
 	                $panelWrapper = $('<div>').attr('id', 'Nixsy9').css({
 			display : 'none'
 		}).insertAfter('#faq'),
@@ -354,7 +355,7 @@ function create_ui() {
 
 	  $run_div.append($Stop);
 	/*
-	  $test = $('<button id="c_test" style="margin-top:32px;margin-left:8px;">test</button>');
+	  $test = $('<button id="c_test" style="margin-top:50px;margin-left:8px;">test</button>');
 	  $test.click(function () {
 	  test1();
 	});
@@ -362,101 +363,101 @@ function create_ui() {
 	 */
 	  
 	  var $row1 = $('<div class="row"/>');
-	  var $label1 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Multiplier</p>');
-	  $multiplier = $('<input style="border:1px solid; border-color: #6E6E6E;" id="multiplier" value="2.1"/>');
+	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
+	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
 	  $multiplier.keyup(function () {
 		set_run();
 	});
-	  var $x = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">x</p>');
+	  var $x = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">x</p>');
 	  $row1.append($label1);
 	  $row1.append($multiplier);
 	  $row1.append($x);
 
 	  var $row2 = $('<div class="row"/>');
-	  var $label2 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max losses</p>');
-	  $steps = $('<input style="border:1px solid; border-color: #6E6E6E;" id="steps" value="17"/>');
+	  var $label2 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max losses</p>');
+	  $steps = $('<input style="border:1px solid; border-color: #505050;" id="steps" value="17"/>');
 	  $steps.keyup(function () {
 		set_run();
 	});
-	  var $numz = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+	  var $numz = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">#</p>');
 	  $row2.append($label2);
 	  $row2.append($steps);
 	  $row2.append($numz);
 	 
 	  var $row3 = $('<div class="row"/>');
 	 
-	  var $label3 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Reset loss</p>');
-	  $delay = $('<input style="border:1px solid; border-color: #6E6E6E;" id="updateInterval" value="16"/>');
-	var $numz2 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">!</p>');
+	  var $label3 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Reset loss</p>');
+	  $delay = $('<input style="border:1px solid; border-color: #505050;" id="updateInterval" value="16"/>');
+	var $numz2 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">!</p>');
 	  $row1.append($label3);
 	  $row1.append($delay);
 	$row1.append($numz2);
 
-	  var $label4 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Reset %</p>');
-	  $percentage = $('<input style="border:1px solid; border-color: #6E6E6E;" id="updateInterval" value="1"/>');
-	var $numz3 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">%</p>');
+	  var $label4 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Reset %</p>');
+	  $percentage = $('<input style="border:1px solid; border-color: #505050;" id="updateInterval" value="1"/>');
+	var $numz3 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">%</p>');
 	  $row2.append($label4);
 	  $row2.append($percentage);
 	$row2.append($numz3);
 
-	  var $label5 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Profit</p>');
-	  $test_bet = $('<input style="border:1px solid; border-color: #6E6E6E;" id="pro_fits" value="0" class="readonly"/>');
-	var $numz4 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">฿</p>');
+	  var $label5 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Profit</p>');
+	  $test_bet = $('<input style="border:1px solid; border-color: #505050;" id="pro_fits" value="0" class="readonly"/>');
+	var $numz4 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
 	  $row3.append($label5);
 	  $row3.append($test_bet);
 	$row3.append($numz4);
 
-	  var $label6 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Win %</p>');
-	  $test_betS = $('<input style="border:1px solid; border-color: #6E6E6E;" id="win_lose" value="0" class="readonly"/>');
-	var $numz5 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">%</p>');
+	  var $label6 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Win %</p>');
+	  $test_betS = $('<input style="border:1px solid; border-color: #505050;" id="win_lose" value="0" class="readonly"/>');
+	var $numz5 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">%</p>');
 	  $row3.append($label6);
 	  $row3.append($test_betS);
 	$row3.append($numz5);
 
-	  var $label7 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Bets</p>');
-	  $Bet_amt = $('<input style="border:1px solid; border-color: #6E6E6E;" id="Bet_amt" value="0" class="readonly" />');
-	var $numz6 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+	  var $label7 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Bets</p>');
+	  $Bet_amt = $('<input style="border:1px solid; border-color: #505050;" id="Bet_amt" value="0" class="readonly" />');
+	var $numz6 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">#</p>');
 	  $row3.append($label7);
 	  $row3.append($Bet_amt);
 	$row3.append($numz6);
 
-	  var $label8 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Suggested x</p>');
-	  $guess_amt = $('<input style="border:1px solid; border-color: #6E6E6E;" id="Guess_amt" value="0" class="readonly" />');
-	var $numz7 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">x</p>');
+	  var $label8 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Suggested x</p>');
+	  $guess_amt = $('<input style="border:1px solid; border-color: #505050;" id="Guess_amt" value="0" class="readonly" />');
+	var $numz7 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">x</p>');
 	  $row2.append($label8);
 	  $row2.append($guess_amt);
 	$row2.append($numz7);
 
-	  var $label9 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Probability</p>');
-	  $magic_amt = $('<input style="border:1px solid; border-color: #6E6E6E;" id="magic_amt" value="0" class="readonly" />');
-	var $numz8 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">%</p>');
+	  var $label9 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Probability</p>');
+	  $magic_amt = $('<input style="border:1px solid; border-color: #505050;" id="magic_amt" value="0" class="readonly" />');
+	var $numz8 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">%</p>');
 	  $row1.append($label9);
 	  $row1.append($magic_amt);
 	$row1.append($numz8);
 
 	var $row4 = $('<div class="row"/>');
-	  var $label10 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max win</p>');
-	  $max_win = $('<input style="border:1px solid; border-color: #6E6E6E;" id="max_win" value="0" class="readonly" />');
-	var $numz9 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+	  var $label10 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max win</p>');
+	  $max_win = $('<input style="border:1px solid; border-color: #505050;" id="max_win" value="0" class="readonly" />');
+	var $numz9 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">#</p>');
 	  $row4.append($label10);
 	  $row4.append($max_win);
 	$row4.append($numz9);
 
-	  var $label11 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Max loss</p>');
-	  $max_loss = $('<input style="border:1px solid; border-color: #6E6E6E;" id="max_loss" value="0" class="readonly" />');
-	var $numz10 = $('<p style="margin-right:15px;border:1px solid; border-color: #6E6E6E;" class="rlabel">#</p>');
+	  var $label11 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max loss</p>');
+	  $max_loss = $('<input style="border:1px solid; border-color: #505050;" id="max_loss" value="0" class="readonly" />');
+	var $numz10 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">#</p>');
 	  $row4.append($label11);
 	  $row4.append($max_loss);
 	$row4.append($numz10);
 
-	  var $label12 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="llabel">Guess</p>');
-	  $mar_pause = $('<input style="border:1px solid; border-color: #6E6E6E;" id="var_guess" value="0" class="readonly" />');
-	var $numz11 = $('<p style="border:1px solid; border-color: #6E6E6E;" class="rlabel">?</p>');
+	  var $label12 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Guess</p>');
+	  $mar_pause = $('<input style="border:1px solid; border-color: #505050;" id="var_guess" value="0" class="readonly" />');
+	var $numz11 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">?</p>');
 	  $row4.append($label12);
 	  $row4.append($mar_pause);
 	$row4.append($numz11);
 
-	  var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #6E6E6E;"/>');
+	  var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
 	  $fieldset.append($row1);
 	  $fieldset.append($row2);
 	$fieldset.append($row3);
@@ -468,7 +469,7 @@ function create_ui() {
 	$row4.append($sound_box);
     
 	var $rand_box = $('<div class="row"/>');
-	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" /> Random hi/lo</div>')
+	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />hi or lo</div>')
 		$rand_box.append($rand_c);
 	$row4.append($rand_box);
 
