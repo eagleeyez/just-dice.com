@@ -134,8 +134,10 @@ function bust_chance() { //probability, guess and suggested multiplier
 		//win guess
 		if (yin_yang2 > ccbust1) {
 			$("#var_guess").val('expect -');
+            $("#var_guess").css("color", "red");
 		} else if (yin_yang2 < ccbust1) {
 			$("#var_guess").val('expect +');
+            $("#var_guess").css("color", "green");
 		}
 
 	}, 800);
