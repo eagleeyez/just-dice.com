@@ -661,13 +661,6 @@ $(document).ready(function () {
 		   
 	}, 100);
 
-	   //set our array list
-	  chrome.storage.sync.get('ignore', function (val) {
-		    arr_ignore = val["ignore"].split(',');
-		    console.log('local storage: ' + val["ignore"]);
-		  
-	});
-
 	 $(document).keydown(function (e) {
 		    var ctrlDown = false;
 		    var ctrlKey = 17,
