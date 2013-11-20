@@ -39,7 +39,7 @@ var $multiplier;
 var $steps;
 var $run;
 var running = false; //If set to true the script will start when the page loads
-var arr_ignore = new Array(); //create an array to include ignored users
+var arr_bets = new Array(); //create an array to store bets in.
 var timer_num = 1400; //Timer delay between bets. 1000 = 1 second.
 var current_bet_num = 0; //Steps counter used to find reset loss
 var lastBal = 0; //balance that is grabbed in check_step
@@ -56,9 +56,10 @@ var max_win = 0;
 var max_loss = 0;
 var current_win_per = 0;
 var rndhilo = 1;
+var today = "";
 
 function appendVersion() {
-	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.3</div>"
+	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.4</div>"
 		$("body").append(footer);
 }
 
@@ -91,7 +92,7 @@ function play_sound() {
 }
 
 function max_loss_streak() { // function to update longest loss streak
-$("#max_loss").css("color", "red");
+	$("#max_loss").css("color", "red");
 	setInterval(function () {
 		if (lose1 > max_loss) {
 			max_loss++;
@@ -103,7 +104,7 @@ $("#max_loss").css("color", "red");
 }
 
 function max_win_streak() { //function to update longest win streak
-$("#max_win").css("color", "green");
+	$("#max_win").css("color", "green");
 	setInterval(function () {
 		if (win1 > max_win) {
 			max_win++;
@@ -136,19 +137,19 @@ function bust_chance() { //probability, guess and suggested multiplier
 		//win guess
 		if (yin_yang2 > ccbust1) {
 			$("#var_guess").val('expect -');
-            $("#win_lose").css("color", "green");
-            $("#var_guess").css("color", "red");
+			$("#win_lose").css("color", "green");
+			$("#var_guess").css("color", "red");
 		} else if (yin_yang2 < ccbust1) {
 			$("#var_guess").val('expect +');
-            $("#win_lose").css("color", "red");
-            $("#var_guess").css("color", "green");
+			$("#win_lose").css("color", "red");
+			$("#var_guess").css("color", "green");
 		}
 
 	}, 800);
 }
 
 function profit_color() {
-var profit = parseFloat($("#pct_balance").val()) - lastBal;
+	var profit = parseFloat($("#pct_balance").val()) - lastBal;
 
 	if (profit > 0) {
 		$("#pro_fits").css("color", "green");
@@ -157,6 +158,60 @@ var profit = parseFloat($("#pct_balance").val()) - lastBal;
 	} else {
 		$("#pro_fits").css("color", "black");
 	}
+}
+
+
+
+function gets_date() { //gets the current date
+	var now = new Date();
+	var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
+
+	//Pad given value to the left with "0"
+	function AddZero(num) {
+		return (num >= 0 && num < 10) ? "0" + num : num + "";
+	}
+	arr_bets.push(strDateTime + '----');
+}
+
+function save_to_file() { //saves information to a .bin file that can be opened with notepad
+	gets_date();
+	window.webkitRequestFileSystem(window.TEMPORARY, 1024 * 1024, function (fs) {
+		fs.root.getFile('open-with-notepad.bin', {
+			create : true
+		}, function (fileEntry) {
+			fileEntry.createWriter(function (fileWriter) {
+
+				var blob = new Blob([arr_bets]);
+
+				fileWriter.addEventListener("writeend", function () {
+					// navigate to file, will download
+					location.href = fileEntry.toURL();
+				}, false);
+
+				fileWriter.write(blob);
+			}, function () {});
+		}, function () {});
+	}, function () {});
+}
+// end of get date and save to file
+
+function popArray() { //populate bet array with the information we want.
+	if (check_step == 0)
+		     {
+			lastBal = parseFloat($("#pct_balance").val());
+			check_step = 1;
+			        
+		}
+	else {
+		arr_bets.push('Bet#-' + bet_total + ',');
+		var c_balance = parseFloat($("#pct_balance").val());
+		arr_bets.push('Balance-' + c_balance + ',');
+		var profit = c_balance - lastBal;
+		arr_bets.push('profit-' + profit + ',');
+		var c_chance = parseFloat($("#pct_chance").val());
+		arr_bets.push('chance-' + c_chance + ',');
+	}
+
 }
 
 function martingale() { //the main martingale function
@@ -203,10 +258,10 @@ function martingale() { //the main martingale function
 				lose1++;
 				win1 = 0;
 				simp_rand();
-
+				popArray();
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
-                profit_color();
+				profit_color();
 				$("#Bet_amt").val(bet_total); //Update bet counter
 				        
 			}
@@ -244,10 +299,10 @@ function martingale() { //the main martingale function
 				lose1 = 0;
 				win1++;
 				simp_rand();
-
+				popArray();
 				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
-                profit_color();
+				profit_color();
 				$("#Bet_amt").val(bet_total); //Update bet counter
 				        
 			} //end of win step
@@ -276,7 +331,7 @@ function martingale() { //the main martingale function
 			            $("#pct_bet").val(new_val);
 			$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
 			$("#pro_fits").val((profit).toFixed(8)); //Update Profit
-            profit_color();
+			profit_color();
 			$("#Bet_amt").val(bet_total); //Update bet counter
 
 			             //Increase the steps
@@ -286,6 +341,7 @@ function martingale() { //the main martingale function
 			lose1++;
 			win1 = 0;
 			simp_rand();
+			popArray();
 
 		} //end of loss step
 
@@ -299,6 +355,7 @@ function martingale() { //the main martingale function
 			$("#win_lose").val((yin_yang2).toFixed(2));
 			$("#pro_fits").val((profit).toFixed(8));
 			      running = false;
+			save_to_file();
 			alert("Bot has bust !!");
 			    
 		} //end of bust step
@@ -365,12 +422,17 @@ function create_ui() {
 
 	  $run_div.append($Stop);
 	/*
-	  $test = $('<button id="c_test" style="margin-top:50px;margin-left:8px;">test</button>');
+	  $test = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test</button>');
 	  $test.click(function () {
-	  test1();
+	  save_bet();
 	});
 	  $run_div.append($test);
 	 */
+	  $test2 = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test2</button>');
+	  $test2.click(function () {
+		save_to_file();
+	});
+	  $run_div.append($test2);
 	  
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
@@ -625,15 +687,3 @@ $(document).ready(function () {
 	});
 
 });
-
-(function ($) {
-
-	  $.extend({
-		    playSound : function () {
-			      return $("<embed src='" + arguments[0] + "' hidden='true' autostart='true' loop='false' class='playSound'>").appendTo('body');
-			    
-		}
-		  
-	});
-
-})(jQuery);
