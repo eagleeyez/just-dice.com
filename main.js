@@ -63,6 +63,11 @@ function appendVersion() {
 		$("body").append(footer);
 }
 
+function test_css(){ // shows a loaded message in log area
+document.querySelector(".log").innerHTML = "Automated betting system v1.0.4 loaded.";
+setInterval(function(){document.querySelector(".log").innerHTML = " ";},6000);
+}
+
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
 $('.button_inner_group:nth(2)').append(
@@ -630,6 +635,8 @@ $(document).ready(function () {
 	max_win_streak();
 
 	appendVersion();
+    
+    test_css();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
