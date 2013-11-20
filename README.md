@@ -30,18 +30,6 @@ If martingale extension will not allow you to place a bet constructed such that 
 
 If an input box does not have focus you are able to use the 'r' key to run the martingale strategy.
 
-Chat Notification
------------
-The enhancement suite will highlight your username in the chat window when someone types in your name.
-
-Ignore List
------------
-The enhancement suite options page provides the ability to add a comma separated list of users you wish to ignore in the chat. To use this options:
-
-1. Type `chrome://extensions/` into the address bar.
-2. Click on the `options` link for the just-dice enhancement suite.
-3. Enter a comma separate list of users to ignore.
-4. Click Save.
 
 Finally
 -------
