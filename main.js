@@ -67,6 +67,7 @@ function appendVersion() {
 
 $('.button_inner_group:nth(2)').append(
 	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
+	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>').append(
 	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
 function simp_rand() { //simple random function to select from hi or lo
@@ -392,6 +393,14 @@ function status_message() { //test function. =p
 }
 
 function create_ui() {
+
+    var $saver = $('.button_inner_group:nth(2)') 
+    
+    $save = $('<button id="c_save" >Save</button>');
+	  $save.click(function () {
+	save_to_file();
+	});
+	  $saver.append($save); //adds button to manually save bet array
 
 	  var $container = $('<div id="chipper" class="container"/>');
 	var $container2 = $('<div class="container"/>');
