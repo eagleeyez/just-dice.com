@@ -341,7 +341,7 @@ function create_ui() {
 	  var $button_group = $('<div style="width:99%;background-color:#787878 ;border:2px solid; border-color: #505050;" class="button_group"/>');
 	  $container.append($button_group);
 
-	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:44px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/e3LQ30h.png"></button>');
+	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://i.imgur.com/xZALcXD.png"></button>');
 
 	  var $run_div = $('<div style="background-color:#787878;margin-top:50px;border:2px solid; border-color: #505050;" class="button_inner_group"/>');
 	  $run = $('<button id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
