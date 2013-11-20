@@ -63,16 +63,14 @@ function appendVersion() {
 		$("body").append(footer);
 }
 
-function test_css(){ // shows a loaded message in log area
-document.querySelector(".log").innerHTML = "Automated betting system v1.0.4 loaded.";
-setInterval(function(){document.querySelector(".log").innerHTML = " ";},6000);
+function test_css() { // shows a loaded message in log area
+	document.querySelector(".log").innerHTML = "Automated betting system v1.0.4 loaded.";
+	setInterval(function () {
+		document.querySelector(".log").innerHTML = " ";
+	}, 6000);
 }
 
 // Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
-
-$('.button_inner_group:nth(2)').append(
-	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
-	       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
 function simp_rand() { //simple random function to select from hi or lo
 	var rndhilo = Math.random() < 0.5 ? 1 : 0;
@@ -164,8 +162,6 @@ function profit_color() {
 		$("#pro_fits").css("color", "black");
 	}
 }
-
-
 
 function gets_date() { //gets the current date
 	var now = new Date();
@@ -398,11 +394,15 @@ function status_message() { //test function. =p
 
 function create_ui() {
 
-    var $saver = $('.button_inner_group:nth(2)') 
-    
-    $save = $('<button id="c_save" >Save</button>');
+	$('.button_inner_group:nth(2)').append(
+		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
+		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
+
+	var $saver = $('.button_inner_group:nth(2)')
+
+		$save = $('<button id="c_save" >Save</button>');
 	  $save.click(function () {
-	save_to_file();
+		save_to_file();
 	});
 	  $saver.append($save); //adds button to manually save bet array
 
@@ -440,13 +440,14 @@ function create_ui() {
 	  save_bet();
 	});
 	  $run_div.append($test);
-	 
+
 	  $test2 = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test2</button>');
 	  $test2.click(function () {
-		save_to_file();
+	save_to_file();
 	});
 	  $run_div.append($test2);
-	 */ 
+	 */
+	 
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
 	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
@@ -635,8 +636,8 @@ $(document).ready(function () {
 	max_win_streak();
 
 	appendVersion();
-    
-    test_css();
+
+	test_css();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
