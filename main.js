@@ -427,13 +427,13 @@ function create_ui() {
 	  save_bet();
 	});
 	  $run_div.append($test);
-	 */
+	 
 	  $test2 = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test2</button>');
 	  $test2.click(function () {
 		save_to_file();
 	});
 	  $run_div.append($test2);
-	  
+	 */ 
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
 	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
