@@ -35,6 +35,12 @@ If martingale extension will not allow you to place a bet constructed such that 
 
 If an input box does not have focus you are able to use the 'r' key to run the martingale strategy.
 
+The bot currently has 3 chat commands 
+
+1. Bstop: Will stop the bot.
+2. Bstart: Will start bot with values in bot gui.
+3. Commands: Will list off the start and stop command.
+
 
 Finally
 -------
