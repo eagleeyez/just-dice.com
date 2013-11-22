@@ -59,16 +59,17 @@ var max_loss = 0;
 var current_win_per = 0;
 var rndhilo = 1;
 var today = "";
-var user_chk = 1; 
+var user_chk = 1;
+var version_c = "1.0.5";  
 
 
 function appendVersion() {
-	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.4</div>"
+	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version" + (version_c) + " </div>"
 		$("body").append(footer);
 }
 
 function test_css() { // shows a loaded message in log area
-	document.querySelector(".log").innerHTML = "Automated betting system v1.0.4 loaded.";
+	document.querySelector(".log").innerHTML = "Automated betting system" + (version_c) + " loaded.";
 	setInterval(function () {
 		document.querySelector(".log").innerHTML = " ";
 	}, 6000);
