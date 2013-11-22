@@ -11,7 +11,7 @@ Installation
 
 1. This is an extension for Chrome. It will only install on Chrome.
 2. Download the repository to a directory of your choice.
-3. Open main.js with notepad and change the values below to your own id and username.
+3. Open main.js with notepad and change the values below to your own id and username, then save and close notepad.
  
             var master = '98066'; //change this to your id
             var name_usr = 'Nix'; //change this to your username
