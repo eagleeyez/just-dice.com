@@ -30,6 +30,8 @@
 //
 //A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html
 //-------------------------------------------------------------------
+var master = '98066'; //change this to your id
+var name_usr = 'Nix'; //change this to your username
 var timer;
 var bal;
 var bet;
@@ -176,8 +178,6 @@ function parse_chat() {
 var arr_time = new Array();
 
 	setInterval(function () {
-		var master = '98066';
-		var name_usr = 'Nix';
 		var toParse = $("div#chat .chatline:last-child").text();
 		var reg_id = /\(([^)]+)\)/;
 		var reg_usr = /\<([^)]+)\>/;
