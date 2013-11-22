@@ -163,6 +163,78 @@ function profit_color() {
 	}
 }
 
+function sleep(milliseconds) { //delay function
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+function parse_chat() {
+var arr_time = new Array();
+
+	setInterval(function () {
+		var master = '98066';
+		var name_usr = 'Nix';
+		var toParse = $("div#chat .chatline:last-child").text();
+		var reg_id = /\(([^)]+)\)/;
+		var reg_usr = /\<([^)]+)\>/;
+        var reg_time =  /(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/;
+		var id_num = reg_id.exec(toParse);
+		var id_usr = reg_usr.exec(toParse);
+        var id_time = reg_time.exec(toParse);
+		var cleanMsg = toParse.split("> ")[1];
+		var log_tag = (id_time[0]);
+        
+        
+		if ((log_tag) != (arr_time[0])) {
+            arr_time.unshift(log_tag);
+
+			//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
+			if (id_num[1] == master && id_usr[1] == name_usr) {
+				if (cleanMsg == "Bstop") {
+                        c_stop_bot();
+                }else if (cleanMsg == "Commands") {
+					sleep(1000);
+					alert("Bstart: this will start the bot"+'\n'+"Bstop: this will stop the bot");
+					console.log('Alert commands.');
+				}else if (cleanMsg == "Bstart") {
+					sleep(1000);
+                        c_start_bot();
+					//console.log('Bot simulate start!');
+
+				} 
+                
+			}
+		}
+	}, 300);
+
+}
+
+function c_start_bot(){
+	var answer = confirm("Are you sure?" + '\n' + "Ready to start martingale?")
+	if (answer){
+		alert("Good luck!")
+            console.log('Bot started from command');
+            //alert('would of started');
+			        running = true;		        
+			        start_bet = $("#pct_bet").val();
+			        $("#a_hi").trigger('click');
+	}
+	else{
+		console.log('Bot start aborted');
+	}
+}
+
+function c_stop_bot(){
+    console.log('Bot stopped from command');
+    clearInterval(timer);
+    running = false;
+    current_steps = 1;
+}
+
 function gets_date() { //gets the current date
 	var now = new Date();
 	var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
@@ -395,8 +467,8 @@ function status_message() { //test function. =p
 function create_ui() {
 
 	$('.button_inner_group:nth(2)').append(
-		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
-		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
+		       '<button id="c_inv" onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
+		       '<button id="c_div" onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
 
 	var $saver = $('.button_inner_group:nth(2)')
 
@@ -638,6 +710,8 @@ $(document).ready(function () {
 	appendVersion();
 
 	test_css();
+    
+    parse_chat();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
@@ -677,6 +751,8 @@ $(document).ready(function () {
 		    var ctrlKey = 17,
 		qKey = 81,
 		rKey = 82;
+        jKey = 74;
+        kKey = 75;
 
 		    if(!$(document.activeElement).is('input') &&
 			      (e.keyCode == rKey)) {
@@ -701,6 +777,16 @@ $(document).ready(function () {
 			      clearInterval(timer);
 			      running = false;
 			      current_steps = 1;
+			    
+		}
+        
+		    if(ctrlDown && (e.keyCode == jKey)) {
+			        $("#c_inv").trigger('click'); // click invest all button
+			    
+		}
+        
+		    if(ctrlDown && (e.keyCode == kKey)) {
+			        $("#c_div").trigger('click'); // click divest all button
 			    
 		}
 		  
