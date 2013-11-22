@@ -50,8 +50,8 @@ var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
 var bet_total = 0; //Total bets
 var new_val = 0.00000001;
-var snd = new Audio('https://dl.dropboxusercontent.com/u/27471347/beep-7.mp3'); // hosted sounds in dropbox as www.soudjay.com does not have https
-var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3'); // hosted sounds in dropbox as www.soudjay.com does not have https
+var snd = new Audio('https://dl.dropboxusercontent.com/u/27471347/beep-7.mp3');
+var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3');
 var win1 = 0;
 var lose1 = 0;
 var max_win = 0;
@@ -59,6 +59,8 @@ var max_loss = 0;
 var current_win_per = 0;
 var rndhilo = 1;
 var today = "";
+var user_chk = 1; 
+
 
 function appendVersion() {
 	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version 1.0.4</div>"
@@ -71,8 +73,6 @@ function test_css() { // shows a loaded message in log area
 		document.querySelector(".log").innerHTML = " ";
 	}, 6000);
 }
-
-// Extra buttons found on pastebin http://pastebin.com/n8X8uRAT Originally from a user called "v" and edited by another unknown user.
 
 function simp_rand() { //simple random function to select from hi or lo
 	var rndhilo = Math.random() < 0.5 ? 1 : 0;
@@ -165,6 +165,17 @@ function profit_color() {
 	}
 }
 
+function gets_date() { //gets the current date
+	var now = new Date();
+	var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
+
+	//Pad given value to the left with "0"
+	function AddZero(num) {
+		return (num >= 0 && num < 10) ? "0" + num : num + "";
+	}
+	arr_bets.push(strDateTime + '----');
+}
+
 function sleep(milliseconds) { //delay function
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -235,18 +246,8 @@ function c_stop_bot(){
     current_steps = 1;
 }
 
-function gets_date() { //gets the current date
-	var now = new Date();
-	var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
-
-	//Pad given value to the left with "0"
-	function AddZero(num) {
-		return (num >= 0 && num < 10) ? "0" + num : num + "";
-	}
-	arr_bets.push(strDateTime + '----');
-}
-
 function save_to_file() { //saves information to a .bin file that can be opened with notepad
+arr_bets.push('Saved ---');
 	gets_date();
 	window.webkitRequestFileSystem(window.TEMPORARY, 1024 * 1024, function (fs) {
 		fs.root.getFile('open-with-notepad.bin', {
@@ -272,8 +273,7 @@ function popArray() { //populate bet array with the information we want.
 	if (check_step == 0)
 		     {
 			lastBal = parseFloat($("#pct_balance").val());
-			check_step = 1;
-			        
+			check_step = 1;			        
 		}
 	else {
 		arr_bets.push('Bet#-' + bet_total + ',');
@@ -460,15 +460,11 @@ function tabber() {
 		        $('<li>').append($('<a>').text('Bot-Help').attr('href', '#Nixsy9')).appendTo('.tabs');
 };
 
-function status_message() { //test function. =p
-	msg("test message this is a test!");
-}
-
 function create_ui() {
 
 	$('.button_inner_group:nth(2)').append(
-		       '<button id="c_inv" onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">J</div></button>').append(
-		       '<button id="c_div" onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">K</div></button>');
+		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">N</div></button>').append(
+		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("divest", csrf, "all", $("#divest_code").val());\'>divest all<div class="key">M</div></button>');
 
 	var $saver = $('.button_inner_group:nth(2)')
 
@@ -476,7 +472,7 @@ function create_ui() {
 	  $save.click(function () {
 		save_to_file();
 	});
-	  $saver.append($save); //adds button to manually save bet array
+	  $saver.append($save);
 
 	  var $container = $('<div id="chipper" class="container"/>');
 	var $container2 = $('<div class="container"/>');
@@ -506,11 +502,11 @@ function create_ui() {
 	});
 
 	  $run_div.append($Stop);
-	/*
+/*   
 	  $test = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test</button>');
 	  $test.click(function () {
-	  save_bet();
-	});
+      $("#c_test").click();  
+    });  
 	  $run_div.append($test);
 
 	  $test2 = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test2</button>');
@@ -518,8 +514,7 @@ function create_ui() {
 	save_to_file();
 	});
 	  $run_div.append($test2);
-	 */
-	 
+*/ 
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
 	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
@@ -712,6 +707,8 @@ $(document).ready(function () {
 	test_css();
     
     parse_chat();
+    
+    //highlight();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
@@ -734,7 +731,6 @@ $(document).ready(function () {
 		}
 		   
 	}, 100);
-
 /*
     var KeyMapArr = { // useful to keep around somewhere.
         48: "0", 49: "1", 50: "2", 51: "3", 52: "4", 53: "5", 54: "6", 55: "7",
@@ -744,15 +740,15 @@ $(document).ready(function () {
         85: "u", 86: "v", 87: "w", 88: "x", 89: "y", 90: "z", 91: "[", 92: "\\",
         93: "]", 96: "`", 60: "<", 39: "'" 
     };
-*/   
+*/  
     
 	 $(document).keydown(function (e) {
 		    var ctrlDown = false;
 		    var ctrlKey = 17,
 		qKey = 81,
 		rKey = 82;
-        jKey = 74;
-        kKey = 75;
+        nKey = 79;
+        mKey = 78;
 
 		    if(!$(document.activeElement).is('input') &&
 			      (e.keyCode == rKey)) {
@@ -780,12 +776,12 @@ $(document).ready(function () {
 			    
 		}
         
-		    if(ctrlDown && (e.keyCode == jKey)) {
+		    if(ctrlDown && (e.keyCode == nKey)) {
 			        $("#c_inv").trigger('click'); // click invest all button
 			    
 		}
         
-		    if(ctrlDown && (e.keyCode == kKey)) {
+		    if(ctrlDown && (e.keyCode == mKey)) {
 			        $("#c_div").trigger('click'); // click divest all button
 			    
 		}
