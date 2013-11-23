@@ -30,8 +30,8 @@
 //
 //A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html
 //-------------------------------------------------------------------
-var master = '98066'; //change this to your id
-var name_usr = 'Nix'; //change this to your username
+var master = $('#uid').text();
+var name_usr = $('#nick').text();
 var timer;
 var bal;
 var bet;

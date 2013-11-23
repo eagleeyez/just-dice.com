@@ -10,16 +10,11 @@ Installation
 ------------
 
 1. This is an extension for Chrome. It will only install on Chrome.
-2. Download the repository to a directory of your choice.
-3. Open main.js with notepad and change the values below to your own id and username, then save and close notepad.
- 
-            var master = '98066'; //change this to your id
-            var name_usr = 'Nix'; //change this to your username
-            
-2. Type `chrome://extensions/` into the address bar.
-3. Make sure `Developer Mode` is checked in the upper right.
-4. Click `Load unpacked extensions...` and browse to the directory where you save the repository.
-5. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
+2. Download the repository to a directory of your choice.           
+3. Type `chrome://extensions/` into the address bar.
+4. Make sure `Developer Mode` is checked in the upper right.
+5. Click `Load unpacked extensions...` and browse to the directory where you save the repository.
+6. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
 
 
 How to Bet
