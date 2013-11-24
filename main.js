@@ -689,7 +689,7 @@ function create_ui() { // creates most of the gui stuff
 		$o_row1.append($sound_c);
 
 	//rand_check
-	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="unchecked" /> Random hi/lo</div>')
+	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo</div>')
 		$o_row1.append($rand_c);
 
 	//smile_check
@@ -697,7 +697,7 @@ function create_ui() { // creates most of the gui stuff
 		$o_row1.append($smile_c);
 
 	//stopwin_check
-	$swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" checked="unchecked" /> Stop on win</div>')
+	$swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" /> Stop on win</div>')
 		$o_row1.append($swin_c);
 
     //resetL_check
