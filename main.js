@@ -60,7 +60,7 @@ var current_win_per = 0;
 var rndhilo = 1;
 var today = "";
 var user_chk = 1;
-var version_c = "1.0.5";  
+var version_c = "1.0.6";  
 
 
 function appendVersion() {
