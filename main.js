@@ -30,8 +30,6 @@
 //
 //A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html
 //-------------------------------------------------------------------
-var master = $('#uid').text();
-var name_usr = $('#nick').text();
 var timer;
 var bal;
 var bet;
@@ -60,6 +58,7 @@ var current_win_per = 0;
 var rndhilo = 1;
 var today = "";
 var user_chk = 1;
+
 var version_c = "1.0.6";  
 
 
@@ -231,6 +230,8 @@ var arr_time = new Array();
 var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
 
 	setInterval(function () {
+		var master = $('#uid').text();
+		var name_usr = $('#nick').text();
 		var toParse = $("div#chat .chatline:last-child").text();
 		var reg_id = /\(([^)]+)\)/;
 		var reg_usr = /\<([^)]+)\>/;
@@ -248,8 +249,9 @@ var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
            //console.log(chat_line);
            var chat_line = emoticons(chat_line);
            //console.log(chat_line);
+        if ($('#smile_check').prop('checked')) {
            $("div#chat .chatline:last-child").html(chat_line);
-           
+           }
 
 			//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
 			if (id_num[1] == master && id_usr[1] == name_usr) {
@@ -562,7 +564,7 @@ function create_ui() {
 	save_to_file();
 	});
 	  $run_div.append($test2);
-*/ 
+ */
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
 	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
@@ -658,25 +660,38 @@ function create_ui() {
 	  $row4.append($mar_pause);
 	$row4.append($numz11);
 
-	  var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
-	  $fieldset.append($row1);
-	  $fieldset.append($row2);
-	$fieldset.append($row3);
-	$fieldset.append($row4);
-
-	var $sound_box = $('<div class="row"/>');
-	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> play sound on win!</div>')
-		$sound_box.append($sound_c);
-	$row4.append($sound_box);
-
-	var $rand_box = $('<div class="row"/>');
-	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />tick for random hi/lo</div>')
-		$rand_box.append($rand_c);
-	$row4.append($rand_box);
-
-	  $button_group.append($martingale_button);
-	  $button_group.append($fieldset);
-	  $button_group.append($run_div);
+	var $row5 = $('<div class="row"/>');
+    var $label_sound = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Sound</p>');    
+	$sound_c = $('<input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" />')
+    var $end_sound = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">♪</p>');
+    $row5.append($label_sound);
+	$row5.append($sound_c);
+    $row5.append($end_sound);
+    
+    var $label_random = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Random hi/lo</p>');
+    $rand_c = $('<input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />')
+    var $end_rand = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">?</p>');
+    $row5.append($label_random);
+    $row5.append($rand_c);
+    $row5.append($end_rand);
+    
+    var $label_smiley = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Smileys</p>');
+    $smile_c = $('<input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" />')
+    var $end_smile = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">=p</p>');
+    $row5.append($label_smiley);
+    $row5.append($smile_c);
+    $row5.append($end_smile);
+    
+    var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');	
+    $fieldset.append($row1);
+    $fieldset.append($row2);
+    $fieldset.append($row3);
+    $fieldset.append($row4);
+    $fieldset.append($row5);
+    
+    $button_group.append($martingale_button);
+    $button_group.append($fieldset);
+    $button_group.append($run_div);
 
 	$(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>');
 	  $(".container").eq('1').append($container);
@@ -837,3 +852,4 @@ $(document).ready(function () {
 	});
 
 });
+
