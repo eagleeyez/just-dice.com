@@ -48,7 +48,6 @@ var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
 var bet_total = 0; //Total bets
 var new_val = 0.00000001;
-var snd = new Audio('https://dl.dropboxusercontent.com/u/27471347/beep-7.mp3');
 var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3');
 var win1 = 0;
 var lose1 = 0;
@@ -59,8 +58,7 @@ var rndhilo = 1;
 var today = "";
 var user_chk = 1;
 
-var version_c = "1.0.7";  
-
+var version_c = "1.0.8";
 
 function appendVersion() {
 	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version" + (version_c) + " </div>"
@@ -177,127 +175,127 @@ function gets_date() { //gets the current date
 }
 
 function sleep(milliseconds) { //delay function
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+		if ((new Date().getTime() - start) > milliseconds) {
+			break;
+		}
+	}
 }
 
-function emoticons(text){
-    var url = "https://dl.dropboxusercontent.com/u/27471347/emote/";
+function emoticons(text) {
+	var url = "https://dl.dropboxusercontent.com/u/27471347/emote/";
 
-    var searchFor = /:D|:-D|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
+	var searchFor = /:D|:-D|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
 
-    // A map mapping each smiley to its image
-    var map = {
-        ":D"  : '4.gif', // Capped version of the next
-        ":d"  : '4.gif', // Lower case version of the previous
-        ":-D" : '4.gif', // Capped version of the next
-        ":-d" : '4.gif', // Lower case version of the previous
-        ":)"  : '1.gif',
-        ":-)" : '1.gif',
-        ";)"  : '3.gif',
-        "';-)" : '3.gif',
+	// A map mapping each smiley to its image
+	var map = {
+		":D" : '4.gif', // Capped version of the next
+		":d" : '4.gif', // Lower case version of the previous
+		":-D" : '4.gif', // Capped version of the next
+		":-d" : '4.gif', // Lower case version of the previous
+		":)" : '1.gif',
+		":-)" : '1.gif',
+		";)" : '3.gif',
+		"';-)" : '3.gif',
 
-        ":("  : '2.gif',
-        ":-(" : '2.gif',
-        ":O"  : '13.gif', // Capped version of the next
-        ":o"  : '13.gif', // Lower case version of the previous
-        ":?"  : '7.gif',
-        "8-)" : '16.gif',
+		":(" : '2.gif',
+		":-(" : '2.gif',
+		":O" : '13.gif', // Capped version of the next
+		":o" : '13.gif', // Lower case version of the previous
+		":?" : '7.gif',
+		"8-)" : '16.gif',
 
-        ":X"  : '14.gif',    // Capped version of the next
-        ":x"  : '14.gif',    // Lower case version of the previous
-        ":P"  : '10.gif',   // Capped version of the next
-        ":p"  : '10.gif'    // Lower case version of the previous
-    };
+		":X" : '14.gif', // Capped version of the next
+		":x" : '14.gif', // Lower case version of the previous
+		":P" : '10.gif', // Capped version of the next
+		":p" : '10.gif' // Lower case version of the previous
+	};
 
-    text = text.replace(searchFor, function(match) {
-        var rep;
+	text = text.replace(searchFor, function (match) {
+			var rep;
 
-        rep = map[match];
+			rep = map[match];
 
-        return rep ? '<img src="' + url + rep + '" class="emoticons" />' : match;
-    });
+			return rep ? '<img src="' + url + rep + '" class="emoticons" />' : match;
+		});
 
-    return (text);
+	return (text);
 }
 
 function parse_chat() {
-var arr_time = new Array();
-var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
+	var arr_time = new Array();
+	var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
 
-	setInterval(function () {
-		var master = $('#uid').text();
-		var name_usr = $('#nick').text();
-		var toParse = $("div#chat .chatline:last-child").text();
-		var reg_id = /\(([^)]+)\)/;
-		var reg_usr = /\<([^)]+)\>/;
-        var reg_time =  /(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/;
-		var id_num = reg_id.exec(toParse);
-		var id_usr = reg_usr.exec(toParse);
-        var id_time = reg_time.exec(toParse);
-		var cleanMsg = toParse.split("> ")[1];
-		var log_tag = (id_time[0]);
-        
-        
-		if ((log_tag) != (arr_time[0])) {
-            arr_time.unshift(log_tag);
-           var chat_line = $("div#chat .chatline:last-child").html();
-           //console.log(chat_line);
-           var chat_line = emoticons(chat_line);
-           //console.log(chat_line);
-        if ($('#smile_check').prop('checked')) {
-           $("div#chat .chatline:last-child").html(chat_line);
-           }
+		setInterval(function () {
+			var master = $('#uid').text();
+			var name_usr = $('#nick').text();
+			var toParse = $("div#chat .chatline:last-child").text();
+			var reg_id = /\(([^)]+)\)/;
+			var reg_usr = /\<([^)]+)\>/;
+			var reg_time = /(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]/;
+			var id_num = reg_id.exec(toParse);
+			var id_usr = reg_usr.exec(toParse);
+			var id_time = reg_time.exec(toParse);
+			var cleanMsg = toParse.split("> ")[1];
+			var log_tag = (id_time[0]);
 
-			//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
-			if (id_num[1] == master && id_usr[1] == name_usr) {
-				if (cleanMsg == "Bstop") {
-                        c_stop_bot();
-                }else if (cleanMsg == "Commands") {
-					sleep(1000);
-					alert("Bstart: this will start the bot"+'\n'+"Bstop: this will stop the bot");
-					console.log('Alert commands.');
-				}else if (cleanMsg == "Bstart") {
-					sleep(1000);
-                        c_start_bot();
-					//console.log('Bot simulate start!');
+			if ((log_tag) != (arr_time[0])) {
+				arr_time.unshift(log_tag);
+				var chat_line = $("div#chat .chatline:last-child").html();
+				//console.log(chat_line);
+				var chat_line = emoticons(chat_line);
+				//console.log(chat_line);
+				if ($('#smile_check').prop('checked')) {
+					$("div#chat .chatline:last-child").html(chat_line);
+				}
 
-				} 
-                
+				//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
+				if (id_num[1] == master && id_usr[1] == name_usr) {
+					if (cleanMsg == "Bstop") {
+						c_stop_bot();
+					} else if (cleanMsg == "Commands") {
+						sleep(1000);
+						alert("Bstart: this will start the bot" + '\n' + "Bstop: this will stop the bot");
+						console.log('Alert commands.');
+					} else if (cleanMsg == "Bstart") {
+						sleep(1000);
+						c_start_bot();
+						//console.log('Bot simulate start!');
+
+					}
+
+				}
 			}
-		}
-	}, 300);
+		}, 300);
 
 }
 
-function c_start_bot(){
+function c_start_bot() {
 	var answer = confirm("Are you sure?" + '\n' + "Ready to start martingale?")
-	if (answer){
-		alert("Good luck!")
-            console.log('Bot started from command');
-            //alert('would of started');
-			        running = true;		        
+		if (answer) {
+			alert("Good luck!")
+			console.log('Bot started from command');
+			//alert('would of started');
+			        running = true;
+			        
 			        start_bet = $("#pct_bet").val();
 			        $("#a_hi").trigger('click');
-	}
-	else{
-		console.log('Bot start aborted');
-	}
+		} else {
+			console.log('Bot start aborted');
+		}
 }
 
-function c_stop_bot(){
-    console.log('Bot stopped from command');
-    clearInterval(timer);
-    running = false;
-    current_steps = 1;
+function c_stop_bot() {
+	console.log('Bot stopped from command');
+	  clearInterval(timer);
+	  running = false;
+	  current_steps = 1;
+	current_bet_num = 0;
 }
 
 function save_to_file() { //saves information to a .bin file that can be opened with notepad
-arr_bets.push('Saved ---');
+	arr_bets.push('Saved ---');
 	gets_date();
 	window.webkitRequestFileSystem(window.TEMPORARY, 1024 * 1024, function (fs) {
 		fs.root.getFile('open-with-notepad.bin', {
@@ -323,7 +321,8 @@ function popArray() { //populate bet array with the information we want.
 	if (check_step == 0)
 		     {
 			lastBal = parseFloat($("#pct_balance").val());
-			check_step = 1;			        
+			check_step = 1;
+			        
 		}
 	else {
 		arr_bets.push('Bet#-' + bet_total + ',');
@@ -355,47 +354,50 @@ function martingale() { //the main martingale function
 		//Add a step into the martingale to see if we reach our desired loss length, If so reset
 		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
 			     {
-				current_bet_num = 1;
-				        $("#pct_bet").val(start_bet);
-				         var profit = parseFloat($("#pct_balance").val()) - lastBal;
-				            var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
+				if ($('#sound_check').prop('checked')) {}
+				else {
+					current_bet_num = 1;
+					        $("#pct_bet").val(start_bet);
+					         var profit = parseFloat($("#pct_balance").val()) - lastBal;
+					            var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
 
-				yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
+					yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-				             //get rid of scientific notation
-				            if(String(new_val).indexOf('e') !== -1) {
-					                var arr = new Array();
-					                arr = String(new_val).split('e');
-					                  new_val = new_val.toFixed(arr[1].substring(1));
-					         console.log('new_val=' + new_val);
+					             //get rid of scientific notation
+					            if(String(new_val).indexOf('e') !== -1) {
+						                var arr = new Array();
+						                arr = String(new_val).split('e');
+						                  new_val = new_val.toFixed(arr[1].substring(1));
+						         console.log('new_val=' + new_val);
+						        
+					}
+
+					            
+					            $("#pct_bet").val(new_val);
+
+					             //Increase the steps
+					         current_steps = 1;
+					             //current_steps++;
+					bet_total++;
+					lose1++;
+					win1 = 0;
+					simp_rand();
+					popArray();
+					$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+					$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+					profit_color();
+					$("#Bet_amt").val(bet_total); //Update bet counter
 					        
 				}
-
-				            
-				            $("#pct_bet").val(new_val);
-
-				             //Increase the steps
-				         current_steps = 1;
-				             //current_steps++;
-				bet_total++;
-				lose1++;
-				win1 = 0;
-				simp_rand();
-				popArray();
-				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
-				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
-				profit_color();
-				$("#Bet_amt").val(bet_total); //Update bet counter
-				        
 			}
 		     //end of reset loss step
 		else if (curr_bal > bal.data('oldVal')) //This is win step
 			     {
-            
-            if ($('#stopwin_check').prop('checked')) {
-                c_stop_bot();
-            }
-            
+
+				if ($('#stopwin_check').prop('checked')) {
+					c_stop_bot();
+				}
+
 				play_sound();
 				        current_steps = 1;
 				current_bet_num = 0;
@@ -532,9 +534,9 @@ function create_ui() {
 	  var $container = $('<div id="chipper" class="container"/>');
 	var $container2 = $('<div id="chipper2" class="container"/>');
 	  var $button_group = $('<div style="width:99%;background-color:#787878 ;border:2px solid; border-color: #505050;" class="button_group"/>');
-    var $options_group = $('<div style="width:99%;background-color:transparent ;border:0px solid;" class="button_group"/>');
+	var $options_group = $('<div style="width:99%;background-color:transparent ;border:0px solid;" class="button_group"/>');
 	  $container.append($button_group);
-    $container2.append($options_group)
+	$container2.append($options_group)
 
 	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
 
@@ -559,11 +561,11 @@ function create_ui() {
 	});
 
 	  $run_div.append($Stop);
-/*   
+	/*
 	  $test = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test</button>');
 	  $test.click(function () {
-      $("#c_test").click();  
-    });  
+	$("#c_test").click();
+	});
 	  $run_div.append($test);
 
 	  $test2 = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Test2</button>');
@@ -571,7 +573,7 @@ function create_ui() {
 	save_to_file();
 	});
 	  $run_div.append($test2);
- */
+	 */
 	  var $row1 = $('<div class="row"/>');
 	  var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
 	  $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
@@ -667,46 +669,48 @@ function create_ui() {
 	  $row4.append($mar_pause);
 	$row4.append($numz11);
 
-//////////////////////////////////////////options///////////////////////////////////
-    
+	//////////////////////////////////////////options///////////////////////////////////
+
 	var $o_row1 = $('<div class="row"/>');
-    //sound_check    
-    $sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="unchecked" /> Play sound on win!</div>')
-	$o_row1.append($sound_c);
-    
-    //rand_check
-    $rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="unchecked" /> Random hi/lo</div>')
-    $o_row1.append($rand_c);
-    
-    //smile_check
-    $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="unchecked" /> Chat smileys on</div>')
-    $o_row1.append($smile_c);
-    
-    //stopwin_check
-    $swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" checked="unchecked" /> Stop on win</div>')
-    $o_row1.append($swin_c);
+	//sound_check
+	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="unchecked" /> Play sound on win!</div>')
+		$o_row1.append($sound_c);
+
+	//rand_check
+	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="unchecked" /> Random hi/lo</div>')
+		$o_row1.append($rand_c);
+
+	//smile_check
+	$smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="unchecked" /> Chat smileys on</div>')
+		$o_row1.append($smile_c);
+
+	//stopwin_check
+	$swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" checked="unchecked" /> Stop on win</div>')
+		$o_row1.append($swin_c);
+
+	$reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="unchecked" /> uncheck to enable reset loss</div>')
+		$o_row1.append($reset_loss_safety);
+
+	/////////////////////////////////////////////////////////////////////////////////////
 
 
-/////////////////////////////////////////////////////////////////////////////////////
+	var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
+	var $fieldset_o = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
 
-    
-    var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
-    var $fieldset_o = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
-	
-    $fieldset.append($row1);
-    $fieldset.append($row2);
-    $fieldset.append($row3);
-    $fieldset.append($row4);
-    
-    $fieldset_o.append($o_row1);
-    
-    $button_group.append($martingale_button);
-    $button_group.append($fieldset);
-    $button_group.append($run_div);
-    $options_group.append($fieldset_o);
-    $container.append($container2);
-    
- $button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>');   
+	$fieldset.append($row1);
+	$fieldset.append($row2);
+	$fieldset.append($row3);
+	$fieldset.append($row4);
+
+	$fieldset_o.append($o_row1);
+
+	$button_group.append($martingale_button);
+	$button_group.append($fieldset);
+	$button_group.append($run_div);
+	$options_group.append($fieldset_o);
+	$container.append($container2);
+
+	$button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>');
 
 	$(document).ready(function () {
 		$('#chipper2').hide();
@@ -714,8 +718,6 @@ function create_ui() {
 			$('#chipper2').toggle(700);
 		});
 	});
-
-    
 
 	$(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>');
 	  $(".container").eq('1').append($container);
@@ -792,10 +794,10 @@ $(document).ready(function () {
 	appendVersion();
 
 	test_css();
-    
-    parse_chat();
-    
-    //highlight();
+
+	parse_chat();
+
+	//highlight();
 
 	   //set the balance
 	   //when the balance changes and we're martingaling
@@ -818,24 +820,24 @@ $(document).ready(function () {
 		}
 		   
 	}, 100);
-/*
-    var KeyMapArr = { // useful to keep around somewhere.
-        48: "0", 49: "1", 50: "2", 51: "3", 52: "4", 53: "5", 54: "6", 55: "7",
-        56: "8", 57: "9", 59: ";", 61: "=", 65: "a", 66: "b", 67: "c", 68: "d",
-        69: "e", 70: "f", 71: "g", 72: "h", 73: "i", 74: "j", 75: "k", 76: "l", 
-        77: "m", 78: "n", 79: "o", 80: "p", 81: "q", 82: "r", 83: "s", 84: "t", 
-        85: "u", 86: "v", 87: "w", 88: "x", 89: "y", 90: "z", 91: "[", 92: "\\",
-        93: "]", 96: "`", 60: "<", 39: "'" 
-    };
-*/  
-    
+	/*
+	var KeyMapArr = { // useful to keep around somewhere.
+	48: "0", 49: "1", 50: "2", 51: "3", 52: "4", 53: "5", 54: "6", 55: "7",
+	56: "8", 57: "9", 59: ";", 61: "=", 65: "a", 66: "b", 67: "c", 68: "d",
+	69: "e", 70: "f", 71: "g", 72: "h", 73: "i", 74: "j", 75: "k", 76: "l",
+	77: "m", 78: "n", 79: "o", 80: "p", 81: "q", 82: "r", 83: "s", 84: "t",
+	85: "u", 86: "v", 87: "w", 88: "x", 89: "y", 90: "z", 91: "[", 92: "\\",
+	93: "]", 96: "`", 60: "<", 39: "'"
+	};
+	 */
+
 	 $(document).keydown(function (e) {
 		    var ctrlDown = false;
 		    var ctrlKey = 17,
 		qKey = 81,
 		rKey = 82;
-        nKey = 79;
-        mKey = 78;
+		nKey = 79;
+		mKey = 78;
 
 		    if(!$(document.activeElement).is('input') &&
 			      (e.keyCode == rKey)) {
@@ -862,12 +864,12 @@ $(document).ready(function () {
 			      current_steps = 1;
 			    
 		}
-        
+
 		    if(ctrlDown && (e.keyCode == nKey)) {
 			        $("#c_inv").trigger('click'); // click invest all button
 			    
 		}
-        
+
 		    if(ctrlDown && (e.keyCode == mKey)) {
 			        $("#c_div").trigger('click'); // click divest all button
 			    
@@ -876,4 +878,3 @@ $(document).ready(function () {
 	});
 
 });
-
