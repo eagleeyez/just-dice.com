@@ -186,8 +186,49 @@ function sleep(milliseconds) { //delay function
   }
 }
 
+function emoticons(text){
+    var url = "https://dl.dropboxusercontent.com/u/27471347/emote/";
+
+    var searchFor = /:D|:-D|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
+
+    // A map mapping each smiley to its image
+    var map = {
+        ":D"  : '4.gif', // Capped version of the next
+        ":d"  : '4.gif', // Lower case version of the previous
+        ":-D" : '4.gif', // Capped version of the next
+        ":-d" : '4.gif', // Lower case version of the previous
+        ":)"  : '1.gif',
+        ":-)" : '1.gif',
+        ";)"  : '3.gif',
+        "';-)" : '3.gif',
+
+        ":("  : '2.gif',
+        ":-(" : '2.gif',
+        ":O"  : '13.gif', // Capped version of the next
+        ":o"  : '13', // Lower case version of the previous
+        ":?"  : '7.gif',
+        "8-)" : '16.gif',
+
+        ":X"  : '14.gif',    // Capped version of the next
+        ":x"  : '14.gif',    // Lower case version of the previous
+        ":P"  : '10.gif',   // Capped version of the next
+        ":p"  : '10.gif'    // Lower case version of the previous
+    };
+
+    text = text.replace(searchFor, function(match) {
+        var rep;
+
+        rep = map[match];
+
+        return rep ? '<img src="' + url + rep + '" class="emoticons" />' : match;
+    });
+
+    return (text);
+}
+
 function parse_chat() {
 var arr_time = new Array();
+var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
 
 	setInterval(function () {
 		var toParse = $("div#chat .chatline:last-child").text();
@@ -203,6 +244,12 @@ var arr_time = new Array();
         
 		if ((log_tag) != (arr_time[0])) {
             arr_time.unshift(log_tag);
+           var chat_line = $("div#chat .chatline:last-child").html();
+           //console.log(chat_line);
+           var chat_line = emoticons(chat_line);
+           //console.log(chat_line);
+           $("div#chat .chatline:last-child").html(chat_line);
+           
 
 			//console.log(id_time[0] + ' ID: ' + id_num[1] + ' user: ' + id_usr[1] + ' message: ' + cleanMsg);
 			if (id_num[1] == master && id_usr[1] == name_usr) {
