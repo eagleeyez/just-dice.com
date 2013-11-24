@@ -59,7 +59,7 @@ var rndhilo = 1;
 var today = "";
 var user_chk = 1;
 
-var version_c = "1.0.6";  
+var version_c = "1.0.7";  
 
 
 function appendVersion() {
@@ -391,6 +391,11 @@ function martingale() { //the main martingale function
 		     //end of reset loss step
 		else if (curr_bal > bal.data('oldVal')) //This is win step
 			     {
+            
+            if ($('#stopwin_check').prop('checked')) {
+                c_stop_bot();
+            }
+            
 				play_sound();
 				        current_steps = 1;
 				current_bet_num = 0;
@@ -525,9 +530,11 @@ function create_ui() {
 	  $saver.append($save);
 
 	  var $container = $('<div id="chipper" class="container"/>');
-	var $container2 = $('<div class="container"/>');
+	var $container2 = $('<div id="chipper2" class="container"/>');
 	  var $button_group = $('<div style="width:99%;background-color:#787878 ;border:2px solid; border-color: #505050;" class="button_group"/>');
+    var $options_group = $('<div style="width:99%;background-color:transparent ;border:0px solid;" class="button_group"/>');
 	  $container.append($button_group);
+    $container2.append($options_group)
 
 	  var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
 
@@ -660,38 +667,55 @@ function create_ui() {
 	  $row4.append($mar_pause);
 	$row4.append($numz11);
 
-	var $row5 = $('<div class="row"/>');
-    var $label_sound = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Sound</p>');    
-	$sound_c = $('<input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" />')
-    var $end_sound = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">♪</p>');
-    $row5.append($label_sound);
-	$row5.append($sound_c);
-    $row5.append($end_sound);
+//////////////////////////////////////////options///////////////////////////////////
     
-    var $label_random = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Random hi/lo</p>');
-    $rand_c = $('<input type="checkbox" value="1" name="rand_check" id="rand_check" checked="checked" />')
-    var $end_rand = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">?</p>');
-    $row5.append($label_random);
-    $row5.append($rand_c);
-    $row5.append($end_rand);
+	var $o_row1 = $('<div class="row"/>');
+    //sound_check    
+    $sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="unchecked" /> Play sound on win!</div>')
+	$o_row1.append($sound_c);
     
-    var $label_smiley = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Smileys</p>');
-    $smile_c = $('<input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" />')
-    var $end_smile = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">=p</p>');
-    $row5.append($label_smiley);
-    $row5.append($smile_c);
-    $row5.append($end_smile);
+    //rand_check
+    $rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" checked="unchecked" /> Random hi/lo</div>')
+    $o_row1.append($rand_c);
     
-    var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');	
+    //smile_check
+    $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="unchecked" /> Chat smileys on</div>')
+    $o_row1.append($smile_c);
+    
+    //stopwin_check
+    $swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" checked="unchecked" /> Stop on win</div>')
+    $o_row1.append($swin_c);
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+    
+    var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
+    var $fieldset_o = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
+	
     $fieldset.append($row1);
     $fieldset.append($row2);
     $fieldset.append($row3);
     $fieldset.append($row4);
-    $fieldset.append($row5);
+    
+    $fieldset_o.append($o_row1);
     
     $button_group.append($martingale_button);
     $button_group.append($fieldset);
     $button_group.append($run_div);
+    $options_group.append($fieldset_o);
+    $container.append($container2);
+    
+ $button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>');   
+
+	$(document).ready(function () {
+		$('#chipper2').hide();
+		$('a#showhidetrigger2').click(function () {
+			$('#chipper2').toggle(700);
+		});
+	});
+
+    
 
 	$(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>');
 	  $(".container").eq('1').append($container);
