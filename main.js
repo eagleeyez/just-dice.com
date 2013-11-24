@@ -205,7 +205,7 @@ function emoticons(text){
         ":("  : '2.gif',
         ":-(" : '2.gif',
         ":O"  : '13.gif', // Capped version of the next
-        ":o"  : '13', // Lower case version of the previous
+        ":o"  : '13.gif', // Lower case version of the previous
         ":?"  : '7.gif',
         "8-)" : '16.gif',
 
