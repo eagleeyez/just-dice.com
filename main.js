@@ -106,6 +106,17 @@ function max_loss_streak() { // function to update longest loss streak
 	}, 800);
 }
 
+function fade_reset(){
+	setInterval(function () {
+        if ($('#resetL_check').prop('checked')) {
+        
+        } else { 
+        
+        }
+         
+	}, 800);
+}
+
 function max_win_streak() { //function to update longest win streak
 	$("#max_win").css("color", "green");
 	setInterval(function () {
@@ -354,7 +365,7 @@ function martingale() { //the main martingale function
 		//Add a step into the martingale to see if we reach our desired loss length, If so reset
 		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
 			     {
-				if ($('#sound_check').prop('checked')) {}
+				if ($('#resetL_check').prop('checked')) {}
 				else {
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
