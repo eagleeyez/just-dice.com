@@ -60,7 +60,7 @@ var user_chk = 1;
 
 var version_c = "1.0.8";
 
-function appendVersion() {
+function appendVersion() { // append current version to page
 	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version" + (version_c) + " </div>"
 		$("body").append(footer);
 }
@@ -85,7 +85,7 @@ function simp_rand() { //simple random function to select from hi or lo
 	}
 }
 
-function play_sound() {
+function play_sound() { // betcha can not guess what this does
 	if ($('#sound_check').prop('checked')) {
 		coin_drop.play();
 		coin_drop.currentTime = 0;
@@ -107,7 +107,7 @@ function max_loss_streak() { // function to update longest loss streak
 }
 
 function fade_reset(){
-	setInterval(function () {
+	setInterval(function () { // for eye of newt. this will change reset loss color when active
         if ($('#resetL_check').prop('checked')) {
         $("#reset_loss").css("color", "green");
         $("#reset_p").css("color", "green");
@@ -163,7 +163,7 @@ function bust_chance() { //probability, guess and suggested multiplier
 	}, 800);
 }
 
-function profit_color() {
+function profit_color() { //sets profit color dependant on + or - profit
 	var profit = parseFloat($("#pct_balance").val()) - lastBal;
 
 	if (profit > 0) {
@@ -195,7 +195,7 @@ function sleep(milliseconds) { //delay function
 	}
 }
 
-function emoticons(text) {
+function emoticons(text) { //emotes are checked and passed into a string before being sent back to chat
 	var url = "https://dl.dropboxusercontent.com/u/27471347/emote/";
 
 	var searchFor = /:D|:-D|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
@@ -235,7 +235,7 @@ function emoticons(text) {
 	return (text);
 }
 
-function parse_chat() {
+function parse_chat() { //parse chat used for chat commands and to insert emoticons.
 	var arr_time = new Array();
 	var db_url = "https://dl.dropboxusercontent.com/u/27471347/emote/"
 
@@ -283,7 +283,7 @@ function parse_chat() {
 
 }
 
-function c_start_bot() {
+function c_start_bot() { //starts the bot from chat command
 	var answer = confirm("Are you sure?" + '\n' + "Ready to start martingale?")
 		if (answer) {
 			alert("Good luck!")
@@ -298,7 +298,7 @@ function c_start_bot() {
 		}
 }
 
-function c_stop_bot() {
+function c_stop_bot() { //stops the bot
 	console.log('Bot stopped from command');
 	  clearInterval(timer);
 	  running = false;
@@ -366,7 +366,7 @@ function martingale() { //the main martingale function
 		//Add a step into the martingale to see if we reach our desired loss length, If so reset
 		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
 			     {
-				if ($('#resetL_check').prop('checked')) {}
+				if ($('#resetL_check').prop('checked')) { }// for eye of newt, adds a check before reset loss can be used 
 				else {
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
@@ -406,7 +406,7 @@ function martingale() { //the main martingale function
 		else if (curr_bal > bal.data('oldVal')) //This is win step
 			     {
 
-				if ($('#stopwin_check').prop('checked')) {
+				if ($('#stopwin_check').prop('checked')) { // checks to see if stop on win is checked
 					c_stop_bot();
 				}
 
@@ -529,7 +529,7 @@ function tabber() {
 		        $('<li>').append($('<a>').text('Bot-Help').attr('href', '#Nixsy9')).appendTo('.tabs');
 };
 
-function create_ui() {
+function create_ui() { // creates most of the gui stuff
 
 	$('.button_inner_group:nth(2)').append(
 		       '<button onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", $("#invest_code").val());\'>invest all<div class="key">N</div></button>').append(
@@ -700,6 +700,7 @@ function create_ui() {
 	$swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" checked="unchecked" /> Stop on win</div>')
 		$o_row1.append($swin_c);
 
+    //resetL_check
 	$reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="unchecked" /> uncheck to enable reset loss</div>')
 		$o_row1.append($reset_loss_safety);
 
@@ -722,20 +723,20 @@ function create_ui() {
 	$options_group.append($fieldset_o);
 	$container.append($container2);
 
-	$button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>');
+	$button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>'); //toggle hide for options
 
-	$(document).ready(function () {
+	$(document).ready(function () { // toggle hide function for options
 		$('#chipper2').hide();
 		$('a#showhidetrigger2').click(function () {
 			$('#chipper2').toggle(700);
 		});
 	});
 
-	$(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>');
+	$(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>'); //toggles hide for gui
 	  $(".container").eq('1').append($container);
 	  $(".container").eq('1').append('<div style="clear:left;"/>');
 	  
-	$(document).ready(function () {
+	$(document).ready(function () { // toggle hide function for gui
 		$('#chipper').hide();
 		$('a#showhidetrigger').click(function () {
 			$('#chipper').toggle(700);
@@ -743,7 +744,7 @@ function create_ui() {
 	});
 }
 
-function set_run() {
+function set_run() { //logic and check if bot has enough bank for martingale
 	  if($multiplier !== undefined &&
 		      $steps !== undefined)
 	      if($.isNumeric($multiplier.val()) &&
@@ -789,7 +790,7 @@ function set_run() {
 //
 //The main stuff
 //
-$(document).ready(function () {
+$(document).ready(function () { //this fires when the page loads 
 
 	  tabber();
 
