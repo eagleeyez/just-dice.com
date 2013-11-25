@@ -136,15 +136,30 @@ function bust_chance() { //probability, guess and suggested multiplier
 
 	setInterval(function () {
 		
-        //probability
+		//probability
 		var ccbust1 = parseFloat($("#pct_chance").val());
 		var ccbust2 = parseFloat($("#steps").val());
 		cBust1 = 1 - ccbust1 / 100;
 		cBust2 = Math.pow(cBust1, ccbust2) * 100;
         
         if (cBust3 != cBust2){
-            cBust3 =cBust2;
+            cBust3 = cBust2;
+            
+                if (String(cBust2).indexOf('e') !== -1) {
+                    var arr = new Array();
+                    arr = String(cBust2).split('e');
+                    cBust2 = cBust2.toFixed(arr[1].substring(1));
+                    console.log('cBust2=' + cBust2);
+                }            
+
             $("#magic_amt").val(cBust2.toFixed(10));
+
+			console.log('steps: ' + $steps.val() +
+				'   multiplier:' + $multiplier.val() +
+				'   bal: ' + $('#pct_balance').val() +
+				'   bet:' + $('#pct_bet').val() + 
+                '   suggested multiplier:' + multi4 +
+                '   Probability:' + cBust3);
         }
         
 		//suggested multiplier
@@ -762,10 +777,6 @@ function set_run() { //logic and check if bot has enough bank for martingale
 		           var total = 0;
 		           var mult = 1;
 		           var i;
-		          console.log('steps: ' + $steps.val() +
-			           '   multiplier:' + $multiplier.val() +
-			           '   bal: ' + $('#pct_balance').val() +
-			           '   bet:' + $('#pct_bet').val());
 
 		           for(i = 0; i < $steps.val(); i++) {
 			             total += $('#pct_bet').val() * mult;
