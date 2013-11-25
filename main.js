@@ -95,13 +95,12 @@ function martinDelay_loop() { //auto tweaks the delay speed according to values 
 	}, 100);
 }
 
-function appendVersion() { // append current version to page
-	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version" + (version_c) + " </div>"
-		$("body").append(footer);
+function appendVersion() { 
+        test_css(' Automated betting system' + version_c + ' loaded');
 }
 
-function test_css() { // shows a loaded message in log area
-	document.querySelector(".log").innerHTML = "Automated betting system" + (version_c) + " loaded.";
+function test_css(message) { // shows a message in log area
+	document.querySelector(".log").innerHTML = (message);
 	setInterval(function () {
 		document.querySelector(".log").innerHTML = " ";
 	}, 6000);
@@ -874,7 +873,7 @@ $(document).ready(function () { //this fires when the page loads
 
 	appendVersion();
 
-	test_css();
+	//test_css();
 
 	parse_chat();
 
