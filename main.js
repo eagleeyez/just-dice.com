@@ -211,7 +211,7 @@ function bust_chance() { //probability, guess and suggested multiplier
 
 		if (multi3 != multi4) {
 			multi4 = multi3;
-			$("#Guess_amt").val((multi3).toFixed(8));
+			$("#Guess_amt").val((multi3).toFixed(2));
 		}
 
 		//win guess
