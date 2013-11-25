@@ -95,8 +95,8 @@ function martinDelay_loop() { //auto tweaks the delay speed according to values 
 	}, 100);
 }
 
-function appendVersion() { 
-        test_css(' Automated betting system' + version_c + ' loaded');
+function appendVersion() {
+	test_css(' Automated betting system' + version_c + ' loaded');
 }
 
 function test_css(message) { // shows a message in log area
@@ -149,18 +149,6 @@ function max_loss_streak() { // function to update longest loss streak
 	}, 800);
 }
 
-function fade_reset() {
-	setInterval(function () { // for eye of newt. this will change reset loss color when active
-		if ($('#resetL_check').prop('checked')) {
-			$("#reset_loss").css("color", "green");
-			$("#reset_p").css("color", "green");
-		} else {
-			$("#reset_loss").css("color", "red");
-			$("#reset_p").css("color", "red");
-		}
-	}, 800);
-}
-
 function max_win_streak() { //function to update longest win streak
 	$("#max_win").css("color", "green");
 	setInterval(function () {
@@ -169,6 +157,18 @@ function max_win_streak() { //function to update longest win streak
 			$("#max_win").val(max_win);
 		} else {
 			// nothing here move along XD
+		}
+	}, 800);
+}
+
+function fade_reset() {
+	setInterval(function () { // for eye of newt. this will change reset loss color when active
+		if ($('#resetL_check').prop('checked')) {
+			$("#reset_loss").css("color", "green");
+			$("#reset_p").css("color", "green");
+		} else {
+			$("#reset_loss").css("color", "red");
+			$("#reset_p").css("color", "red");
 		}
 	}, 800);
 }
@@ -353,7 +353,7 @@ function c_start_bot() { //starts the bot from chat command
 		if (answer) {
 			alert("Good luck!")
 			console.log('Bot started from command');
-            test_css('Command accepted, Starting martingale');
+			test_css('Command accepted, Starting martingale');
 			//alert('would of started');
 			        running = true;
 			        
@@ -361,13 +361,13 @@ function c_start_bot() { //starts the bot from chat command
 			        $("#a_hi").trigger('click');
 		} else {
 			console.log('Bot start aborted');
-            test_css('Command accepted, Abort successful');
+			test_css('Command accepted, Abort successful');
 		}
 }
 
 function c_stop_bot() { //stops the bot
 	console.log('Bot stopped from command');
-    test_css('Command accepted, Stopping martingale');
+	test_css('Command accepted, Stopping martingale');
 	  clearInterval(timer);
 	  running = false;
 	  current_steps = 1;
@@ -437,7 +437,11 @@ function martingale() { //the main martingale function
 				if ($('#resetL_check').prop('checked')) {}
 				// for eye of adds a check before reset loss can be used
 				else {
-                last_lost = 1;
+					if (last_loss = 0) {
+						last_lost = 1;
+					} else {
+						last_lost = 0;
+					}
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
 					         var profit = parseFloat($("#pct_balance").val()) - lastBal;
@@ -479,7 +483,6 @@ function martingale() { //the main martingale function
 				if ($('#stopwin_check').prop('checked')) { // checks to see if stop on win is checked
 					c_stop_bot();
 				}
-                last_lost = 0;
 				play_sound();
 				        current_steps = 1;
 				current_bet_num = 0;
@@ -523,7 +526,11 @@ function martingale() { //the main martingale function
 		    else if ($.isNumeric($multiplier.val()) && // This is loss step
 			             $.isNumeric($steps.val()) &&
 			            ((current_steps - 1) < $steps.val())) {
-                         last_lost = 1;
+			if (last_loss = 0) {
+				last_lost = 1;
+			} else {
+				last_lost = 0;
+			}
 			             //Increase our bet by the multiplier
 			var profit = parseFloat($("#pct_balance").val()) - lastBal;
 			            var new_val = $("#pct_bet").val() * $multiplier.val();
@@ -587,7 +594,7 @@ function martingale() { //the main martingale function
 
 // A little bit of a help file.
 function tabber() {
-	        var markup = '<div class="bot-stats"><p><img src="https://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show/Hide </u></strong>Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %. For this to work you need to uncheck box in option panel. if the reset numbers are red they are active</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. This is the first time I have wrote anything in javascript using probability. it could be wrong. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streaklength.</p><p><u><strong>Guess</strong></u>This is a fun little readout that looks at current win percentage vs chance to win and says expect + if it is under and expect - if it is over. This is not a reliable way to predict bets it is just for fun.</p><p><u><strong>Save</strong></u>This will save your sessions bets to a file called &quot;open-with-notepad.bin&quot; as the name sggests you can open this with a text editor.</p><p><u><strong>Chat commands</strong></u> This bot has a built in chat parser that can stop and start the bot from chat commands. Use <strong>Bstart</strong> to start the bot with the values in the GUI and <strong>Bstop</strong> to stop the bot running.</p><p><u><strong>Options dropdown</strong></u>You can now find a dropdown options menu by clicking <strong>options</strong> in the main gui. This contains {sound, random hi/lo, chat emotes and stop on win.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born. I would also like to thank Wilco for his help with the chat parser and regex </p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A> </p><div class="bot-foot">';
+	        var markup = '<div class="bot-stats"><p><img src="https://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show/Hide </u></strong>Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %. For this to work you need to uncheck box in option panel. if the reset numbers are red they are active</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. This is the first time I have wrote anything in javascript using probability. it could be wrong. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streaklength.</p><p><u><strong>Guess</strong></u>This is a fun little readout that looks at current win percentage vs chance to win and says expect + if it is under and expect - if it is over. This is not a reliable way to predict bets it is just for fun.</p><p><u><strong>Save</strong></u>This will save your sessions bets to a file called &quot;open-with-notepad.bin&quot; as the name sggests you can open this with a text editor.</p><p><u><strong>Chat commands</strong></u> This bot has a built in chat parser that can stop and start the bot from chat commands. Use <strong>Bstart</strong> to start the bot with the values in the GUI and <strong>Bstop</strong> to stop the bot running.</p><p><u><strong>Options dropdown</strong></u>You can now find a dropdown options menu by clicking <strong>options</strong> in the main gui. This contains {sound, random hi/lo, chat emotes and stop on win.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born. I would also like to thank Wilco for his help with the chat parser and regex </p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A><p><u><strong>Gox btc price</strong></u></p><p><img src="https://btcticker.appspot.com/mtgox/1.00btc.png"></p> </p><div class="bot-foot">';
 	                $panelWrapper = $('<div>').attr('id', 'Nixsy9').css({
 			display : 'none'
 		}).insertAfter('#faq'),
@@ -773,7 +780,7 @@ function create_ui() { // creates most of the gui stuff
 	//rand_check
 	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo</div>')
 		$o_row1.append($rand_c);
-        
+
 	//switch_loss_check
 	$switch_loss_check = $('<div><input type="checkbox" value="1" name="switch_loss_check" id="switch_loss_check" /> switch hi/lo on loss</div>')
 		$o_row1.append($switch_loss_check);
@@ -830,8 +837,8 @@ function set_run() { //logic and check if bot has enough bank for martingale
 		           var i;
 
 		           for(i = 0; i < $steps.val(); i++) {
-			             total += $('#pct_bet').val() * mult;
-			             mult *= $multiplier.val();
+			             total += $('#pct_bet').val() * mult; //total = total + $('#pct_bet').val() * mult;
+			             mult *= $multiplier.val(); //mult = mult * $multiplier.val();
 			           
 		}
 		           console.log('total bank needed for martingale:' + total);
