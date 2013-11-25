@@ -45,6 +45,11 @@ This is a donation link to the original developer (Darby999). This script is his
 
 More information About this bot can be found here http://criticalnix.github.io/just-dice.com/ and here http://bitcoinproject.net/just-dice-casino/chrome-extension
 
+Other Just-Dice projects
+------
+
+[reverse martingale bot](https://github.com/CriticalNix/just-dice.com-Reverse-martingale-)
+[Just-Dice theme switcher](https://github.com/CriticalNix/bitcoinproject.net--just-dice.com-Theme-switcher)
 
 Notice
 ------
