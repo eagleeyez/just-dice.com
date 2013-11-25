@@ -48,6 +48,7 @@ var yin_yang2 = 0; //percentage of rolls that are wins
 var check_step = 0; //Simple switch to make sure we grab the balance once
 var bet_total = 0; //Total bets
 var new_val = 0.00000001;
+var new_val2 = 0; //check for martinDelay_loop
 var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3');
 var win1 = 0;
 var lose1 = 0;
@@ -61,6 +62,37 @@ var cBust3 = 1;
 var multi4 = 1;
 
 var version_c = "1.0.8";
+
+function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
+
+	setInterval(function () {
+    
+        if (new_val != new_val2){
+                new_val2 = new_val;
+            if (new_val > 0.00100000) {
+                martinDelay = 300;
+                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+            } else if (new_val > 0.00010000 && new_val < 0.00100000) {
+                martinDelay = 600;
+                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+            } else if (new_val > 0.00001000 && new_val < 0.00010000) {
+                martinDelay = 800;
+                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+            } else if (new_val > 0.00000100 && new_val < 0.00001000) {
+                martinDelay = 1000;
+                console.log('running speed changed to' + (martinDelay / 1000) + ' seconds');
+            } else if (new_val > 0.00000010 && new_val < 0.00000100) {
+                martinDelay = 1200;
+                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+            } else {
+                martinDelay = 1500;
+                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+            }
+            
+        }
+    
+	}, 100);
+}
 
 function appendVersion() { // append current version to page
 	var footer = "<div style='position:fixed;bottom:0px;background-color:white;'>Bot version" + (version_c) + " </div>"
@@ -159,7 +191,8 @@ function bust_chance() { //probability, guess and suggested multiplier
 				'   bal: ' + $('#pct_balance').val() +
 				'   bet:' + $('#pct_bet').val() + 
                 '   suggested multiplier:' + multi4 +
-                '   Probability:' + cBust3);
+                '   Probability:' + cBust3 + 
+                '   Running speed is ' + (martinDelay / 1000) + ' seconds!');
         }
         
 		//suggested multiplier
@@ -783,7 +816,7 @@ function set_run() { //logic and check if bot has enough bank for martingale
 			             mult *= $multiplier.val();
 			           
 		}
-		           console.log('total:' + total);
+		           console.log('total bank needed for martingale:' + total);
 
 		           if(total != 0 && total < $('#pct_balance').val()) {
 			             console.log("setting class VALID");
@@ -830,6 +863,8 @@ $(document).ready(function () { //this fires when the page loads
 	parse_chat();
     
     fade_reset();
+    
+    martinDelay_loop();
 
 	//highlight();
 
