@@ -66,31 +66,31 @@ var version_c = "1.0.8";
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 
 	setInterval(function () {
-    
-        if (new_val != new_val2){
-                new_val2 = new_val;
-            if (new_val > 0.00100000) {
-                martinDelay = 300;
-                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
-            } else if (new_val > 0.00010000 && new_val < 0.00100000) {
-                martinDelay = 600;
-                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
-            } else if (new_val > 0.00001000 && new_val < 0.00010000) {
-                martinDelay = 800;
-                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
-            } else if (new_val > 0.00000100 && new_val < 0.00001000) {
-                martinDelay = 1000;
-                console.log('running speed changed to' + (martinDelay / 1000) + ' seconds');
-            } else if (new_val > 0.00000010 && new_val < 0.00000100) {
-                martinDelay = 1200;
-                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
-            } else {
-                martinDelay = 1500;
-                console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
-            }
-            
-        }
-    
+
+		if (new_val != new_val2) {
+			new_val2 = new_val;
+			if (new_val > 0.00100000) {
+				martinDelay = 300;
+				console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+			} else if (new_val > 0.00010000 && new_val < 0.00100000) {
+				martinDelay = 600;
+				console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+			} else if (new_val > 0.00001000 && new_val < 0.00010000) {
+				martinDelay = 800;
+				console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+			} else if (new_val > 0.00000100 && new_val < 0.00001000) {
+				martinDelay = 1000;
+				console.log('running speed changed to' + (martinDelay / 1000) + ' seconds');
+			} else if (new_val > 0.00000010 && new_val < 0.00000100) {
+				martinDelay = 1200;
+				console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+			} else {
+				martinDelay = 1500;
+				console.log('running speed changed to ' + (martinDelay / 1000) + ' seconds');
+			}
+
+		}
+
 	}, 100);
 }
 
@@ -140,15 +140,15 @@ function max_loss_streak() { // function to update longest loss streak
 	}, 800);
 }
 
-function fade_reset(){
+function fade_reset() {
 	setInterval(function () { // for eye of newt. this will change reset loss color when active
-        if ($('#resetL_check').prop('checked')) {
-        $("#reset_loss").css("color", "green");
-        $("#reset_p").css("color", "green");
-        } else { 
-        $("#reset_loss").css("color", "red");
-        $("#reset_p").css("color", "red");
-        }         
+		if ($('#resetL_check').prop('checked')) {
+			$("#reset_loss").css("color", "green");
+			$("#reset_p").css("color", "green");
+		} else {
+			$("#reset_loss").css("color", "red");
+			$("#reset_p").css("color", "red");
+		}
 	}, 800);
 }
 
@@ -167,43 +167,43 @@ function max_win_streak() { //function to update longest win streak
 function bust_chance() { //probability, guess and suggested multiplier
 
 	setInterval(function () {
-		
+
 		//probability
 		var ccbust1 = parseFloat($("#pct_chance").val());
 		var ccbust2 = parseFloat($("#steps").val());
 		cBust1 = 1 - ccbust1 / 100;
 		cBust2 = Math.pow(cBust1, ccbust2) * 100;
-        
-        if (cBust3 != cBust2){
-            cBust3 = cBust2;
-            
-                if (String(cBust2).indexOf('e') !== -1) {
-                    var arr = new Array();
-                    arr = String(cBust2).split('e');
-                    cBust2 = cBust2.toFixed(arr[1].substring(1));
-                    console.log('cBust2=' + cBust2);
-                }            
 
-            $("#magic_amt").val(cBust2.toFixed(10));
+		if (cBust3 != cBust2) {
+			cBust3 = cBust2;
+
+			if (String(cBust2).indexOf('e') !== -1) {
+				var arr = new Array();
+				arr = String(cBust2).split('e');
+				cBust2 = cBust2.toFixed(arr[1].substring(1));
+				console.log('cBust2=' + cBust2);
+			}
+
+			$("#magic_amt").val(cBust2.toFixed(10));
 
 			console.log('steps: ' + $steps.val() +
 				'   multiplier:' + $multiplier.val() +
 				'   bal: ' + $('#pct_balance').val() +
-				'   bet:' + $('#pct_bet').val() + 
-                '   suggested multiplier:' + multi4 +
-                '   Probability:' + cBust3 + 
-                '   Running speed is ' + (martinDelay / 1000) + ' seconds!');
-        }
-        
+				'   bet:' + $('#pct_bet').val() +
+				'   suggested multiplier:' + multi4 +
+				'   Probability:' + cBust3 +
+				'   Running speed is ' + (martinDelay / 1000) + ' seconds!');
+		}
+
 		//suggested multiplier
 		multi3 = 0;
 		multi3 = (99 / (99 - (ccbust1)) + 0.1);
 		var current_balance = parseFloat($("#pct_balance").val());
-        
-        if (multi3 != multi4){
-            multi4 = multi3;
-            $("#Guess_amt").val((multi3).toFixed(8));
-        }
+
+		if (multi3 != multi4) {
+			multi4 = multi3;
+			$("#Guess_amt").val((multi3).toFixed(8));
+		}
 
 		//win guess
 		if (yin_yang2 > ccbust1) {
@@ -422,7 +422,8 @@ function martingale() { //the main martingale function
 		//Add a step into the martingale to see if we reach our desired loss length, If so reset
 		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
 			     {
-				if ($('#resetL_check').prop('checked')) { }// for eye of adds a check before reset loss can be used 
+				if ($('#resetL_check').prop('checked')) {}
+				// for eye of adds a check before reset loss can be used
 				else {
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
@@ -756,7 +757,7 @@ function create_ui() { // creates most of the gui stuff
 	$swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" /> Stop on win</div>')
 		$o_row1.append($swin_c);
 
-    //resetL_check
+	//resetL_check
 	$reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="unchecked" /> uncheck to enable reset loss</div>')
 		$o_row1.append($reset_loss_safety);
 
@@ -842,7 +843,7 @@ function set_run() { //logic and check if bot has enough bank for martingale
 //
 //The main stuff
 //
-$(document).ready(function () { //this fires when the page loads 
+$(document).ready(function () { //this fires when the page loads
 
 	  tabber();
 
@@ -861,10 +862,10 @@ $(document).ready(function () { //this fires when the page loads
 	test_css();
 
 	parse_chat();
-    
-    fade_reset();
-    
-    martinDelay_loop();
+
+	fade_reset();
+
+	martinDelay_loop();
 
 	//highlight();
 
