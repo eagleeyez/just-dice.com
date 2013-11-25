@@ -57,6 +57,8 @@ var current_win_per = 0;
 var rndhilo = 1;
 var today = "";
 var user_chk = 1;
+var cBust3 = 1;
+var multi4 = 1;
 
 var version_c = "1.0.8";
 
@@ -133,21 +135,27 @@ function max_win_streak() { //function to update longest win streak
 function bust_chance() { //probability, guess and suggested multiplier
 
 	setInterval(function () {
-
-		//probability
+		
+        //probability
 		var ccbust1 = parseFloat($("#pct_chance").val());
 		var ccbust2 = parseFloat($("#steps").val());
 		cBust1 = 1 - ccbust1 / 100;
 		cBust2 = Math.pow(cBust1, ccbust2) * 100;
-
-		$("#magic_amt").val(cBust2.toFixed(10));
-
+        
+        if (cBust3 != cBust2){
+            cBust3 =cBust2;
+            $("#magic_amt").val(cBust2.toFixed(10));
+        }
+        
 		//suggested multiplier
 		multi3 = 0;
 		multi3 = (99 / (99 - (ccbust1)) + 0.1);
 		var current_balance = parseFloat($("#pct_balance").val());
-
-		$("#Guess_amt").val((multi3).toFixed(8));
+        
+        if (multi3 != multi4){
+            multi4 = multi3;
+            $("#Guess_amt").val((multi3).toFixed(8));
+        }
 
 		//win guess
 		if (yin_yang2 > ccbust1) {
@@ -366,7 +374,7 @@ function martingale() { //the main martingale function
 		//Add a step into the martingale to see if we reach our desired loss length, If so reset
 		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
 			     {
-				if ($('#resetL_check').prop('checked')) { }// for eye of newt, adds a check before reset loss can be used 
+				if ($('#resetL_check').prop('checked')) { }// for eye of adds a check before reset loss can be used 
 				else {
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
