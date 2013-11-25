@@ -40,7 +40,7 @@ var $steps;
 var $run;
 var running = false; //If set to true the script will start when the page loads
 var arr_bets = new Array(); //create an array to store bets in.
-var timer_num = 1400; //Timer delay between bets. 1000 = 1 second.
+var martinDelay = 1400; //Timer delay between bets. 1000 = 1 second.
 var current_bet_num = 0; //Steps counter used to find reset loss
 var lastBal = 0; //balance that is grabbed in check_step
 var yin_yang = 0; //counting wins
@@ -60,6 +60,7 @@ var today = "";
 var user_chk = 1;
 var cBust3 = 1;
 var multi4 = 1;
+var last_lost = 1;
 
 var version_c = "1.0.8";
 
@@ -108,14 +109,23 @@ function test_css() { // shows a loaded message in log area
 
 function simp_rand() { //simple random function to select from hi or lo
 	var rndhilo = Math.random() < 0.5 ? 1 : 0;
-	if ($('#rand_check').prop('checked')) {
-		if (rndhilo == 1) {
+	if ($('#switch_loss_check').prop('checked')) {
+		if (last_lost = 1) {
 			$("#a_hi").trigger('click');
 		} else {
 			$("#a_lo").trigger('click');
 		}
+
 	} else {
-		$("#a_hi").trigger('click');
+		if ($('#rand_check').prop('checked')) {
+			if (rndhilo == 1) {
+				$("#a_hi").trigger('click');
+			} else {
+				$("#a_lo").trigger('click');
+			}
+		} else {
+			$("#a_hi").trigger('click');
+		}
 	}
 }
 
@@ -425,6 +435,7 @@ function martingale() { //the main martingale function
 				if ($('#resetL_check').prop('checked')) {}
 				// for eye of adds a check before reset loss can be used
 				else {
+                last_lost = 1;
 					current_bet_num = 1;
 					        $("#pct_bet").val(start_bet);
 					         var profit = parseFloat($("#pct_balance").val()) - lastBal;
@@ -466,7 +477,7 @@ function martingale() { //the main martingale function
 				if ($('#stopwin_check').prop('checked')) { // checks to see if stop on win is checked
 					c_stop_bot();
 				}
-
+                last_lost = 0;
 				play_sound();
 				        current_steps = 1;
 				current_bet_num = 0;
@@ -510,7 +521,7 @@ function martingale() { //the main martingale function
 		    else if ($.isNumeric($multiplier.val()) && // This is loss step
 			             $.isNumeric($steps.val()) &&
 			            ((current_steps - 1) < $steps.val())) {
-
+                         last_lost = 1;
 			             //Increase our bet by the multiplier
 			var profit = parseFloat($("#pct_balance").val()) - lastBal;
 			            var new_val = $("#pct_bet").val() * $multiplier.val();
@@ -563,7 +574,7 @@ function martingale() { //the main martingale function
 		    bal.data('oldVal', bal.val());
 		    timer = setInterval(function () {
 				martingale()
-			}, timer_num);
+			}, martinDelay);
 
 		  
 	}
@@ -745,10 +756,6 @@ function create_ui() { // creates most of the gui stuff
 	$sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="unchecked" /> Play sound on win!</div>')
 		$o_row1.append($sound_c);
 
-	//rand_check
-	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo</div>')
-		$o_row1.append($rand_c);
-
 	//smile_check
 	$smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="unchecked" /> Chat smileys on</div>')
 		$o_row1.append($smile_c);
@@ -761,11 +768,19 @@ function create_ui() { // creates most of the gui stuff
 	$reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="unchecked" /> uncheck to enable reset loss</div>')
 		$o_row1.append($reset_loss_safety);
 
+	//rand_check
+	$rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo</div>')
+		$o_row1.append($rand_c);
+        
+	//switch_loss_check
+	$switch_loss_check = $('<div><input type="checkbox" value="1" name="switch_loss_check" id="switch_loss_check" /> switch hi/lo on loss</div>')
+		$o_row1.append($switch_loss_check);
+
 	/////////////////////////////////////////////////////////////////////////////////////
 
 
 	var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
-	var $fieldset_o = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
+	var $fieldset_o = $('<fieldset style="background-color:#787878;border:2px solid; border-color: #505050;"/>');
 
 	$fieldset.append($row1);
 	$fieldset.append($row2);
@@ -876,7 +891,7 @@ $(document).ready(function () { //this fires when the page loads
 	  bal.data('oldVal', bal.val());
 	  timer = setInterval(function () {
 			martingale()
-		}, timer_num);
+		}, martinDelay);
 
 	   //we also monitor the bet b/c it can also determine if
 	   //we have enough btc to bet the martingale run
