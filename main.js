@@ -62,7 +62,7 @@ var cBust3 = 1;
 var multi4 = 1;
 var last_lost = 1;
 
-var version_c = "1.0.8";
+var version_c = "1.0.9";
 
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 
@@ -353,6 +353,7 @@ function c_start_bot() { //starts the bot from chat command
 		if (answer) {
 			alert("Good luck!")
 			console.log('Bot started from command');
+            test_css('Command accepted, Starting martingale');
 			//alert('would of started');
 			        running = true;
 			        
@@ -360,11 +361,13 @@ function c_start_bot() { //starts the bot from chat command
 			        $("#a_hi").trigger('click');
 		} else {
 			console.log('Bot start aborted');
+            test_css('Command accepted, Abort successful');
 		}
 }
 
 function c_stop_bot() { //stops the bot
 	console.log('Bot stopped from command');
+    test_css('Command accepted, Stopping martingale');
 	  clearInterval(timer);
 	  running = false;
 	  current_steps = 1;
