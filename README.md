@@ -19,7 +19,7 @@ Installation
 or
 
 1. On github browse to the "Packaged" folder
-2. Click on `just-dice.com.crx`
+2. Click on `just-dice.com.crx` then click on `View Raw`
 3. The enhancement suite should now install.  
 4. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
 
