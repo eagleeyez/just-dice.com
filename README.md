@@ -16,6 +16,12 @@ Installation
 5. Click `Load unpacked extensions...` and browse to the directory where you save the repository.
 6. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
 
+or
+
+1. On github browse to the "Packaged" folder
+2. Click on `just-dice.com.crx`
+3. The enhancement suite should now install.  
+4. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
 
 How to Bet
 ----------
