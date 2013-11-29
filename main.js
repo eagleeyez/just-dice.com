@@ -639,6 +639,32 @@ function create_ui() { // creates most of the gui stuff
 
       var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
 
+	$reset = $('<button title="hi guys" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
+	  $reset.click(function () {
+		current_bet_num = 0;
+		lastBal = 0;
+		yin_yang = 0;
+		yin_yang2 = 0;
+		check_step = 0;
+		bet_total = 0;
+		win1 = 0;
+		lose1 = 0;
+		max_win = 0;
+		max_loss = 0;
+		current_win_per = 0;
+		cBust3 = 1;
+		multi4 = 1;
+		profit = 0;
+		$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+		$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+		profit_color();
+		$("#Bet_amt").val(bet_total); //Update bet counter
+        $("#max_win").val(max_win);
+        $("#max_loss").val(max_loss);
+
+	});
+	  $container.append($reset);
+    
       var $run_div = $('<div style="background-color:#787878;margin-top:50px;border:2px solid; border-color: #505050;" class="button_inner_group"/>');
       $run = $('<button id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
 
