@@ -638,7 +638,7 @@ function create_ui() { // creates most of the gui stuff
     $container2.append($options_group)
 
       var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
-
+    
 	$reset = $('<button title="hi guys" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
 	  $reset.click(function () {
 		current_bet_num = 0;
@@ -664,7 +664,7 @@ function create_ui() { // creates most of the gui stuff
 
 	});
 	  $container.append($reset);
-    
+
       var $run_div = $('<div style="background-color:#787878;margin-top:50px;border:2px solid; border-color: #505050;" class="button_inner_group"/>');
       $run = $('<button id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
 
@@ -931,7 +931,7 @@ $(document).ready(function () { //this fires when the page loads
 
     martinDelay_loop();
 
-    profit_checker()();
+    profit_checker();
 
        //set the balance
        //when the balance changes and we're martingaling
