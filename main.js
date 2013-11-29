@@ -905,7 +905,7 @@ $(document).ready(function () { //this fires when the page loads
 
     martinDelay_loop();
 
-    //highlight();
+    profit_checker()();
 
        //set the balance
        //when the balance changes and we're martingaling
