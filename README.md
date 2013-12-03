@@ -9,6 +9,8 @@ THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN Y
 Installation
 ------------
 
+Installation from source
+
 1. This is an extension for Chrome. It will only install on Chrome.
 2. Download the repository to a directory of your choice.           
 3. Type `chrome://extensions/` into the address bar.
@@ -18,10 +20,9 @@ Installation
 
 or
 
-1. On github browse to the "Packaged" folder
-2. Click on `just-dice.com.crx` then click on `View Raw`
-3. The enhancement suite should install.  
-4. Now browse to https://just-dice.com and you should see a new addition for Martingale betting.
+Installation from Market
+
+go to https://chrome.google.com/webstore/detail/efedpmfbfgkajhiahmifclkdghfbogim and download from google. 
 
 How to Bet
 ----------
