@@ -55,7 +55,7 @@ More information About this bot can be found here http://criticalnix.github.io/j
 Other Just-Dice projects
 ------
 
-[reverse martingale bot](https://github.com/CriticalNix/just-dice.com-Reverse-martingale-)
+[Just-Dice reverse martingale](https://github.com/CriticalNix/just-dice.com-Reverse-martingale-)
 
 [Just-Dice theme switcher](https://github.com/CriticalNix/bitcoinproject.net--just-dice.com-Theme-switcher)
 
