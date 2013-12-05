@@ -59,6 +59,8 @@ Other Just-Dice projects
 
 [Just-Dice theme switcher](https://github.com/CriticalNix/bitcoinproject.net--just-dice.com-Theme-switcher)
 
+[Just-Dice patient martingale](https://github.com/CriticalNix/just-dice.com--patient-martingale--)
+
 Notice
 ------
 
