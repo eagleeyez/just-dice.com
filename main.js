@@ -62,8 +62,8 @@ var cBust3 = 1;
 var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
+var version_c = "1.1.4"; 
 
-var version_c = "1.1.3"; //now matches chrome store version
 
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 

@@ -1,13 +1,21 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
 
   "name": "Nix's-Just-dice.com enhancement suite",
   "description": "Provides various enhancements for just-dice.com including a Martingale betting strategy.",
-  "version": "1.1.3",
+  "version": "1.1.4",
 
   "permissions": [
     "tabs","https://just-dice.com/*","storage"
   ],
+   "background": {
+      "persistent": false,
+      "scripts": [ "background.js" ]
+   },
+   "browser_action": {
+      "default_icon": "nix.png",
+      "default_title": "1.1.4"
+   },
  "icons": { "16": "nix.png","48": "nix.png","128": "nix.png" },
  "content_security_policy": "script-src 'self'; object-src 'self'",
  "content_scripts": [
