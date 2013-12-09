@@ -5,6 +5,8 @@ This is a chrome extension that provides various enhancements to just-dice.com. 
 
 THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN YOU ARE WILLING TO LOSE AS YOUR BALANCE.
 
+THIS REPO IS A BLEEDING EDGE REPO. INSTALL AT YOUR OWN RISK. THE VERSION ON THE GOOGLE CHROME STORE IS STABLE.
+
 ------------
 Installation
 ------------
