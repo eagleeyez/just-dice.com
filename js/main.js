@@ -375,21 +375,14 @@ function parse_chat() { //parse chat used for chat commands and to insert emotic
 
 }
 
-function c_start_bot() { //starts the bot from chat command
-    var answer = confirm("Are you sure?" + '\n' + "Ready to start martingale?")
-        if (answer) {
-            alert("Good luck!")
-            console.log('Bot started from command');
+function c_start_bot() { //starts the bot 
+           // console.log('Bot started from command');
             test_css('Command accepted, Starting martingale');
             //alert('would of started');
-                    running = true;
-                    
+                    running = true;                   
                     start_bet = $("#pct_bet").val();
-                    $("#a_hi").trigger('click');
-        } else {
-            console.log('Bot start aborted');
-            test_css('Command accepted, Abort successful');
-        }
+                    simp_rand();
+
 }
 
 function c_stop_bot() { //stops the bot
@@ -399,6 +392,30 @@ function c_stop_bot() { //stops the bot
       running = false;
       current_steps = 1;
     current_bet_num = 0;
+}
+
+function c_reset_stats(){
+		current_bet_num = 0;
+		lastBal = 0;
+		yin_yang = 0;
+		yin_yang2 = 0;
+		check_step = 0;
+		bet_total = 0;
+		win1 = 0;
+		lose1 = 0;
+		max_win = 0;
+		max_loss = 0;
+		current_win_per = 0;
+		cBust3 = 1;
+		multi4 = 1;
+		profit = 0;
+		$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+		$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+		profit_color();
+		$("#Bet_amt").val(bet_total); //Update bet counter
+        $("#max_win").val(max_win);
+        $("#max_loss").val(max_loss);
+
 }
 
 function save_to_file() { //saves information to a .bin file that can be opened with notepad
@@ -638,29 +655,9 @@ function create_ui() { // creates most of the gui stuff
 
       var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
     
-	$reset = $('<button title="hi guys" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
+	$reset = $('<button title="Resets Stats" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
 	  $reset.click(function () {
-		current_bet_num = 0;
-		lastBal = 0;
-		yin_yang = 0;
-		yin_yang2 = 0;
-		check_step = 0;
-		bet_total = 0;
-		win1 = 0;
-		lose1 = 0;
-		max_win = 0;
-		max_loss = 0;
-		current_win_per = 0;
-		cBust3 = 1;
-		multi4 = 1;
-		profit = 0;
-		$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
-		$("#pro_fits").val((profit).toFixed(8)); //Update Profit
-		profit_color();
-		$("#Bet_amt").val(bet_total); //Update bet counter
-        $("#max_win").val(max_win);
-        $("#max_loss").val(max_loss);
-
+		c_reset_stats();
 	});
 	  $container.append($reset);
 
