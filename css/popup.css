@@ -1,0 +1,26 @@
+* {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+body {
+  padding: 10px;
+  background-color: #transparent;
+  background-image: url('../img/icon.png');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  font-family: verdana;
+  font-color: white;
+  width: 300px;
+  height: 160px;
+}
+
+div {
+  padding: 20px;
+  width: 170px;
+}
+
+p {
+  margin-top: 20px;
+}
