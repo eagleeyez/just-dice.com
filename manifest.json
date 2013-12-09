@@ -10,8 +10,6 @@
   ],
   "web_accessible_resources": [
     "js/*",
-    "html/*",
-    "css/*",
     "img/*"
   ],
    "background": {
@@ -29,7 +27,6 @@
       "matches": ["https://just-dice.com/*"],
       "js": [
 				"js/lib/jquery.js",
-				"js/lib/require.js",
 				"js/main.js"
 				],
       "run_at": "document_end"

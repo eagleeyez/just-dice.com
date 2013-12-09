@@ -826,6 +826,7 @@ function create_ui() { // creates most of the gui stuff
 
     var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
     var $fieldset_o = $('<fieldset style="background-color:#787878;border:2px solid; border-color: #505050;"/>');
+	var $c_spacer = $('<div style="height:9px;width:30px;margin-left:0px;margin-right:0px;"/>');
 
     $fieldset.append($row1);
     $fieldset.append($row2);
@@ -834,7 +835,8 @@ function create_ui() { // creates most of the gui stuff
 
     $fieldset_o.append($o_row1);
 
-    $button_group.append($martingale_button);
+    $button_group.append($c_spacer);
+	$button_group.append($martingale_button);
     $button_group.append($fieldset);
     $button_group.append($run_div);
 	$button_group.append("<div align='center' style='color:white;font-size:8pt;'>Nix's enhancement suite</div>");
