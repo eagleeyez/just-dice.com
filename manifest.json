@@ -14,7 +14,7 @@
    },
    "browser_action": {
       "default_icon": "nix.png",
-      "default_title": "1.1.4"
+      "default_title": "Click to go to Just-Dice.com"
    },
  "icons": { "16": "nix.png","48": "nix.png","128": "nix.png" },
  "content_security_policy": "script-src 'self'; object-src 'self'",
