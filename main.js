@@ -63,7 +63,7 @@ var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
 
-var version_c = "1.1.1";
+var version_c = "1.1.3"; //now matches chrome store version
 
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 
@@ -109,6 +109,25 @@ function profit_checker() {
 			        
 		}
 	}, 100);
+}
+
+//------------------------------------------------------------------- Scientific notation
+function scientific(x) {
+	if (Math.abs(x) < 1.0) {
+		var e = parseInt(x.toString().split('e-')[1]);
+		if (e) {
+			x *= Math.pow(10, e - 1);
+			x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+		}
+	} else {
+		var e = parseInt(x.toString().split('+')[1]);
+		if (e > 20) {
+			e -= 20;
+			x /= Math.pow(10, e);
+			x += (new Array(e + 1)).join('0');
+		}
+	}
+	return x;
 }
 
 function appendVersion() {
@@ -417,6 +436,7 @@ function popArray() { //populate bet array with the information we want.
         var c_balance = parseFloat($("#pct_balance").val());
         arr_bets.push('Balance-' + c_balance + ',');
         var profit = c_balance - lastBal;
+		var profit2 =  scientific(profit);
         arr_bets.push('profit-' + profit + ',');
         var c_chance = parseFloat($("#pct_chance").val());
         arr_bets.push('chance-' + c_chance + ',');
@@ -458,14 +478,7 @@ function martingale() { //the main martingale function
 
                     yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                                 //get rid of scientific notation
-                                if(String(new_val).indexOf('e') !== -1) {
-                                        var arr = new Array();
-                                        arr = String(new_val).split('e');
-                                          new_val = new_val.toFixed(arr[1].substring(1));
-                                 console.log('new_val=' + new_val);
-                                
-                    }
+                               new_val = scientific(new_val);
 
                                 
                                 $("#pct_bet").val(new_val);
@@ -502,14 +515,7 @@ function martingale() { //the main martingale function
 
                 yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                             //get rid of scientific notation
-                            if(String(new_val).indexOf('e') !== -1) {
-                                    var arr = new Array();
-                                    arr = String(new_val).split('e');
-                                      new_val = new_val.toFixed(arr[1].substring(1));
-                             console.log('new_val=' + new_val);
-                            
-                }
+                             new_val = scientific(new_val);
 
                             
                             $("#pct_bet").val(new_val);
@@ -546,14 +552,7 @@ function martingale() { //the main martingale function
 
             yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                         //get rid of scientific notation
-                        if(String(new_val).indexOf('e') !== -1) {
-                                var arr = new Array();
-                                arr = String(new_val).split('e');
-                                  new_val = new_val.toFixed(arr[1].substring(1));
-                         console.log('new_val=' + new_val);
-                        
-            }
+                         new_val = scientific(new_val);
 
                         
                         $("#pct_bet").val(new_val);
@@ -603,7 +602,7 @@ function martingale() { //the main martingale function
 
 // A little bit of a help file.
 function tabber() {
-            var markup = '<div class="bot-stats"><p><img src="https://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show/Hide </u></strong>Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless Reset loss is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in Reset %. For this to work you need to uncheck box in option panel. if the reset numbers are red they are active</p><p><strong><u>Reset %</u></strong> This value is called when Reset loss is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. This is the first time I have wrote anything in javascript using probability. it could be wrong. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the multiplier, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streak length.</p><p><u><strong>Profit check</strong></u>When Stop on profit in the option is checked. The Bot will stop when the site balance reaches the value in the Profit check field</p><p><u><strong>Save</strong></u>This will save your sessions bets to a file called &quot;open-with-notepad.bin&quot; as the name suggests you can open this with a text editor.</p><p><u><strong>Chat commands</strong></u> This bot has a built in chat parser that can stop and start the bot from chat commands. Use <strong>Bstart</strong> to start the bot with the values in the GUI and <strong>Bstop</strong> to stop the bot running.</p><p><u><strong>Options dropdown</strong></u>You can now find a dropdown options menu by clicking <strong>options</strong> in the main gui. This contains {sound, random hi/lo, chat emotes and stop on win.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born. I would also like to thank Wilco for his help with the chat parser and regex </p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A><p><strong><u>latest version</u></strong><div id="latest_version"></div></p><strong><u>current version</u></strong><p> ' + version_c + '</p> </p><div class="bot-foot">';
+            var markup = '<div class="bot-stats"><p><img src="https://i.imgur.com/N6n5UNz.png" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show Bot </u></strong>Look Just under me just above the all bets tab, Click <strong>Show Bot</strong> to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x <strong>Multiplier</strong> will double your bet on a loss</p><p><strong><u>Max losses</u></strong> This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length unless <strong>Reset loss</strong> is a smaller number</p><p><strong><u>Reset loss</u></strong> This is a relatively new feature to martingale. Upon a loss streak reaching this number. the bet value will change to value given in <strong>Reset %</strong>. For this to work you need to <strong>uncheck to enable reset loss</strong> in the option panel. if the reset numbers are red they are active</p><p><strong><u>Reset %</u></strong> This value is called when <strong>Reset loss</strong> is reached. This value is a percentage of your total bank. Use extreme caution when setting high numbers here.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^<strong>multiplie</strong>r. </p><p><strong><u>Suggested x</u></strong> This is a suggested value for the <strong>multiplie</strong>r, It is worked out as &quot; 99 / (99 - chance to win) &quot;.</p><p><strong><u>Profit display</u></strong> This will show your profit won. If you refresh the page this value will reset.</p><p><strong><u>Win % display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Max win</strong></u> This will display your max winning streak length.</p><p><u><strong>Max loss</strong></u> This will display your max losing streak length.</p><p><u><strong>Bank check</strong></u> When <strong>Stop on bank</strong> in the option is checked. The Bot will stop when the site balance reaches the value in the Bank check field</p><p><u><strong>Save</strong></u>This will save your sessions bets to a file called &quot;open-with-notepad.bin&quot; as the name suggests you can open this with a text editor.</p><p><u><strong>Chat commands</strong></u> This bot has a built in chat parser that can stop and start the bot from chat commands. Use <strong>Bstart</strong> to start the bot with the values in the GUI and <strong>Bstop</strong> to stop the bot running.</p><p><u><strong>Options dropdown</strong></u>You can find a dropdown options menu by clicking <strong>options</strong> in the main gui. This contains {sound, random hi/lo, chat emotes and stop on win.</p><p><strong><u>Credits</u></strong> I would like to thank Darby999 for his original script. he was laid up in bed with a broken hip in spring this year and the origins of this script was born. I would also like to thank Wilco for his help with the chat parser and regex </p><p><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. <u><em>Do not ever have more in your balance than you are willing to lose and always use google two factor authentication</em></u>. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1Q2yrewqAaxdWHMKkSxTxk61F3c4mRKNR</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A><p><strong><u>latest version</u></strong><div id="latest_version"></div></p><strong><u>current version</u></strong><p> ' + version_c + '</p> </p><div class="bot-foot">';
                     $panelWrapper = $('<div>').attr('id', 'Nixsy9').css({
             display : 'none'
         }).insertAfter('#faq'),
@@ -787,7 +786,7 @@ function create_ui() { // creates most of the gui stuff
       $row4.append($max_loss);
     $row4.append($numz10);
 
-      var $label12 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Profit check</p>');
+      var $label12 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Bank check</p>');
       $prof_check = $('<input style="border:1px solid; border-color: #505050;" id="prof_chk" value="0" />');
     var $numz11 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">?</p>');
       $row4.append($label12);
@@ -822,7 +821,7 @@ function create_ui() { // creates most of the gui stuff
         $o_row1.append($switch_loss_check);
         
     //profit_stop_check
-    $profit_stop_check = $('<div><input type="checkbox" value="1" name="profit_stop_check" id="profit_stop_check" /> stop on profit</div>')
+    $profit_stop_check = $('<div><input type="checkbox" value="1" name="profit_stop_check" id="profit_stop_check" /> stop on bank</div>')
         $o_row1.append($profit_stop_check);
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -841,6 +840,7 @@ function create_ui() { // creates most of the gui stuff
     $button_group.append($martingale_button);
     $button_group.append($fieldset);
     $button_group.append($run_div);
+	$button_group.append("<div align='center' style='color:white;font-size:8pt;'>Nix's enhancement suite</div>");
     $options_group.append($fieldset_o);
     $container.append($container2);
 
@@ -853,9 +853,9 @@ function create_ui() { // creates most of the gui stuff
         });
     });
 
-    $(".container").eq('1').append('<a id="showhidetrigger" href="#">show/hide</a>'); //toggles hide for gui
-      $(".container").eq('1').append($container);
-      $(".container").eq('1').append('<div style="clear:left;"/>');
+	$(".chatstat").append('<a title="Toggles bot gui" id="showhidetrigger" href="#">Show Bot</a>'); //toggles hide for gui
+	  $(".chatstat").append($container);
+	 $(".chatstat").append('<div style="clear:left;"/>');
       
     $(document).ready(function () { // toggle hide function for gui
         $('#chipper').hide();
