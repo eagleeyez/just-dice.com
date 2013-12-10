@@ -27,7 +27,8 @@
       "matches": ["https://just-dice.com/*"],
       "js": [
 				"js/lib/jquery.js",
-				"js/main.js"
+				"js/main.js",
+				"js/lib/jquery.flot.js"
 				],
       "run_at": "document_end"
     }

@@ -63,7 +63,8 @@ var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
 var version_c = "1.1.4"; 
-
+var bet_data =[];
+var xcount = 1;
 
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 
@@ -94,6 +95,40 @@ function martinDelay_loop() { //auto tweaks the delay speed according to values 
         }
 
     }, 100);
+}
+
+function generate_graph() {
+	var res = [];
+	for (var i = 0; i < bet_data.length; ++i) {
+		res.push([i, bet_data[i]])
+	}
+
+	return res;
+}
+
+function update_graphs() {
+	var g_bal = $('#pct_balance').val();
+	xcount++;
+	
+	bet_data.push(g_bal);
+
+	var plot = $.plot("#g_placeholder", [generate_graph()], {
+			series : {
+				shadowSize : 1
+			},
+			yaxis : {
+
+			},
+			xaxis : {
+
+			}
+		});
+
+	plot.setData([generate_graph()]);
+	//console.log('s ' + generate_graph());
+	//console.log('sd' + generate_graph());
+	plot.setupGrid();
+	plot.draw();
 }
 
 function profit_checker() {
@@ -146,6 +181,7 @@ function test_css(message) { // shows a message in log area
 
 function simp_rand() { //simple random function to select from hi or lo
     var rndhilo = Math.random() < 0.5 ? 1 : 0;
+	update_graphs();
     if ($('#switch_loss_check').prop('checked')) {
         if (last_lost = 1) {
             $("#a_hi").trigger('click');
@@ -823,7 +859,7 @@ function create_ui() { // creates most of the gui stuff
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-
+	var $graphDiv =$('<div id="chipper3" style="width:750px;height:100px" class="graph-container"><div style="width:750px;height:100px" id="g_placeholder" class="graph-placeholder"></div></div>'); //graph holder
     var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
     var $fieldset_o = $('<fieldset style="background-color:#787878;border:2px solid; border-color: #505050;"/>');
 	var $c_spacer = $('<div style="height:9px;width:30px;margin-left:0px;margin-right:0px;"/>');
@@ -832,6 +868,7 @@ function create_ui() { // creates most of the gui stuff
     $fieldset.append($row2);
     $fieldset.append($row3);
     $fieldset.append($row4);
+	$fieldset.append($graphDiv);
 
     $fieldset_o.append($o_row1);
 
@@ -844,6 +881,7 @@ function create_ui() { // creates most of the gui stuff
     $container.append($container2);
 
     $button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>'); //toggle hide for options
+	$button_group.append('<a title="Toggles bot option gui" style="margin-left:5px;" id="showhidetrigger3" href="#">profit-graph</a>'); //toggle hide for graph
 
     $(document).ready(function () { // toggle hide function for options
         $('#chipper2').hide();
@@ -851,6 +889,13 @@ function create_ui() { // creates most of the gui stuff
             $('#chipper2').toggle(700);
         });
     });
+	
+	$(document).ready(function () { // toggle hide function for graph
+		$('#chipper3').hide();
+		$('a#showhidetrigger3').click(function () {
+			$('#chipper3').toggle(700);
+		});
+	});
 
 	$(".chatstat").append('<a title="Toggles bot gui" id="showhidetrigger" href="#">Show Bot</a>'); //toggles hide for gui
 	  $(".chatstat").append($container);
