@@ -62,9 +62,10 @@ var cBust3 = 1;
 var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
-var version_c = "1.1.4"; 
+var version_c = "1.1.5"; 
 var bet_data =[];
 var xcount = 1;
+var toggle = 2;
 
 function martinDelay_loop() { //auto tweaks the delay speed according to values found on the just-dice FAQ
 
@@ -682,7 +683,7 @@ function create_ui() { // creates most of the gui stuff
     });
       $saver.append($save);
 
-      var $container = $('<div id="chipper" class="container"/>');
+     $container = $('<div id="chipper" class="container"/>');
     var $container2 = $('<div id="chipper2" class="container"/>');
       var $button_group = $('<div style="width:99%;background-color:#787878 ;border:2px solid; border-color: #505050;" class="button_group"/>');
     var $options_group = $('<div style="width:99%;background-color:transparent ;border:0px solid;" class="button_group"/>');
@@ -882,7 +883,14 @@ function create_ui() { // creates most of the gui stuff
 
     $button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>'); //toggle hide for options
 	$button_group.append('<a title="Toggles bot option gui" style="margin-left:5px;" id="showhidetrigger3" href="#">profit-graph</a>'); //toggle hide for graph
+	$button_group.append('<a title="Moves GUI" style="margin-left:5px;" id="showhidetrigger4" href="#">Move GUI</a>'); //Moves GUI
 
+	$(document).ready(function () { //move gui
+		$('a#showhidetrigger4').click(function () {
+			toggle_gui_pos();
+		});
+	});
+	
     $(document).ready(function () { // toggle hide function for options
         $('#chipper2').hide();
         $('a#showhidetrigger2').click(function () {
@@ -897,9 +905,10 @@ function create_ui() { // creates most of the gui stuff
 		});
 	});
 
-	$(".chatstat").append('<a title="Toggles bot gui" id="showhidetrigger" href="#">Show Bot</a>'); //toggles hide for gui
-	  $(".chatstat").append($container);
-	 $(".chatstat").append('<div style="clear:left;"/>');
+	$toggles_gui = $('<a title="Toggles bot gui" id="showhidetrigger" href="#">Show Bot</a>');//toggles hide for gui
+	$clearleft_gui = $('<div style="clear:left;"/>');
+	
+ toggle_gui_pos();
       
     $(document).ready(function () { // toggle hide function for gui
         $('#chipper').hide();
@@ -907,6 +916,44 @@ function create_ui() { // creates most of the gui stuff
             $('#chipper').toggle(700);
         });
     });
+}
+
+function toggle_gui_pos() {
+
+	if (toggle == 2) {
+	
+	console.log('toggle 2');
+
+		$(".chatstat").append($toggles_gui);
+		$(".chatstat").append($container);
+		$(".chatstat").append($clearleft_gui);
+		toggle = 0;
+		
+		console.log('toggle 2 now =' + toggle);
+
+	} else if (toggle == 0) {
+	
+	console.log('toggle 0');
+	
+	    $($toggles_gui).appendTo($(".container").eq('1'));
+		$($container).appendTo($(".container").eq('1'));
+		$($clearleft_gui).appendTo($(".container").eq('1'));
+		toggle = 1;	
+		
+		console.log('toggle 0 now =' + toggle);
+		
+	} else {
+
+	console.log('toggle 1');
+	
+		 $($toggles_gui).appendTo($(".chatstat"));
+		$($container).appendTo($(".chatstat"));		
+		$($clearleft_gui).appendTo($(".chatstat"));
+		toggle = 0;
+		
+		console.log('toggle 1 now =' + toggle);
+
+	}
 }
 
 function set_run() { //logic and check if bot has enough bank for martingale
