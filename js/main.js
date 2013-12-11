@@ -976,6 +976,8 @@ $(document).ready(function () { //this fires when the page loads
     martinDelay_loop();
 
     profit_checker();
+	
+	update_graphs();
 
        //set the balance
        //when the balance changes and we're martingaling
