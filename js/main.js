@@ -327,31 +327,32 @@ function sleep(milliseconds) { //delay function
 function emoticons(text) { //emotes are checked and passed into a string before being sent back to chat
     var url = "https://dl.dropboxusercontent.com/u/27471347/emote/";
 
-    var searchFor = /:D|:-D|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
+	var searchFor = /:D|:-D|Kappa|:\)|:-\)|;\)|';-\)|:\(|:-\(|:o|:\?|8-\)|:x|:P/gi;
 
-    // A map mapping each smiley to its image
-    var map = {
-        ":D" : '4.gif', // Capped version of the next
-        ":d" : '4.gif', // Lower case version of the previous
-        ":-D" : '4.gif', // Capped version of the next
-        ":-d" : '4.gif', // Lower case version of the previous
-        ":)" : '1.gif',
-        ":-)" : '1.gif',
-        ";)" : '3.gif',
-        "';-)" : '3.gif',
+	// A map mapping each smiley to its image
+	var map = {
+		":D" : '4.gif', // Capped version of the next
+		":d" : '4.gif', // Lower case version of the previous
+		":-D" : '4.gif', // Capped version of the next
+		":-d" : '4.gif', // Lower case version of the previous
+		":)" : '1.gif',
+		":-)" : '1.gif',
+		";)" : '3.gif',
+		"';-)" : '3.gif',
+		"Kappa" : 'kappa.png',
 
-        ":(" : '2.gif',
-        ":-(" : '2.gif',
-        ":O" : '13.gif', // Capped version of the next
-        ":o" : '13.gif', // Lower case version of the previous
-        ":?" : '7.gif',
-        "8-)" : '16.gif',
+		":(" : '2.gif',
+		":-(" : '2.gif',
+		":O" : '13.gif', // Capped version of the next
+		":o" : '13.gif', // Lower case version of the previous
+		":?" : '7.gif',
+		"8-)" : '16.gif',
 
-        ":X" : '14.gif', // Capped version of the next
-        ":x" : '14.gif', // Lower case version of the previous
-        ":P" : '10.gif', // Capped version of the next
-        ":p" : '10.gif' // Lower case version of the previous
-    };
+		":X" : '14.gif', // Capped version of the next
+		":x" : '14.gif', // Lower case version of the previous
+		":P" : '10.gif', // Capped version of the next
+		":p" : '10.gif' // Lower case version of the previous
+	};
 
     text = text.replace(searchFor, function (match) {
             var rep;
