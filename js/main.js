@@ -700,7 +700,7 @@ function create_ui() { // creates most of the gui stuff
 	  $container.append($reset);
 
       var $run_div = $('<div style="background-color:#787878;margin-top:50px;border:2px solid; border-color: #505050;" class="button_inner_group"/>');
-      $run = $('<button id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
+      $run = $('<button title="Will only work if you have enough bank to run the martingale strategy" id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
 
       $run.click(function () {
                 running = true;
@@ -735,7 +735,7 @@ function create_ui() { // creates most of the gui stuff
      */
       var $row1 = $('<div class="row"/>');
       var $label1 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Multiplier</p>');
-      $multiplier = $('<input style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
+      $multiplier = $('<input title="what value to multiply by on loss" style="border:1px solid; border-color: #505050;" id="multiplier" value="2.1"/>');
       $multiplier.keyup(function () {
         set_run();
     });
@@ -746,7 +746,7 @@ function create_ui() { // creates most of the gui stuff
 
       var $row2 = $('<div class="row"/>');
       var $label2 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max losses</p>');
-      $steps = $('<input style="border:1px solid; border-color: #505050;" id="steps" value="17"/>');
+      $steps = $('<input title="How many steps you want the martingale to be able to handle" style="border:1px solid; border-color: #505050;" id="steps" value="17"/>');
       $steps.keyup(function () {
         set_run();
     });
@@ -758,49 +758,49 @@ function create_ui() { // creates most of the gui stuff
       var $row3 = $('<div class="row"/>');
      
       var $label3 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Reset loss</p>');
-      $delay = $('<input style="border:1px solid; border-color: #505050;" id="reset_loss" value="16"/>');
+      $delay = $('<input title="how many losses before calling reset %" style="border:1px solid; border-color: #505050;" id="reset_loss" value="16"/>');
     var $numz2 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">!</p>');
       $row1.append($label3);
       $row1.append($delay);
     $row1.append($numz2);
 
       var $label4 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Reset %</p>');
-      $percentage = $('<input style="border:1px solid; border-color: #505050;" id="reset_p" value="1"/>');
+      $percentage = $('<input title="what percentage of you balance to reset to. Only works when checked in options" style="border:1px solid; border-color: #505050;" id="reset_p" value="1"/>');
     var $numz3 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">%</p>');
       $row2.append($label4);
       $row2.append($percentage);
     $row2.append($numz3);
 
       var $label5 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Profit</p>');
-      $test_bet = $('<input style="border:1px solid; border-color: #505050;" id="pro_fits" value="0" class="readonly"/>');
+      $test_bet = $('<input title="How much profit you have made or lost per session" style="border:1px solid; border-color: #505050;" id="pro_fits" value="0" class="readonly"/>');
     var $numz4 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">฿</p>');
       $row3.append($label5);
       $row3.append($test_bet);
     $row3.append($numz4);
 
       var $label6 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Win %</p>');
-      $test_betS = $('<input style="border:1px solid; border-color: #505050;" id="win_lose" value="0" class="readonly"/>');
+      $test_betS = $('<input title="Win percentage this will be close to chance to win" style="border:1px solid; border-color: #505050;" id="win_lose" value="0" class="readonly"/>');
     var $numz5 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">%</p>');
       $row3.append($label6);
       $row3.append($test_betS);
     $row3.append($numz5);
 
       var $label7 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Bets</p>');
-      $Bet_amt = $('<input style="border:1px solid; border-color: #505050;" id="Bet_amt" value="0" class="readonly" />');
+      $Bet_amt = $('<input title="How many bets you have made" style="border:1px solid; border-color: #505050;" id="Bet_amt" value="0" class="readonly" />');
     var $numz6 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">#</p>');
       $row3.append($label7);
       $row3.append($Bet_amt);
     $row3.append($numz6);
 
       var $label8 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Suggested x</p>');
-      $guess_amt = $('<input style="border:1px solid; border-color: #505050;" id="Guess_amt" value="0" class="readonly" />');
+      $guess_amt = $('<input title="A suggested multiplier based on change to win" style="border:1px solid; border-color: #505050;" id="Guess_amt" value="0" class="readonly" />');
     var $numz7 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">x</p>');
       $row2.append($label8);
       $row2.append($guess_amt);
     $row2.append($numz7);
 
       var $label9 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Probability</p>');
-      $magic_amt = $('<input style="border:1px solid; border-color: #505050;" id="magic_amt" value="0" class="readonly" />');
+      $magic_amt = $('<input title="Probability of bust as a percentage" style="border:1px solid; border-color: #505050;" id="magic_amt" value="0" class="readonly" />');
     var $numz8 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">%</p>');
       $row1.append($label9);
       $row1.append($magic_amt);
@@ -808,21 +808,21 @@ function create_ui() { // creates most of the gui stuff
 
     var $row4 = $('<div class="row"/>');
       var $label10 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max win</p>');
-      $max_win = $('<input style="border:1px solid; border-color: #505050;" id="max_win" value="0" class="readonly" />');
+      $max_win = $('<input title="The max win streak length" style="border:1px solid; border-color: #505050;" id="max_win" value="0" class="readonly" />');
     var $numz9 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">#</p>');
       $row4.append($label10);
       $row4.append($max_win);
     $row4.append($numz9);
 
       var $label11 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Max loss</p>');
-      $max_loss = $('<input style="border:1px solid; border-color: #505050;" id="max_loss" value="0" class="readonly" />');
+      $max_loss = $('<input title="The max loss streak length" style="border:1px solid; border-color: #505050;" id="max_loss" value="0" class="readonly" />');
     var $numz10 = $('<p style="margin-right:15px;border:1px solid; border-color: #505050;" class="rlabel">#</p>');
       $row4.append($label11);
       $row4.append($max_loss);
     $row4.append($numz10);
 
       var $label12 = $('<p style="border:1px solid; border-color: #505050;" class="llabel">Bank check</p>');
-      $prof_check = $('<input style="border:1px solid; border-color: #505050;" id="prof_chk" value="0" />');
+      $prof_check = $('<input title="This is a value used for stopping the bot on bank check" style="border:1px solid; border-color: #505050;" id="prof_chk" value="0" />');
     var $numz11 = $('<p style="border:1px solid; border-color: #505050;" class="rlabel">?</p>');
       $row4.append($label12);
       $row4.append($prof_check);
@@ -883,7 +883,7 @@ function create_ui() { // creates most of the gui stuff
     $container.append($container2);
 
     $button_group.append('<a style="margin-left:5px;" id="showhidetrigger2" href="#">options</a>'); //toggle hide for options
-	$button_group.append('<a title="Toggles bot option gui" style="margin-left:5px;" id="showhidetrigger3" href="#">profit-graph</a>'); //toggle hide for graph
+	$button_group.append('<a title="Toggles graph display" style="margin-left:5px;" id="showhidetrigger3" href="#">profit-graph</a>'); //toggle hide for graph
 	$button_group.append('<a title="Moves GUI" style="margin-left:5px;" id="showhidetrigger4" href="#">Move GUI</a>'); //Moves GUI
 
 	$(document).ready(function () { //move gui
