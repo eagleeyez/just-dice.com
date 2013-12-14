@@ -691,7 +691,7 @@ function create_ui() { // creates most of the gui stuff
       $container.append($button_group);
     $container2.append($options_group)
 
-      var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://i.imgur.com/xZALcXD.png"></button>');
+      var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="http://nixsy-l.com/img/xZALcXD.png"></button>');
     
 	$reset = $('<button title="Resets Stats" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
 	  $reset.click(function () {
