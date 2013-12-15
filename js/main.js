@@ -30,6 +30,7 @@
 //
 //A full copy of the GNU General Public License, version 2 can be found here. http://www.gnu.org/licenses/gpl-2.0.html
 //-------------------------------------------------------------------
+var icon_imgage = chrome.extension.getURL('img/icon.png');
 var timer;
 var bal;
 var bet;
@@ -691,7 +692,7 @@ function create_ui() { // creates most of the gui stuff
       $container.append($button_group);
     $container2.append($options_group)
 
-      var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="https://dl.dropboxusercontent.com/u/27471347/xZALcXD.png"></button>');
+	var $martingale_button = $('<button class="button_label chance_toggle" style="margin-top:46px;margin-right:3px;height:65px;;width:70px;color:transparent;background-color:transparent;border:none;"><img src="' + icon_imgage + '"></button>');
     
 	$reset = $('<button title="Resets Stats" style="margin-right:10px;border:1px solid" id="fleft chatbutton" >reset stats</button>');
 	  $reset.click(function () {
