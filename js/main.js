@@ -52,6 +52,7 @@ var new_val = 0.00000001;
 var new_val2 = 0; //check for martinDelay_loop
 var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3');
 var snd_beep = new Audio('https://dl.dropboxusercontent.com/u/27471347/beep-7.mp3');
+var snd_alert = new Audio('https://dl.dropboxusercontent.com/u/27471347/alerts/Air-Raid-Siren-Alert.mp3');
 var win1 = 0;
 var lose1 = 0;
 var max_win = 0;
@@ -64,7 +65,7 @@ var cBust3 = 1;
 var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
-var version_c = "1.1.5"; 
+var version_c = "1.1.8"; 
 var bet_data =[];
 var xcount = 1;
 var toggle = 2;
@@ -214,10 +215,19 @@ function play_sound() { // betcha can not guess what this does
     }
 }
 
-function play_sound2() { // betcha can not guess what this does
+function play_sound2() { 
     if ($('#sound_check2').prop('checked')) {
         snd_beep.play();
         snd_beep.currentTime = 0;
+    } else {
+        // empty =)
+    }
+}
+
+function play_sound2() { 
+    if ($('#sound_check3').prop('checked')) {
+        snd_alert.play();
+        snd_alert.currentTime = 0;
     } else {
         // empty =)
     }
@@ -641,6 +651,7 @@ function martingale() { //the main martingale function
 
              //otherwise we go back to the start
             else { //This is bust step
+			play_sound3();
             var profit = parseFloat($("#pct_balance").val()) - lastBal;
             yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
                   current_steps = 1;
@@ -850,6 +861,10 @@ function create_ui() { // creates most of the gui stuff
     //sound_check2
     $sound_check2 = $('<div><input type="checkbox" value="1" name="sound_check2" id="sound_check2" checked="checked" /> Play sound on loss!</div>')
         $o_row1.append($sound_check2);
+		
+    //sound_check3
+    $sound_check3 = $('<div><input type="checkbox" value="1" name="sound_check3" id="sound_check3" checked="checked" /> Play sound on bust!</div>')
+        $o_row1.append($sound_check3);
 
     //smile_check
     $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" /> Chat smileys on</div>')
