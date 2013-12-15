@@ -66,6 +66,10 @@ Other Just-Dice projects
 
 [Just-Dice patient martingale](https://github.com/CriticalNix/just-dice.com--patient-martingale--)
 
+[Just-Dice Just-stats](https://github.com/CriticalNix/Just-Dice.com-Just-stats)
+
+[just-dice Investor-suite](https://github.com/CriticalNix/just-dice.com-Investor-suite)
+
 [Just-Dice ben/mrblack sequence](https://github.com/CriticalNix/just-dice.com-mrblack)
 
 Notice
