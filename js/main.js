@@ -51,6 +51,7 @@ var bet_total = 0; //Total bets
 var new_val = 0.00000001;
 var new_val2 = 0; //check for martinDelay_loop
 var coin_drop = new Audio('https://dl.dropboxusercontent.com/u/27471347/coin-drop-1.mp3');
+var snd_beep = new Audio('https://dl.dropboxusercontent.com/u/27471347/beep-7.mp3');
 var win1 = 0;
 var lose1 = 0;
 var max_win = 0;
@@ -208,6 +209,15 @@ function play_sound() { // betcha can not guess what this does
     if ($('#sound_check').prop('checked')) {
         coin_drop.play();
         coin_drop.currentTime = 0;
+    } else {
+        // empty =)
+    }
+}
+
+function play_sound2() { // betcha can not guess what this does
+    if ($('#sound_check2').prop('checked')) {
+        snd_beep.play();
+        snd_beep.currentTime = 0;
     } else {
         // empty =)
     }
@@ -597,6 +607,7 @@ function martingale() { //the main martingale function
             else if ($.isNumeric($multiplier.val()) && // This is loss step
                          $.isNumeric($steps.val()) &&
                         ((current_steps - 1) < $steps.val())) {
+			play_sound2();
             if (last_loss = 0) {
                 last_lost = 1;
             } else {
@@ -833,11 +844,15 @@ function create_ui() { // creates most of the gui stuff
 
     var $o_row1 = $('<div class="row"/>');
     //sound_check
-    $sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="unchecked" /> Play sound on win!</div>')
+    $sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Play sound on win!</div>')
         $o_row1.append($sound_c);
+		
+    //sound_check2
+    $sound_check2 = $('<div><input type="checkbox" value="1" name="sound_check2" id="sound_check2" checked="checked" /> Play sound on loss!</div>')
+        $o_row1.append($sound_check2);
 
     //smile_check
-    $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="unchecked" /> Chat smileys on</div>')
+    $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" /> Chat smileys on</div>')
         $o_row1.append($smile_c);
 
     //stopwin_check
@@ -845,7 +860,7 @@ function create_ui() { // creates most of the gui stuff
         $o_row1.append($swin_c);
 
     //resetL_check
-    $reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="unchecked" /> uncheck to enable reset loss</div>')
+    $reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="checked" /> uncheck to enable reset loss</div>')
         $o_row1.append($reset_loss_safety);
 
     //rand_check
