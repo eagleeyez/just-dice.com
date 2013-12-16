@@ -208,28 +208,35 @@ function simp_rand() { //simple random function to select from hi or lo
 
 function play_sound() { // betcha can not guess what this does
     if ($('#sound_check').prop('checked')) {
+		snd_alert.pause();
+		snd_beep.pause();
         coin_drop.play();
         coin_drop.currentTime = 0;
     } else {
-        // empty =)
+        return;
     }
 }
 
 function play_sound2() { 
     if ($('#sound_check2').prop('checked')) {
+		snd_alert.pause();
+		coin_drop.pause();
         snd_beep.play();
         snd_beep.currentTime = 0;
     } else {
-        // empty =)
+        return;
     }
 }
 
-function play_sound2() { 
+function play_sound3() { 
     if ($('#sound_check3').prop('checked')) {
+		snd_beep.pause();
+		coin_drop.pause();
         snd_alert.play();
         snd_alert.currentTime = 0;
+		alert("Bot has bust !!");
     } else {
-        // empty =)
+        return;
     }
 }
 
@@ -651,7 +658,7 @@ function martingale() { //the main martingale function
 
              //otherwise we go back to the start
             else { //This is bust step
-			play_sound3();
+			
             var profit = parseFloat($("#pct_balance").val()) - lastBal;
             yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
                   current_steps = 1;
@@ -661,7 +668,7 @@ function martingale() { //the main martingale function
             $("#pro_fits").val((profit).toFixed(8));
                   running = false;
             save_to_file();
-            alert("Bot has bust !!");
+			play_sound3();
                 
         } //end of bust step
 
