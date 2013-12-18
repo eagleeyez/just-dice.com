@@ -65,7 +65,7 @@ var cBust3 = 1;
 var multi4 = 1;
 var last_lost = 1;
 var profit = 0;
-var version_c = "1.1.8"; 
+var version_c = "1.1.9"; 
 var bet_data =[];
 var xcount = 1;
 var toggle = 2;
@@ -184,26 +184,26 @@ function test_css(message) { // shows a message in log area
 }
 
 function simp_rand() { //simple random function to select from hi or lo
-    var rndhilo = Math.random() < 0.5 ? 1 : 0;
+	var rndhilo = Math.random() < 0.5 ? 1 : 0;
 	update_graphs();
-    if ($('#switch_loss_check').prop('checked')) {
-        if (last_lost = 1) {
-            $("#a_hi").trigger('click');
-        } else {
-            $("#a_lo").trigger('click');
-        }
+	if ($('#switch_loss_check').prop('checked')) {
+		if (last_loss == 1) {
+			$("#a_hi").trigger('click');
+		} else {
+			$("#a_lo").trigger('click');
+		}
 
-    } else {
-        if ($('#rand_check').prop('checked')) {
-            if (rndhilo == 1) {
-                $("#a_hi").trigger('click');
-            } else {
-                $("#a_lo").trigger('click');
-            }
-        } else {
-            $("#a_hi").trigger('click');
-        }
-    }
+	} else {
+		if ($('#rand_check').prop('checked')) {
+			if (rndhilo == 1) {
+				$("#a_hi").trigger('click');
+			} else {
+				$("#a_lo").trigger('click');
+			}
+		} else {
+			$("#a_hi").trigger('click');
+		}
+	}
 }
 
 function play_sound() { // betcha can not guess what this does
@@ -529,160 +529,181 @@ function popArray() { //populate bet array with the information we want.
 
 function martingale() { //the main martingale function
 
-                    
-      if(bal.data('oldVal') != bal.val() && running) {
-            clearInterval(timer);
+	                
+	  if(bal.data('oldVal') != bal.val() && running) {
+		    clearInterval(timer);
 
-            var curr_bal = bal.val();
-        // add a single step to grab starting balance and stop value
-        if (check_step == 0)
-                 {
-                lastBal = parseFloat($("#pct_balance").val());
-                check_step = 1;
-                        
-            }
+		    var curr_bal = bal.val();
+		// add a single step to grab starting balance and stop value
+		if (check_step == 0)
+			     {
+				lastBal = parseFloat($("#pct_balance").val());
+				check_step = 1;
+				        
+			}
 
-        //Add a step into the martingale to see if we reach our desired loss length, If so reset
-        if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
-                 {
-                var startTime = new Date();
-                if ($('#resetL_check').prop('checked')) {}
-                // for eye of adds a check before reset loss can be used
-                else {
-                    if (last_loss = 0) {
-                        last_lost = 1;
-                    } else {
-                        last_lost = 0;
-                    }
-                    current_bet_num = 1;
-                            $("#pct_bet").val(start_bet);
-                             var profit = parseFloat($("#pct_balance").val()) - lastBal;
-                                var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
+		//Add a step into the martingale to see if we reach our desired loss length, If so reset
+		if (current_bet_num == $delay.val() && curr_bal < bal.data('oldVal')) // this is Reset loss step
+			     {
+				var startTime = new Date();
+				if ($('#resetL_check').prop('checked')) {}
+				// for eye of adds a check before reset loss can be used
+				else {
+			if (last_loss == 0) {
+				last_loss = 1;
+				//console.log('last_loss: ' + last_loss);
+			} 
+			else if (last_loss == 1) {
+				last_loss = 0;
+				//console.log('last_loss: ' + last_loss);
+			}
+					current_bet_num = 1;
+					        $("#pct_bet").val(start_bet);
+					         var profit = parseFloat($("#pct_balance").val()) - lastBal;
+					            var new_val = ($('#pct_balance').val() / 100) * ($percentage).val();
 
-                    yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
+					yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                               new_val = scientific(new_val);
+					           new_val = scientific(new_val);
 
-                                
-                                $("#pct_bet").val(new_val);
+					new_val = parseFloat(new_val).toFixed(8);
 
-                                 //Increase the steps
-                             current_steps = 1;
-                                 //current_steps++;
-                    bet_total++;
-                    lose1++;
-                    win1 = 0;
-                    simp_rand();
-                    popArray();
-                    $("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
-                    $("#pro_fits").val((profit).toFixed(8)); //Update Profit
-                    profit_color();
-                    $("#Bet_amt").val(bet_total); //Update bet counter
-                            
-                }
-            }
-             //end of reset loss step
-        else if (curr_bal > bal.data('oldVal')) //This is win step
-                 {
+					            
+					            $("#pct_bet").val(new_val);
 
-                if ($('#stopwin_check').prop('checked')) { // checks to see if stop on win is checked
-                    c_stop_bot();
-                }
-                play_sound();
-                        current_steps = 1;
-                current_bet_num = 0;
-                        $("#pct_bet").val(start_bet);
-                             //Increase our bet by the multiplier
-                var profit = parseFloat($("#pct_balance").val()) - lastBal;
-                            var new_val = $("#pct_bet").val(); // Why I had left a multiplyer here.. Madness Fixed now.
+					             //Increase the steps
+					         current_steps = 1;
+					             //current_steps++;
+					/*console.log('steps: ' + $steps.val() +
+								'   multiplier:' + $multiplier.val() +
+								'   bal: ' + $('#pct_balance').val() +
+								'   bet:' + $('#pct_bet').val() +
+								'   suggested multiplier:' + multi4 +
+								'   Probability:' + cBust3 +
+								'   Running speed is ' + (martinDelay / 1000) + ' seconds!');*/
 
-                yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
+					console.log('Reset loss step current_steps:' + current_steps + ' current_bet_num:' + current_bet_num + ' yin_yang:' + yin_yang  + ' bet_total:' + bet_total + ' lose1:' + lose1 + ' win1:' + win1);
+					bet_total++;
+					lose1++;
+					win1 = 0;
+					simp_rand();
+					popArray();
+					$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+					$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+					profit_color();
+					$("#Bet_amt").val(bet_total); //Update bet counter
+					        
+				}
+			}
+		     //end of reset loss step
+		else if (curr_bal > bal.data('oldVal')) //This is win step
+			     {
 
-                             new_val = scientific(new_val);
+				if ($('#stopwin_check').prop('checked')) { // checks to see if stop on win is checked
+					c_stop_bot();
+				}
+				play_sound();
+				        current_steps = 1;
+				current_bet_num = 0;
+				        $("#pct_bet").val(start_bet);
+				             //Increase our bet by the multiplier
+				var profit = parseFloat($("#pct_balance").val()) - lastBal;
+				            var new_val = $("#pct_bet").val(); // Why I had left a multiplyer here.. Madness Fixed now.
 
-                            
-                            $("#pct_bet").val(new_val);
-                $("#win_lose").val(yin_yang);
+				yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                             //Increase the steps
-                current_steps++;
-                current_bet_num++;
-                yin_yang++;
-                bet_total++;
-                lose1 = 0;
-                win1++;
-                simp_rand();
-                popArray();
-                $("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
-                $("#pro_fits").val((profit).toFixed(8)); //Update Profit
-                profit_color();
-                $("#Bet_amt").val(bet_total); //Update bet counter
-                        
-            } //end of win step
-            
-                
-            else if ($.isNumeric($multiplier.val()) && // This is loss step
-                         $.isNumeric($steps.val()) &&
-                        ((current_steps - 1) < $steps.val())) {
+				             new_val = scientific(new_val);
+				new_val = parseFloat(new_val).toFixed(8);
+
+				            
+				            $("#pct_bet").val(new_val);
+				$("#win_lose").val(yin_yang);
+
+				             //Increase the steps
+					console.log('win step current_steps:' + current_steps + ' current_bet_num:' + current_bet_num + ' yin_yang:' + yin_yang  + ' bet_total:' + bet_total + ' lose1:' + lose1 + ' win1:' + win1);
+				current_steps++;
+				current_bet_num++;
+				yin_yang++;
+				bet_total++;
+				lose1 = 0;
+				win1++;
+				simp_rand();
+				popArray();
+				$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+				$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+				profit_color();
+				$("#Bet_amt").val(bet_total); //Update bet counter
+				        
+			} //end of win step
+		    
+		        
+		    else if ($.isNumeric($multiplier.val()) && // This is loss step
+			             $.isNumeric($steps.val()) &&
+			            ((current_steps - 1) < $steps.val())) {
 			play_sound2();
-            if (last_loss = 0) {
-                last_lost = 1;
-            } else {
-                last_lost = 0;
-            }
-                         //Increase our bet by the multiplier
-            var profit = parseFloat($("#pct_balance").val()) - lastBal;
-                        var new_val = $("#pct_bet").val() * $multiplier.val();
+			if (last_loss == 0) {
+				last_loss = 1;
+				//console.log('last_loss: ' + last_loss);
+			} 
+			else if (last_loss == 1) {
+				last_loss = 0;
+				//console.log('last_loss: ' + last_loss);
+			}
+			             //Increase our bet by the multiplier
+			var profit = parseFloat($("#pct_balance").val()) - lastBal;
+			            var new_val = $("#pct_bet").val() * $multiplier.val();
 
-            yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
+			yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
 
-                         new_val = scientific(new_val);
+			             new_val = scientific(new_val);
+			new_val = parseFloat(new_val).toFixed(8);
 
-                        
-                        $("#pct_bet").val(new_val);
-            $("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
-            $("#pro_fits").val((profit).toFixed(8)); //Update Profit
-            profit_color();
-            $("#Bet_amt").val(bet_total); //Update bet counter
+			            
+			            $("#pct_bet").val(new_val);
+			$("#win_lose").val((yin_yang2).toFixed(2)); //Update win %
+			$("#pro_fits").val((profit).toFixed(8)); //Update Profit
+			profit_color();
+			$("#Bet_amt").val(bet_total); //Update bet counter
 
-                         //Increase the steps
-            current_steps++;
-            current_bet_num++;
-            bet_total++;
-            lose1++;
-            win1 = 0;
-            simp_rand();
-            popArray();
+			             //Increase the steps
+			console.log('loss step current_steps:' + current_steps + ' current_bet_num:' + current_bet_num + ' yin_yang:' + yin_yang  + ' bet_total:' + bet_total + ' lose1:' + lose1 + ' win1:' + win1);
+			current_steps++;
+			current_bet_num++;
+			bet_total++;
+			lose1++;
+			win1 = 0;
+			simp_rand();
+			popArray();
 
-        } //end of loss step
+		} //end of loss step
 
-             //otherwise we go back to the start
-            else { //This is bust step
-			
-            var profit = parseFloat($("#pct_balance").val()) - lastBal;
-            yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
-                  current_steps = 1;
-            current_bet_num = 0;
-                  $("#pct_bet").val(start_bet);
-            $("#win_lose").val((yin_yang2).toFixed(2));
-            $("#pro_fits").val((profit).toFixed(8));
-                  running = false;
-            save_to_file();
+		     //otherwise we go back to the start
+		    else { //This is bust step
+
+			var profit = parseFloat($("#pct_balance").val()) - lastBal;
+			yin_yang2 = ((yin_yang / bet_total) * 100); //win % = wins/total bets * 100 // This gives us our percentage win
+			      current_steps = 1;
+			current_bet_num = 0;
+			      $("#pct_bet").val(start_bet);
+			$("#win_lose").val((yin_yang2).toFixed(2));
+			$("#pro_fits").val((profit).toFixed(8));
+			      running = false;
+			save_to_file();
 			play_sound3();
-                
-        } //end of bust step
+			    
+		} //end of bust step
 
-             // Updated stored value
-            bal.data('oldVal', bal.val());
-            timer = setInterval(function () {
-                martingale()
-            }, martinDelay);
+		     // Updated stored value
+		    bal.data('oldVal', bal.val());
+		    timer = setInterval(function () {
+				martingale()
+			}, martinDelay);
 
-          
-    }
+		  
+	}
 
-      else bal.data('oldVal', bal.val());
-      
+	  else bal.data('oldVal', bal.val());
+	  
 }
 
 // A little bit of a help file.
@@ -716,7 +737,7 @@ function create_ui() { // creates most of the gui stuff
 
      $container = $('<div id="chipper" class="container"/>');
     var $container2 = $('<div id="chipper2" class="container"/>');
-      var $button_group = $('<div style="width:99%;background-color:#787878 ;border:2px solid; border-color: #505050;" class="button_group"/>');
+	var $button_group = $('<div style="width:99%;background-image: url(' + background_imgage + ') ;border:2px solid; border-color: #525252;" class="button_group"/>');
     var $options_group = $('<div style="width:99%;background-color:transparent ;border:0px solid;" class="button_group"/>');
       $container.append($button_group);
     $container2.append($options_group)
@@ -729,8 +750,8 @@ function create_ui() { // creates most of the gui stuff
 	});
 	  $container.append($reset);
 
-      var $run_div = $('<div style="background-color:#787878;margin-top:50px;border:2px solid; border-color: #505050;" class="button_inner_group"/>');
-      $run = $('<button title="Will only work if you have enough bank to run the martingale strategy" id="c_run" style="margin-bottom:5px;margin-top:5px;margin-left:5px;">Go</button>');
+	var $run_div = $('<div background-color:rgba(35,35,35,0.5);border:2px solid; border-color: #999999;" class="button_inner_group"/>');
+		$run = $('<button id="c_run" style="color:green;margin-bottom:5px;margin-top:5px;margin-right:2px;height:22px">Go</button>');;
 
       $run.click(function () {
                 running = true;
@@ -742,7 +763,7 @@ function create_ui() { // creates most of the gui stuff
 
     StartBalance = parseFloat($("#pct_balance").val()); // Try to add profit readout
         
-      $Stop = $('<button id="c_stop" style="margin-bottom:5px;margin-top:5px;margin-right:5px;margin-left:5px;">Stop</button>');
+	  $Stop = $('<button id="c_stop" style="color:red;margin-bottom:5px;margin-top:5px;height:22px">Stop</button>');
       $Stop.click(function () {
           running = false;
           $("#pct_bet").val(start_bet);
@@ -862,46 +883,46 @@ function create_ui() { // creates most of the gui stuff
 
     var $o_row1 = $('<div class="row"/>');
     //sound_check
-    $sound_c = $('<div><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Play sound on win!</div>')
+    $sound_c = $('<div><font color="white"><input type="checkbox" value="1" name="sound_check" id="sound_check" checked="checked" /> Play sound on win!  </font></div>')
         $o_row1.append($sound_c);
 		
     //sound_check2
-    $sound_check2 = $('<div><input type="checkbox" value="1" name="sound_check2" id="sound_check2" checked="checked" /> Play sound on loss!</div>')
+    $sound_check2 = $('<div><font color="white"><input type="checkbox" value="1" name="sound_check2" id="sound_check2" checked="checked" /> Play sound on loss!  </font></div>')
         $o_row1.append($sound_check2);
 		
     //sound_check3
-    $sound_check3 = $('<div><input type="checkbox" value="1" name="sound_check3" id="sound_check3" checked="checked" /> Play sound on bust!</div>')
+    $sound_check3 = $('<div><font color="white"><input type="checkbox" value="1" name="sound_check3" id="sound_check3" checked="checked" /> Play sound on bust!  </font></div>')
         $o_row1.append($sound_check3);
 
     //smile_check
-    $smile_c = $('<div><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" /> Chat smileys on</div>')
+    $smile_c = $('<div><font color="white"><input type="checkbox" value="1" name="smile_check" id="smile_check" checked="checked" /> Chat smileys on  </font></div>')
         $o_row1.append($smile_c);
 
     //stopwin_check
-    $swin_c = $('<div><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" /> Stop on win</div>')
+    $swin_c = $('<div><font color="white"><input type="checkbox" value="1" name="stopwin_check" id="stopwin_check" /> Stop on win  </font></div>')
         $o_row1.append($swin_c);
 
     //resetL_check
-    $reset_loss_safety = $('<div><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="checked" /> uncheck to enable reset loss</div>')
+    $reset_loss_safety = $('<div><font color="white"><input type="checkbox" value="1" name="resetL_check" id="resetL_check" checked="checked" /> uncheck to enable reset loss  </font></div>')
         $o_row1.append($reset_loss_safety);
 
     //rand_check
-    $rand_c = $('<div><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo</div>')
+    $rand_c = $('<div><font color="white"><input type="checkbox" value="1" name="rand_check" id="rand_check" /> Random hi/lo  </font></div>')
         $o_row1.append($rand_c);
 
     //switch_loss_check
-    $switch_loss_check = $('<div><input type="checkbox" value="1" name="switch_loss_check" id="switch_loss_check" /> switch hi/lo on loss</div>')
+    $switch_loss_check = $('<div><font color="white"><input type="checkbox" value="1" name="switch_loss_check" id="switch_loss_check" /> switch hi/lo on loss  </font></div>')
         $o_row1.append($switch_loss_check);
         
     //profit_stop_check
-    $profit_stop_check = $('<div><input type="checkbox" value="1" name="profit_stop_check" id="profit_stop_check" /> stop on bank</div>')
+    $profit_stop_check = $('<div><font color="white"><input type="checkbox" value="1" name="profit_stop_check" id="profit_stop_check" /> stop on bank  </font></div>')
         $o_row1.append($profit_stop_check);
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-	var $graphDiv =$('<div id="chipper3" style="width:750px;height:100px" class="graph-container"><div style="width:750px;height:100px" id="g_placeholder" class="graph-placeholder"></div></div>'); //graph holder
-    var $fieldset = $('<fieldset style="background-color:transparent;border:2px solid; border-color: #505050;"/>');
-    var $fieldset_o = $('<fieldset style="background-color:#787878;border:2px solid; border-color: #505050;"/>');
+	var $graphDiv = $('<fieldset id="chipper3" style="margin-left:15px;background-color:rgba(35,35,35,0.9);border:2px solid; border-color: #999999;width:700px;height:100px;margin-right:3px" class="graph-container"><div style="padding: 0;width:700px;height:100px;margin-right:0px" id="g_placeholder" class="graph-placeholder"></div>'); //graph holder
+	var $fieldset = $('<fieldset style="margin-left:auto;margin-right:2px;background-color:rgba(35,35,35,0.5);border:2px solid; border-color: #999999;"/>');
+	var $fieldset_o = $('<div id="chipper5" style="margin-top:8px;background-image:url(' + background_imgage + ') ;border:2px solid; border-color: #505050;" class="button_group"/>');
 	var $c_spacer = $('<div style="height:9px;width:30px;margin-left:0px;margin-right:0px;"/>');
 
     $fieldset.append($row1);
@@ -909,13 +930,16 @@ function create_ui() { // creates most of the gui stuff
     $fieldset.append($row3);
     $fieldset.append($row4);
 	$fieldset.append($graphDiv);
+	
+	var $fieldset4 = $('<fieldset style="margin-left:auto;margin-right:auto;background-color:rgba(35,35,35,0.5);border:2px solid; border-color: #999999;"/>');
+	$fieldset4.append($run_div);
 
     $fieldset_o.append($o_row1);
 
     $button_group.append($c_spacer);
 	$button_group.append($martingale_button);
     $button_group.append($fieldset);
-    $button_group.append($run_div);
+    $button_group.append($fieldset4);
 	$button_group.append("<div align='center' style='color:white;font-size:8pt;'>Nix's enhancement suite</div>");
     $options_group.append($fieldset_o);
     $container.append($container2);
