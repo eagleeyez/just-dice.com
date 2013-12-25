@@ -38,17 +38,6 @@ The `Steps` box contains the number of iterations the betting strategy will use 
 
 The chrome extension uses the `bet size` to make the initial bet.
 
-If martingale extension will not allow you to place a bet constructed such that the Multiplier, Steps, and Bet Size would exceed your available balance.
-
-If an input box does not have focus you are able to use the 'r' key to run the martingale strategy.
-
-The bot currently has 3 chat commands 
-
-1. Bstop: Will stop the bot.
-2. Bstart: Will start bot with values in bot gui.
-3. Commands: Will list off the start and stop command.
-
-
 Finally
 -------
 This is a donation link to the original developer (Darby999). This script is his brain child and I would reccomend sending donations here. 
