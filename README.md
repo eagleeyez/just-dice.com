@@ -8,7 +8,7 @@ THIS IS ALPHA ALPHA SOFTWARE. PLEASE REVIEW THE CODE AND DO NOT HAVE MORE THAN Y
 THIS REPO IS A BLEEDING EDGE REPO. INSTALL AT YOUR OWN RISK. THE VERSION ON THE GOOGLE CHROME STORE IS STABLE.
 
 
-![ScreenShot](https://raw.github.com/CriticalNix/Snippets/master/IMAGES/enhancement-s.jpg)
+![ScreenShot](https://raw.github.com/CriticalNix/Snippets/master/IMAGES/just-dice-enhancement.jpg)
 
 ------------
 Installation
