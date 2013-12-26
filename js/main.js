@@ -63,6 +63,7 @@ function heart_beat() {
 	tabber();
 	footer();
 	parse_chat();
+	stop_bank();
 
 	console.log(' Started ' + gets_date() + ' Heartbeat:' + heartbeat_bpm + '\n' + '\n');
 
@@ -99,6 +100,18 @@ function max_win_streak() { //longest win streak
 			$("#maxWinInput").val(max_win);
 		} else {
 			// nothing here move along XD
+		}
+	}, 100);
+}
+
+function stop_bank() {
+	setInterval(function () {
+		if ($('#profit_stop_check').prop('checked')) {
+		var bal_checked = parseFloat($("#pct_balance").val());
+		var stop_bank = parseFloat($("#stop_bank").val());
+			if (bal_checked >= stop_bank) {
+				running = 0;
+			}
 		}
 	}, 100);
 }
