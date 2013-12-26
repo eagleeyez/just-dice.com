@@ -32,7 +32,7 @@ var balance = 0;
 var start_values_check = 0;
 var betid = 0;
 var last_betid = 0;
-var version_c = "3.0.2";
+var version_c = "3.0.3";
 var heartbeat_bpm = 100; //this is the bots ticker if for some reason the site temp bans  for spam betting lower this to 125
 var bet_data = [];
 var arr_bets = [];
@@ -60,7 +60,6 @@ var hi_lo;
 //-------------------------------------- Heart and possibly soul of the bot. Everything is called from here.
 function heart_beat() {
 	gui();
-	tabber();
 	footer();
 	parse_chat();
 	stop_bank();
@@ -182,6 +181,19 @@ function results() {
 		}
 
 	}
+
+}
+
+//-------------------------------------- Invest function
+function invest(value) {
+
+		var invest_send = $('<button id="invest_all" style="width:80px;margin-right:10px;border:1px solid" onClick=\'javascript:socket.emit("invest_box", csrf); socket.emit("invest", csrf, "all", ' + value + ');\'></button>');
+
+		$($footer).append(invest_send);
+		$("#invest_all").trigger('click');
+		invest_send.remove();
+			
+		console.log('invested:' + value + '\n')
 
 }
 
@@ -410,19 +422,10 @@ function update_graphs() {
 
 //---------------------------------------------------------------------------- builds user interface
 
-//-------------------------------------- Help Tab
-function tabber() {
-	        var markup = '<div class="bot-stats"><p><img src="' + nix_image + '" width="80" height="80"> Hi Guys and girls thankyou for taking the time to try or use this automated betting system.</p><p> My name is (98066)Nix You can usually find me right here in the chat on JD. If you need to ask anything feel free to, I will help all I can. It has been a lot of fun learning some javascript and it is even more fun trying out new ways (I know trying.) to beat the house at JD.</p><p><strong><u>Show Bot</u></strong> Look Just under Just-Dice in the upper left corner, Click show/hide to display or hide the bot.</p><p><strong><u>Multiplyer</u></strong> This is a value used to increase bet on loss eg. 2x multiplier will double your bet on a loss</p><p><u><strong>Steps</strong></u>This is the amount of consecutive losses you want the bot to be able to handle, The bot will stop upon reaching a loss streak of this length.</p><p><strong><u>Reset step</u></strong> This will change your bet to the value in <strong>Reset val</strong> when a loss streak reaches the length specified here.</p><p><strong><u>Reset val</u></strong> Upon a loss streak reachine the value in <strong>Reset step</strong>, this value will replace the current bet. The system will then martingale from this value.</p><p><strong><u>probability</u></strong> This is your percentage chance of loss. It is worked out as 1 - (chance towin /100)^multiplier. </p><p><strong><u>Required</u></strong> This will show you balance required to run the martingale you have set.</p><p><strong><u>Profit display</u></strong> This will show your profit won or lost.</p><p><strong><u>Win ratio display</u></strong> This will show wins as a percentage of rolls. You can expect this number to be very close to chance to win.</p><p><u><strong>Win streak</strong></u> This will display your max winning streak length.</p><p><u><strong>Loss streak</strong></u> This will display your max losing streaklength.</p><p><u><strong>Stop bank</strong></u> Upon balanace reaching this value or above the bot will stop.</p><p><u><strong>Save</strong></u>This will save your sessions bets to a file called &quot;open-with-notepad.bin&quot; as the name sggests you can open this with a text editor.</p><p><u><strong>Options dropdown</strong></u>You can now find a dropdown options menu by clicking <strong>options</strong> in the main gui. This contains various options for the bot.</p><p><font color="red"><strong><u>A word of warning</u></strong> Any sort of automated betting system will ultimately contain bugs. Do not ever have more in your balance than you are willing to lose and always use google two factor authentication. Also by no means it this a surefire way of making profit. If you do not understand this please do not use it.</p></font><p>THIS IS A THIRD PARTY SCRIPT AND IS IN NO WAY AFFILIATED WITH JUST-DICE.COM. JUST-DICE DOES NOT ENDORSE BOTS</p><p>AND AT THE SAME TIME DOES NOT FORBID THEIR USE.</p></div><div class="clear"></div><div class="bot-graph"><p>Check here for updates and new changes or to report issues <A HREF="https://github.com/CriticalNix/just-dice.com">https://github.com/CriticalNix/just-dice.com</A> </p><p align="center" style="border:1px solid; border-color: #505050;">If you win loads or just like this bot consider donating a coffee and a pizza =) ฿ 1NixsyRike37BqidDDA7o1edLwg7LAg4Wb</p></div><p>If you can not donate click a link. It will redirect to a thankyou image on imgur <A HREF="http://cur.lv/4sdxy" target="_blank">http://cur.lv/4sdxy</A> </p><div class="bot-foot">';
-	                $panelWrapper = $('<div>').attr('id', 'Nixsy9').css({
-			display : 'none'
-		}).insertAfter('#faq'),
-	                $panel = $('<div>').addClass('panel').append(markup).appendTo($panelWrapper),
-	                                
-	                                $s_bet = $('#gbs_bet')
-		       
-
-		        $('<li>').append($('<a>').text('Bot-Help').attr('href', '#Nixsy9')).appendTo('.tabs');
-};
+//-------------------------------------- Opens help html
+function basicPopup(url) {
+	popupWindow = window.open(url,'popUpWindow','height=500,width=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+}
 
 function gui() { //
 
@@ -536,6 +539,14 @@ function gui() { //
 		save_to_file();
 	});
 	  $container.append($showhidetrigger5);
+
+	$showhidetrigger6 = $('<button title="Much Help" style="margin-right:10px;border:1px solid" id="showhidetrigger6" href="#">HELP</button>'); //Popup help
+	  $showhidetrigger6.click(function () {
+		
+		var help_p ="https://googledrive.com/host/0BywRa_utENFgV0ZBNmdVRTJ0a0k/DD.html ";
+		basicPopup(help_p);
+	});
+	  $container.append($showhidetrigger6);	
 
 	//-------------------------------------- Inner UI input boxes
 	var $row1a = $('<div class="row"/>'); ////////////////////////////////////// row 1a
