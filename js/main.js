@@ -223,8 +223,6 @@ function stats_update() {
 
 //-------------------------------------- Populates bet array with information then offers to save on bust
 function save_to_file() {
-	arr_bets.push('Saved ---');
-	gets_date();
 	window.webkitRequestFileSystem(window.TEMPORARY, 1024 * 1024, function (fs) {
 		fs.root.getFile('open-with-notepad.bin', {
 			create : true
@@ -246,22 +244,25 @@ function save_to_file() {
 
 
 function popArray() { //populate bet array
-	if (check_step == 0)
-		     {
-			lastBal = parseFloat($("#pct_balance").val());
-			check_step = 1;
-			        
-		}
-	else {
-		arr_bets.push('Bet#-' + bet_total + ',');
-		var c_balance = parseFloat($("#pct_balance").val());
-		arr_bets.push('Balance-' + c_balance + ',');
-		var profit = c_balance - lastBal;
-		arr_bets.push('profit-' + profit + ',');
-		var c_chance = parseFloat($("#pct_chance").val());
-		arr_bets.push('chance-' + c_chance + ',');
-	}
+	var results = $("div#me .results")[0];
+	var result = $(results).children()[0];
+	var betid = $($(result).children(".betid")).text();
+	var c_balance = parseFloat($("#pct_balance").val());
+	var c_chance = parseFloat($("#pct_chance").val());
+	var arr_bet = parseFloat($("#pct_bet").val());
 
+	arr_bets.push('\n');
+	arr_bets.push(gets_date() + '   ');
+	arr_bets.push('Bet number:' + run_round + '   ');
+	arr_bets.push('betid:' + betid + '   ');
+	arr_bet1 = scientific(arr_bet);
+	arr_bet2 = parseFloat(arr_bet1).toFixed(8);	
+	arr_bets.push('bet amount:' + arr_bet2 + '   ');
+	arr_bets.push('Balance:' + c_balance + '   ');
+	arr_profit = scientific(current_profit);
+	arr_profit2 = parseFloat(arr_profit).toFixed(8);
+	arr_bets.push('profit:' + arr_profit2 + '   ');
+	arr_bets.push('chance:' + c_chance + '   |');
 }
 
 //-------------------------------------- Show version in footer
